@@ -30,7 +30,7 @@ export class InterpretationPromptBuilder {
       this.optionalLine('Additional context', request.extraContext?.trim()),
       'Relevant symbol references:',
       formattedSymbols || 'No prior references found.',
-      'Please provide a cohesive interpretation and actionable guidance.',
+      'Respond as a single conversational paragraph that naturally blends insights with gentle guidance.',
     ];
 
     return parts.filter(Boolean).join('\n\n');

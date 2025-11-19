@@ -51,7 +51,9 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const mbti = await askMbtiSelection(ask);
 
   const extraContext = (
-    await ask('Additional context or recent events (optional):\n> ')
+    await ask(
+      '최근 겪은 일, 감정 변화, 관계 갈등 등 꿈에 영향을 준 맥락이 있나요? (없으면 Enter)\n> ',
+    )
   ).trim();
 
   const data = await postApi<{
