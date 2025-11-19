@@ -1,0 +1,65 @@
+import chalk from 'chalk';
+import { ApiResponse } from '../../src/shared/dto/api-response.dto';
+
+export function printResponse<T>(res: ApiResponse<T>) {
+  if (!res.success) {
+    const color =
+      res.code >= 400 && res.code < 500 ? chalk.yellow : chalk.red;
+    console.error(color(`Error (${res.code}): ${res.message}`));
+    return;
+  }
+
+  if (res.message) {
+    console.log(res.message);
+  }
+
+  const data = res.data ?? ({} as Record<string, unknown>);
+  if (isInterpretationData(data)) {
+    console.log(chalk.cyanBright('\n[Dream Interpretation]\n'));
+    console.log(data.interpretation);
+
+    if (data.references?.length) {
+      console.log(chalk.gray('\n[Related Symbols]'));
+      data.references.forEach((ref, idx) => {
+        console.log(
+          chalk.gray(
+            `${idx + 1}. ${ref.symbol} | ${ref.categories?.join(', ') || 'N/A'}`,
+          ),
+        );
+      });
+    }
+    return;
+  }
+
+  if (isChatData(data)) {
+    console.log(data.reply);
+    return;
+  }
+
+  if (Object.keys(data).length > 0) {
+    console.log(JSON.stringify(data, null, 2));
+  }
+}
+
+export function printUsage() {
+  console.log(`Commands:
+  register <username> <password>
+  login <username> <password>
+  logout <username> <password>
+  chat <message>
+  interpret
+  help
+  /quit
+`);
+}
+
+function isChatData(data: Record<string, unknown>): data is { reply: string } {
+  return typeof data.reply === 'string';
+}
+
+function isInterpretationData(data: Record<string, unknown>): data is {
+  interpretation: string;
+  references?: Array<{ symbol: string; categories?: string[] }>;
+} {
+  return typeof data.interpretation === 'string';
+}
