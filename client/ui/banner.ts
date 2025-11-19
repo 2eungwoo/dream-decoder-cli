@@ -14,7 +14,7 @@ export const ASCII_LOGO = `
 `;
 
 export const COMMANDS_BOX = `
-┌──────────────────────────── Dream Decoder Commands ─────────────────────────────┐
+┌──────────────────────────── Dream Decoder Commands ──────────────────────────────┐
 │ register <username> <password> │ Create a new account.                           │
 │ login    <username> <password> │ Sign in with your credentials.                  │
 │ logout   <username> <password> │ Sign out of the current session.                │
@@ -22,5 +22,5 @@ export const COMMANDS_BOX = `
 │ interpret                      │ Enter dream/emotions/MBTI for a full decoding.  │
 │ help                           │ Display this command summary again.             │
 │ /quit                          │ Exit the Dream Decoder CLI.                     │
-└────────────────────────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────────────────────────┘
 `;
