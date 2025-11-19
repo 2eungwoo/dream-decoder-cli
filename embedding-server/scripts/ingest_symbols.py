@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import uuid
 from typing import Any, Dict, List
@@ -6,6 +7,9 @@ from typing import Any, Dict, List
 import psycopg
 import requests
 from pgvector.psycopg import register_vector
+
+logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
+logger = logging.getLogger(__name__)
 
 DATA_PATH = os.getenv('SYMBOL_DATA', 'data/dream_symbols.json')
 EMBEDDING_URL = os.getenv('EMBEDDING_API_URL', 'http://localhost:8001/embed')
@@ -18,8 +22,11 @@ DB_PASSWORD = os.getenv('DB_PASSWORD', 'postgres')
 
 
 def load_documents(path: str) -> List[Dict[str, Any]]:
+  logger.info('[==] 꿈 심볼 JSON을 로딩합니다: %s', path)
   with open(path, 'r', encoding='utf-8') as f:
-    return json.load(f)
+    docs = json.load(f)
+  logger.info('[==] 총 %d건을 로딩했습니다', len(docs))
+  return docs
 
 
 def build_text(doc: Dict[str, Any]) -> str:
@@ -34,13 +41,20 @@ def build_text(doc: Dict[str, Any]) -> str:
 
 
 def embed_texts(texts: List[str]) -> List[List[float]]:
+  logger.info('[==] %d건 임베딩을 %s 로 요청합니다', len(texts), EMBEDDING_URL)
   response = requests.post(EMBEDDING_URL, json={'texts': texts}, timeout=60)
   response.raise_for_status()
   data = response.json()
-  return data['embeddings']
+  embeddings = data.get('embeddings', [])
+  if embeddings:
+    logger.info('[==] 임베딩 응답 완료 (차원=%d)', len(embeddings[0]))
+  else:
+    logger.warning('[!!] 임베딩 응답이 비었습니다')
+  return embeddings
 
 
 def ensure_schema(conn: psycopg.Connection, dim: int):
+  logger.info('[==] dream_symbols 테이블 스키마 검사 (벡터 차원=%d)', dim)
   with conn.cursor() as cur:
     cur.execute('CREATE EXTENSION IF NOT EXISTS vector;')
     cur.execute(
@@ -68,6 +82,7 @@ def insert_documents(
   vectors: List[List[float]],
 ):
   with conn.cursor() as cur:
+    logger.info('[==] dream_symbols 테이블에 %d건 적재 시작', len(docs))
     for doc, vector in zip(docs, vectors):
       cur.execute(
         """
@@ -111,7 +126,7 @@ def main():
   ensure_schema(conn, len(vectors[0]))
   insert_documents(conn, docs, vectors)
   conn.close()
-  print(f'Inserted {len(docs)} documents into dream_symbols table')
+  logger.info('[완료] dream_symbols 테이블에 %d건 적재 완료', len(docs))
 
 
 if __name__ == '__main__':

@@ -1,9 +1,13 @@
+import logging
 import os
 from typing import List
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from sentence_transformers import SentenceTransformer
+
+logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class EmbedRequest(BaseModel):
@@ -16,6 +20,7 @@ class EmbedResponse(BaseModel):
 
 def load_model():
   model_name = os.getenv('EMBEDDING_MODEL', 'jhgan/ko-sroberta-nli')
+  logger.info('[==] 임베딩 모델 로드 중: %s', model_name)
   return SentenceTransformer(model_name)
 
 
@@ -27,6 +32,7 @@ model: SentenceTransformer | None = None
 def startup_event():
   global model
   model = load_model()
+  logger.info('[완료] 임베딩 모델 로드 완료, 요청 대기 중')
 
 
 @app.get('/health')
@@ -42,9 +48,11 @@ def embed_text(request: EmbedRequest):
   if len(request.texts) > int(os.getenv('MAX_TEXTS', '32')):
     raise HTTPException(status_code=400, detail='Too many texts in one request')
 
+  logger.info('[==] 임베딩 요청 수신 (%d건)', len(request.texts))
   embeddings = model.encode(
     request.texts,
     normalize_embeddings=True,
     show_progress_bar=False,
   )
+  logger.info('[완료] 임베딩 응답 반환')
   return {'embeddings': embeddings.tolist()}
