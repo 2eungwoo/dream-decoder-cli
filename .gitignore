@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Builds / caches
+dist/
+client/dist/
+coverage/
+tmp/
+*.tsbuildinfo
+*.tscache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+
+# IDE / OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Docker / runtime artifacts
+*.pid
+*.pid.lock
+*.sqlite
