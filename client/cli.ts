@@ -71,7 +71,7 @@ async function dispatchCommand(
       return handleChat(args, sessions);
     case 'interpret':
       return handleInterpret(async (prompt) => {
-        const response = await ask(chalk.hex('#F72585')(prompt));
+        const response = await ask(chalk.hex('#C792EA')(prompt));
         return response;
       }, sessions);
     case 'help':
