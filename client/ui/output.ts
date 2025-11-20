@@ -1,10 +1,9 @@
-import chalk from 'chalk';
-import { ApiResponse } from '../../src/shared/dto/api-response.dto';
+import chalk from "chalk";
+import { ApiResponse } from "../../src/shared/dto/api-response.dto";
 
 export function printResponse<T>(res: ApiResponse<T>) {
   if (!res.success) {
-    const color =
-      res.code >= 400 && res.code < 500 ? chalk.yellow : chalk.red;
+    const color = res.code >= 400 && res.code < 500 ? chalk.yellow : chalk.red;
     console.error(color(`Error (${res.code}): ${res.message}`));
     return;
   }
@@ -15,8 +14,9 @@ export function printResponse<T>(res: ApiResponse<T>) {
 
   const data = res.data ?? ({} as Record<string, unknown>);
   if (isInterpretationData(data)) {
-    console.log(chalk.cyanBright('\n[Dream Interpretation]\n'));
-    console.log(data.interpretation);
+    console.log(chalk.cyanBright("\n\n[Dream Interpretation]\n"));
+    console.log(chalk.white(data.interpretation));
+    console.log();
     return;
   }
 
@@ -43,11 +43,11 @@ export function printUsage() {
 }
 
 function isChatData(data: Record<string, unknown>): data is { reply: string } {
-  return typeof data.reply === 'string';
+  return typeof data.reply === "string";
 }
 
 function isInterpretationData(data: Record<string, unknown>): data is {
   interpretation: string;
 } {
-  return typeof data.interpretation === 'string';
+  return typeof data.interpretation === "string";
 }
