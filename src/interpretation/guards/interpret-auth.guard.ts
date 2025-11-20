@@ -41,7 +41,7 @@ export class InterpretAuthGuard implements CanActivate {
     );
 
     this.authValidator.ensureUserLoggedIn(user.isLoggedIn);
-    request.user = { id: user.id, username: user.username };
+    request.user = { id: user.id, username: user.username }; // d.ts 에서 타입 알려줬으니 여기서 request.user 추가
     return true;
   }
 }
