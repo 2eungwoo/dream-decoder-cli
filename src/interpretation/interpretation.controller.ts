@@ -1,8 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { InterpretationService } from './interpretation.service';
-import { InterpretDreamRequestDto } from './dto/interpret-dream-request.dto';
+import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { InterpretationService } from "./interpretation.service";
+import { InterpretDreamRequestDto } from "./dto/interpret-dream-request.dto";
+import { InterpretAuthGuard } from "./guards/interpret-auth.guard";
 
-@Controller('interpret')
+@Controller("interpret")
+@UseGuards(InterpretAuthGuard)
 export class InterpretationController {
   constructor(private readonly interpretationService: InterpretationService) {}
 
