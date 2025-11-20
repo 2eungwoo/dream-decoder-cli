@@ -1,19 +1,19 @@
-import { Injectable } from '@nestjs/common';
-import { InterpretDreamRequestDto } from '../dto/interpret-dream-request.dto';
-import { RelatedSymbol } from '../types/related-symbol.type';
+import { Injectable } from "@nestjs/common";
+import { InterpretDreamRequestDto } from "../dto/interpret-dream-request.dto";
+import { RelatedSymbol } from "../types/related-symbol.type";
 
 @Injectable()
 export class InterpretationPromptBuilder {
   public buildPrompt(
     request: InterpretDreamRequestDto,
-    symbols: RelatedSymbol[],
+    symbols: RelatedSymbol[]
   ) {
     const normalizedMbti = request.mbti?.toUpperCase();
 
     const formattedSymbols = symbols
       .map((symbol, idx) => this.formatSymbol(symbol, idx, normalizedMbti))
       .filter(Boolean)
-      .join('\n\n');
+      .join("\n\n");
 
     /*
       RAG 기반이므로 프롬프팅에서 오히려 요구사항 넣으면 부작용난다함
@@ -25,39 +25,38 @@ export class InterpretationPromptBuilder {
     */
     const parts = [
       `Dream narrative:\n${request.dream.trim()}`,
-      this.optionalLine('Dreamer emotions', request.emotions?.join(', ')),
-      this.optionalLine('Dreamer MBTI', normalizedMbti),
-      this.optionalLine('Additional context', request.extraContext?.trim()),
-      'Symbol insights to weave into the response:',
-      formattedSymbols || 'No prior references found.',
-      'Respond as a single conversational paragraph that blends interpretation with gentle guidance, avoids lists/headings, and can naturally mention similar dream themes.',
+      this.optionalLine("Dreamer emotions", request.emotions?.join(", ")),
+      this.optionalLine("Dreamer MBTI", normalizedMbti),
+      this.optionalLine("Additional context", request.extraContext?.trim()),
+      "Symbol insights to weave into the response:",
+      formattedSymbols || "No prior references found.",
     ];
 
-    return parts.filter(Boolean).join('\n\n');
+    return parts.filter(Boolean).join("\n\n");
   }
 
   // 심볼 하나마다 갖고있는 모든 정보를 보기좋게 문자열로 정리
   private formatSymbol(
     symbol: RelatedSymbol,
     index: number,
-    mbti?: string,
+    mbti?: string
   ): string {
     const tone = this.resolveTone(symbol, mbti);
     const interpretations = symbol.interpretations?.length
-      ? symbol.interpretations.map((line) => `- ${line}`).join('\n')
+      ? symbol.interpretations.map((line) => `- ${line}`).join("\n")
       : null;
 
     const lines = [
       `Symbol #${index + 1}: ${symbol.symbol}`,
-      this.optionalLine('Categories', symbol.categories?.join(', ')),
-      this.optionalLine('Description', symbol.description),
-      this.optionalLine('Emotions', symbol.emotions?.join(', ')),
-      this.optionalLine('Suggested Tone', tone),
+      this.optionalLine("Categories", symbol.categories?.join(", ")),
+      this.optionalLine("Description", symbol.description),
+      this.optionalLine("Emotions", symbol.emotions?.join(", ")),
+      this.optionalLine("Suggested Tone", tone),
       interpretations ? `Interpretations:\n${interpretations}` : null,
-      this.optionalLine('Advice', symbol.advice),
+      this.optionalLine("Advice", symbol.advice),
     ];
 
-    return lines.filter(Boolean).join('\n');
+    return lines.filter(Boolean).join("\n");
   }
 
   // mbti 톤 선택값/기본값으로 초기화
