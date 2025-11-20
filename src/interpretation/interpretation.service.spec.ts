@@ -37,7 +37,10 @@ describe("InterpretationService (ts-mockito)", () => {
           provide: EmbeddingInputFactory,
           useValue: instance(embeddingInputFactoryMock),
         },
-        { provide: EmbeddingClient, useValue: instance(embeddingClientMock) },
+        {
+          provide: EmbeddingClient,
+          useValue: instance(embeddingClientMock),
+        },
         {
           provide: DreamSymbolRepository,
           useValue: instance(symbolRepositoryMock),
