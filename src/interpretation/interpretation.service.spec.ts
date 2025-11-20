@@ -10,7 +10,7 @@ import { DreamSymbolRepository } from "./datasources/dream-symbol.repository";
 import { InterpretationPromptBuilder } from "./prompts/interpretation-prompt.builder";
 import { OpenAIClient } from "../external/openai/openai.client";
 import { InvalidDreamException } from "./exceptions/invalid-dream.exception";
-import { InterpretationCacheService } from "./services/interpretation-cache.service";
+import { InterpretationCacheService } from "./cache/interpretation-cache.service";
 
 describe("InterpretationService (ts-mockito)", () => {
   let service: InterpretationService;
