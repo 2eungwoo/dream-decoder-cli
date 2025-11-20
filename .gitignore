@@ -3,6 +3,7 @@ node_modules/
 client/node_modules/
 
 # Builds / caches
+/dist
 dist/
 client/dist/
 coverage/
