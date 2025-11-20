@@ -1,4 +1,4 @@
-const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+import { GEMINI_STYLE_SPINNER_FRAMES } from "../constants/spinner-frames";
 
 export class Spinner {
   private timer?: NodeJS.Timeout;
@@ -12,8 +12,9 @@ export class Spinner {
     }
 
     this.timer = setInterval(() => {
-      const frame = SPINNER_FRAMES[this.frameIndex];
-      this.frameIndex = (this.frameIndex + 1) % SPINNER_FRAMES.length; // frame-idx 돌리면서 스피너 구현
+      const frame = GEMINI_STYLE_SPINNER_FRAMES[this.frameIndex];
+      this.frameIndex =
+        (this.frameIndex + 1) % GEMINI_STYLE_SPINNER_FRAMES.length; // frame-idx 돌리면서 스피너 구현
       process.stdout.write(`\r${frame} ${this.message}`);
     }, 80);
   }
