@@ -2,20 +2,20 @@ import { CallHandler, ExecutionContext } from "@nestjs/common";
 import { describe, beforeEach, it, expect, jest } from "@jest/globals";
 import { Test, TestingModule } from "@nestjs/testing";
 import { of, firstValueFrom } from "rxjs";
-import { RedisService } from "../../infra/redis/redis.service";
 import { InterpretationSemaphoreInterceptor } from "./interpretation-semaphore.interceptor";
 import { InterpretationThrottleException } from "../exceptions/interpretation-throttle.exception";
+import { InterpretationSemaphoreService } from "./interpretation-semaphore.service";
 
 describe("InterpretationSemaphoreInterceptor", () => {
   let interceptor: InterpretationSemaphoreInterceptor;
 
   // redis service mocking
   // 세마포어 획득/해제만 가져옴
-  const redisService = {
+  const semaphoreService = {
     // ioredis의 각 연산 리턴을 jest 러너의 Mock 타입으로 맞춰주기
     // mockResolvedValueOnce 사용에서 요구함
-    acquireSemaphore: jest.fn() as jest.MockedFunction<any>,
-    releaseSemaphore: jest.fn() as jest.MockedFunction<any>,
+    acquire: jest.fn() as jest.MockedFunction<any>,
+    release: jest.fn() as jest.MockedFunction<any>,
   };
   const context = {} as ExecutionContext;
 
@@ -39,8 +39,8 @@ describe("InterpretationSemaphoreInterceptor", () => {
       providers: [
         InterpretationSemaphoreInterceptor,
         {
-          provide: RedisService,
-          useValue: redisService,
+          provide: InterpretationSemaphoreService,
+          useValue: semaphoreService,
         },
       ],
     }).compile();
@@ -49,16 +49,16 @@ describe("InterpretationSemaphoreInterceptor", () => {
   });
 
   it("세마포어 허용량 이내면 pass", async () => {
-    redisService.acquireSemaphore.mockResolvedValueOnce(true);
+    semaphoreService.acquire.mockResolvedValueOnce(true);
 
     await firstValueFrom(interceptor.intercept(context, next));
 
     expect(next.handle).toHaveBeenCalled();
-    expect(redisService.releaseSemaphore).toHaveBeenCalled();
+    expect(semaphoreService.release).toHaveBeenCalled();
   });
 
   it("세마포어 획득 실패 시 InterpretationThrottleException 발생", async () => {
-    redisService.acquireSemaphore.mockResolvedValueOnce(false);
+    semaphoreService.acquire.mockResolvedValueOnce(false);
 
     await expect(
       firstValueFrom(interceptor.intercept(context, next))
