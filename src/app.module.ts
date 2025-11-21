@@ -6,6 +6,7 @@ import { ChatModule } from "./chat/chat.module";
 import { User } from "./users/user.entity";
 import { InterpretationModule } from "./interpretation/interpretation.module";
 import { openAIConfig } from "./external/openai/openai.config";
+import { RedisModule } from "./infra/redis/redis.module";
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { openAIConfig } from "./external/openai/openai.config";
     AuthModule,
     ChatModule,
     InterpretationModule,
+    RedisModule,
   ],
   controllers: [],
   providers: [],
