@@ -11,6 +11,7 @@ import { InterpretAuthGuard } from "./guards/interpret-auth.guard";
 import { User } from "../users/user.entity";
 import { AuthModule } from "../auth/auth.module";
 import { InterpretationCacheService } from "./cache/interpretation-cache.service";
+import { InterpretationSemaphoreInterceptor } from "./semaphore/interpretation-semaphore.interceptor";
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { InterpretationCacheService } from "./cache/interpretation-cache.service
     InterpretationPromptBuilder,
     InterpretAuthGuard,
     InterpretationCacheService,
+    InterpretationSemaphoreInterceptor,
   ],
 })
 export class InterpretationModule {}
