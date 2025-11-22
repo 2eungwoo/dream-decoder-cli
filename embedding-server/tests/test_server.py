@@ -1,5 +1,5 @@
 import os
-from fastapi.testclient import TestClient
+from fastapi.testclient import TestClient # type: ignore
 from src.server import app 
 
 # 모델 로딩 속도 때문에 임시로 다른 모델 사용

@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-import requests
+import requests # type: ignore
 
 logger = logging.getLogger(__name__)
 

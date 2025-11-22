@@ -2,9 +2,9 @@ import logging
 import os
 from typing import List
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
-from sentence_transformers import SentenceTransformer
+from fastapi import FastAPI, HTTPException # type: ignore
+from pydantic import BaseModel, Field # type: ignore
+from sentence_transformers import SentenceTransformer # type: ignore
 
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)

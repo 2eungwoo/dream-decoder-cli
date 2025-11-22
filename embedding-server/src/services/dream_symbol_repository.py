@@ -3,10 +3,10 @@ import logging
 import uuid
 from typing import Any, Dict, List
 
-import psycopg
-from pgvector.psycopg import register_vector
+import psycopg # type: ignore
+from pgvector.psycopg import register_vector # type: ignore
 
-from src.config import DbConfig
+from src.config import DbConfig # type: ignore
 
 logger = logging.getLogger(__name__)
 
