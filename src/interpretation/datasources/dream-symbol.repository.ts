@@ -23,7 +23,7 @@ export class DreamSymbolRepository {
                categories,
                description,
                emotions,
-               mbti_tone,
+               mbti_tone AS "mbtiTone",
                interpretations,
                advice
         FROM dream_symbols
@@ -39,7 +39,7 @@ export class DreamSymbolRepository {
       categories: this.normalizeArray(row.categories),
       description: row.description,
       emotions: this.normalizeArray(row.emotions),
-      mbtiTone: this.normalizeObject(row.mbtiTone),
+      mbtiTone: this.normalizeObject((row as any).mbtiTone),
       interpretations: this.normalizeArray(row.interpretations),
       advice: row.advice,
     }));
