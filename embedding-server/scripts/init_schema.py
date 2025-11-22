@@ -28,4 +28,6 @@ with conn.cursor() as cur:
     cur.execute(SQL)
 conn.commit()
 conn.close()
-print("init schema 완료 : dream_symbols 스키마 생성, 이제 임베딩 하시면 됩니다.")
+print("[init_schema.py] dream_symbols 스키마 생성 완료")
+print("임베딩 수행을 위해 다음 명령어를 실행해주세요")
+print("PYTHONPATH=embedding-server python3 embedding-server/scripts/run_ingest.py")
