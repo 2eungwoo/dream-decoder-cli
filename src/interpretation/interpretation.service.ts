@@ -20,6 +20,7 @@ export class InterpretationService {
     private readonly cacheService: InterpretationCacheService
   ) {}
 
+  TOP_N = 5;
   public async interpret(request: InterpretDreamRequestDto) {
     if (!request?.dream?.trim()) {
       throw new InvalidDreamException();
@@ -43,7 +44,7 @@ export class InterpretationService {
 
     const relatedSymbols = await this.symbolRepository.findNearestByEmbedding(
       embeddings[0],
-      5
+      this.TOP_N
     );
 
     const prompt = this.promptBuilder.buildPrompt(request, relatedSymbols);
