@@ -21,6 +21,8 @@ services:
       EMBEDDING_API_URL: http://dd-embedding-server:8001/embed
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5-nano}
+      REDIS_HOST: dd-redis
+      REDIS_PORT: 6379
     ports:
       - "${APP_PORT:-3000}:3000"
 
