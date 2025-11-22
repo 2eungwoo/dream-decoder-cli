@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 import psycopg  # type: ignore
 from pgvector.psycopg import register_vector  # type: ignore
 
-from src.config import DbConfig  # type: ignore
+from src.utils.config import DbConfig
 from src.models.dream_symbol_model import ALL_DB_FIELDS, DOCUMENT_TO_DB_MAP
 
 logger = logging.getLogger(__name__)
@@ -28,6 +28,9 @@ class DreamSymbolRepository:
                 user=self.config.user,
                 password=self.config.password,
             )
+            with self.conn.cursor() as cur:
+                cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+            self.conn.commit()
             register_vector(self.conn)
 
     def close(self):

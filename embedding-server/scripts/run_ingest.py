@@ -1,6 +1,6 @@
 import logging
 
-from src.config import load_config # type: ignore
+from src.utils.config import load_config
 from src.services.document_loader import DocumentLoader
 from src.services.dream_symbol_ingestor import DreamSymbolIngestor
 from src.services.dream_symbol_repository import DreamSymbolRepository
