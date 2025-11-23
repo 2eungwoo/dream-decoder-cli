@@ -1,3 +1,5 @@
+const MAX_PREVIEW_LENGTH = 16;
+
 export class InterpretationRecordListDto {
   id!: string;
   dream!: string;
@@ -12,8 +14,8 @@ export class InterpretationRecordListDto {
     dto.id = record.id;
     dto.createdAt = record.createdAt;
     dto.dream =
-      record.dream.length > +15
-        ? `${record.dream.slice(0, 16)}...`
+      record.dream.length > MAX_PREVIEW_LENGTH
+        ? `${record.dream.slice(0, MAX_PREVIEW_LENGTH)}...`
         : record.dream;
     return dto;
   }
