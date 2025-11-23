@@ -16,14 +16,14 @@ import { InterpretAuthGuard } from "../interpretation/guards/interpret-auth.guar
 import { SaveInterpretationRecordDto } from "./dto/save-interpretation-record.dto";
 import { InterpretationRecordService } from "./interpretation-record.service";
 
-@Controller("interpret/logs")
+@Controller()
 @UseGuards(InterpretAuthGuard)
 export class InterpretationRecordController {
   constructor(
     private readonly interpretationRecordService: InterpretationRecordService
   ) {}
 
-  @Post()
+  @Post("interpret/logs")
   public async saveInterpretation(
     @Body() payload: SaveInterpretationRecordDto,
     @Req() req: Request
@@ -42,7 +42,7 @@ export class InterpretationRecordController {
     );
   }
 
-  @Get(":id")
+  @Get("interpret/logs/:id")
   public async findDetail(@Param("id") id: string, @Req() req: Request) {
     if (!req.user) {
       throw new UnauthorizedException("<!> 사용자 인증이 필요합니다.");

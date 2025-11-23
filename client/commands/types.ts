@@ -5,4 +5,5 @@ export type Command =
   | 'chat'
   | 'interpret'
   | 'help'
-  | '/quit';
+  | '/quit'
+  | 'show-details';
