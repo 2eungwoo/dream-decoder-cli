@@ -27,3 +27,27 @@ export async function postApi<T>(
     };
   }
 }
+
+export async function getApi<T>(
+  route: string,
+  options?: { headers?: Record<string, string> }
+): Promise<ApiResponse<T>> {
+  try {
+    const response = await fetch(`${BASE_URL}${route}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(options?.headers ?? {}),
+      },
+    });
+    return (await response.json()) as ApiResponse<T>;
+  } catch (error) {
+    const err = error as Error;
+    return {
+      success: false,
+      message: err?.message ?? "Unknown error",
+      code: 0,
+      errors: err,
+    };
+  }
+}
