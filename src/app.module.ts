@@ -7,6 +7,8 @@ import { User } from "./users/user.entity";
 import { InterpretationModule } from "./interpretation/interpretation.module";
 import { openAIConfig } from "./external/openai/openai.config";
 import { RedisModule } from "./infra/redis/redis.module";
+import { InterpretationRecord } from "./interpretation-records/interpretation-record.entity";
+import { InterpretationRecordModule } from "./interpretation-records/interpretation-record.module";
 
 @Module({
   imports: [
@@ -24,13 +26,14 @@ import { RedisModule } from "./infra/redis/redis.module";
         username: configService.get<string>("DB_USER", "postgres"),
         password: configService.get<string>("DB_PASSWORD", "postgres"),
         database: configService.get<string>("DB_NAME", "dream_decoder"),
-        entities: [User],
+        entities: [User, InterpretationRecord],
         synchronize: true,
       }),
     }),
     AuthModule,
     ChatModule,
     InterpretationModule,
+    InterpretationRecordModule,
     RedisModule,
   ],
   controllers: [],
