@@ -20,6 +20,7 @@ export const COMMANDS_BOX = `
 │ logout   <username> <password> │ Sign out of the current session.                │
 │ chat     <message>             │ Chat with the AI once logged in.                │
 │ interpret                      │ Enter dream/emotions/MBTI for a full decoding.  │
+│ show-details <id>              │ View a saved interpretation detail.             │
 │ help                           │ Display this command summary again.             │
 │ /quit                          │ Exit the Dream Decoder CLI.                     │
 └──────────────────────────────────────────────────────────────────────────────────┘
