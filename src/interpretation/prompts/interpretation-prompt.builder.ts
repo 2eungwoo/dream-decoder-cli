@@ -30,6 +30,7 @@ export class InterpretationPromptBuilder {
       this.optionalLine("Additional context", request.extraContext?.trim()),
       "Symbol insights to weave into the response:",
       formattedSymbols || "No prior references found.",
+      "Interpretation guidance:\n- 우선 사용자 감정/맥락을 존중하세요.\n- Symbols의 Categories/Emotions는 일반적 경향이니 참고만 하세요.",
     ];
 
     return parts.filter(Boolean).join("\n\n");
