@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InterpretDreamRequestDto } from "../dto/interpret-dream-request.dto";
 import { DreamSymbolDto } from "../types/dream-symbol.dto";
+import { INTERPRETATION_USER_GUIDANCE } from "./interpretation-user-prompt.guidance";
 
 @Injectable()
 export class InterpretationUserPromptBuilder {
@@ -22,11 +23,7 @@ export class InterpretationUserPromptBuilder {
       this.optionalLine("Additional context", request.extraContext?.trim()),
       "Symbol insights to weave into the response:",
       formattedSymbols || "No prior references found.",
-      `Interpretation guidance (respond in Korean):
-- Respect the user's emotions/context first.
-- Treat symbol Categories/Emotions as generic references only.
-- End with an actionable advice line grounded in the symbols.
-- Use clear line breaks so the CLI output stays tidy (blank line between ideas).`,
+      INTERPRETATION_USER_GUIDANCE,
     ];
 
     return parts.filter(Boolean).join("\n\n");
