@@ -1,6 +1,7 @@
 import { postApi } from "../api";
 import { printResponse } from "../ui/output";
 import { SessionStore } from "../sessions/session-store";
+import { saveInterpretationOrNot } from "./save";
 
 import {
   promptDream,
@@ -10,6 +11,10 @@ import {
   QuestionFn,
 } from "../ui/input";
 import { Spinner } from "../ui/spinner";
+
+interface ApiInterpretResponse {
+  interpretation: string;
+}
 
 export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const session = sessions.get();
@@ -31,10 +36,7 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const spinner = new Spinner();
   spinner.start("해몽을 생성하는 중입니다...");
   try {
-    const data = await postApi<{
-      interpretation: string;
-      references: unknown[];
-    }>(
+    const data = await postApi<ApiInterpretResponse>(
       "/interpret",
       {
         dream,
@@ -52,6 +54,15 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
 
     spinner.stop();
     printResponse(data);
+    if (data.success && data.data) {
+      await saveInterpretationOrNot(ask, sessions, {
+        dream,
+        emotions,
+        mbti,
+        extraContext,
+        interpretation: data.data.interpretation,
+      });
+    }
   } catch (error) {
     spinner.stop();
     throw error;
