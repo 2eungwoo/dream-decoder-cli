@@ -1,7 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
+  NotFoundException,
+  Param,
   Post,
+  Query,
   Req,
   UnauthorizedException,
   UseGuards,
@@ -20,7 +24,7 @@ export class InterpretationRecordController {
   ) {}
 
   @Post()
-  public async save(
+  public async saveInterpretation(
     @Body() payload: SaveInterpretationRecordDto,
     @Req() req: Request
   ) {
@@ -36,5 +40,22 @@ export class InterpretationRecordController {
       { id: savedId },
       "해몽 기록이 저장되었습니다."
     );
+  }
+
+  @Get(":id")
+  public async findDetail(@Param("id") id: string, @Req() req: Request) {
+    if (!req.user) {
+      throw new UnauthorizedException("<!> 사용자 인증이 필요합니다.");
+    }
+
+    const record = await this.interpretationRecordService.findRecord(
+      req.user.id,
+      id
+    );
+    if (!record) {
+      throw new NotFoundException("<!> 저장된 해몽을 찾을 수 없습니다.");
+    }
+
+    return ApiResponseFactory.success(record);
   }
 }
