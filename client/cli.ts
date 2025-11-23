@@ -70,24 +70,24 @@ async function dispatchCommand(
   ask: PromptFn
 ) {
   switch (command) {
-    case "register":
+    case "/register":
       return handleRegister(args);
-    case "login":
+    case "/login":
       return handleLogin(args, sessions);
-    case "logout":
+    case "/logout":
       return handleLogout(args, sessions);
-    case "chat":
-      return handleChat(args, sessions);
-    case "interpret":
+    // case "/chat":
+    //   return handleChat(args, sessions);
+    case "/chat":
       return handleInterpret(async (prompt) => {
         const response = await ask(chalk.hex("#C792EA")(prompt));
         return response;
       }, sessions);
-    case "show-details":
+    case "/detail":
       return handleShowDetails(args, sessions);
-    case "show-list":
+    case "/list":
       return handleShowList(args, sessions);
-    case "help":
+    case "/help":
       return printUsage();
     default:
       console.log("<!> 존재하지 않는 커맨드입니다. 다시 확인해주세요");

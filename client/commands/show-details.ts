@@ -18,13 +18,13 @@ export async function handleShowDetails(
 ) {
   const session = sessions.get();
   if (!session) {
-    console.log("<!> 먼저 login 명령으로 로그인 해주세요.");
+    console.log("<!> 먼저 /login 명령으로 로그인 해주세요.");
     return;
   }
 
   const [recordId] = args;
   if (!recordId) {
-    console.log("Usage: show-details <recordId>");
+    console.log("Usage: /detail <recordId>");
     return;
   }
 
@@ -40,9 +40,7 @@ export async function handleShowDetails(
 
   if (!response.success || !response.data) {
     console.error(
-      chalk.red(
-        response.message ?? "<!> 해몽 기록을 불러오지 못했습니다."
-      )
+      chalk.red(response.message ?? "<!> 해몽 기록을 불러오지 못했습니다.")
     );
     return;
   }

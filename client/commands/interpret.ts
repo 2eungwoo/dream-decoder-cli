@@ -19,7 +19,7 @@ interface ApiInterpretResponse {
 export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const session = sessions.get();
   if (!session) {
-    console.log("<!> 먼저 login 명령으로 로그인 해주세요.");
+    console.log("<!> 먼저 /login 명령으로 로그인 해주세요.");
     return;
   }
 

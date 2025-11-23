@@ -8,25 +8,19 @@ interface InterpretationListItem {
   createdAt: string;
 }
 
-export async function handleShowList(
-  args: string[],
-  sessions: SessionStore
-) {
+export async function handleShowList(args: string[], sessions: SessionStore) {
   const session = sessions.get();
   if (!session) {
-    console.log("<!> 먼저 login 명령으로 로그인 해주세요.");
+    console.log("<!> 먼저 /login 명령으로 로그인 해주세요.");
     return;
   }
 
-  const response = await getApi<InterpretationListItem[]>(
-    "/interpret/logs",
-    {
-      headers: {
-        "x-username": session.username,
-        "x-password": session.password,
-      },
-    }
-  );
+  const response = await getApi<InterpretationListItem[]>("/interpret/logs", {
+    headers: {
+      "x-username": session.username,
+      "x-password": session.password,
+    },
+  });
 
   if (!response.success || !response.data) {
     console.error(
@@ -36,7 +30,7 @@ export async function handleShowList(
   }
 
   if (!response.data.length) {
-    console.log("저장된 해몽 기록이 없습니다.");
+    console.log("<!> 저장된 해몽 기록이 없습니다.");
     return;
   }
 

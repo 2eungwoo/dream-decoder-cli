@@ -1,10 +1,9 @@
 export type Command =
-  | "register"
-  | "login"
-  | "logout"
-  | "chat"
-  | "interpret"
-  | "show-list"
-  | "show"
-  | "help"
-  | "quit";
+  | "/register"
+  | "/login"
+  | "/logout"
+  | "/detail"
+  | "/list"
+  | "/chat"
+  | "/help"
+  | "/quit";
