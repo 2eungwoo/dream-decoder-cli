@@ -8,6 +8,7 @@ import { handleLogin } from "./commands/login";
 import { handleLogout } from "./commands/logout";
 import { handleChat } from "./commands/chat";
 import { handleInterpret } from "./commands/interpret";
+import { handleShowDetails } from "./commands/show-details";
 
 type PromptFn = (message: string) => Promise<string>;
 
@@ -81,10 +82,12 @@ async function dispatchCommand(
         const response = await ask(chalk.hex("#C792EA")(prompt));
         return response;
       }, sessions);
+    case "show-details":
+      return handleShowDetails(args, sessions);
     case "help":
       return printUsage();
     default:
-      console.log("Unknown command. type help for list.");
+      console.log("<!> 존재하지 않는 커맨드입니다. 다시 확인해주세요");
   }
 }
 
