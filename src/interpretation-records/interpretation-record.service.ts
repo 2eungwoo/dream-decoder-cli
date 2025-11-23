@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { InterpretationRecord } from "./interpretation-record.entity";
 import { SaveInterpretationRecordDto } from "./dto/save-interpretation-record.dto";
 import { InterpretationRecordDetailDto } from "./dto/interpretation-record-detail.dto";
+import { InterpretationRecordListDto } from "./dto/interpretation-record-list.dto";
 import { InterpretationRecordValidator } from "./exceptions/interpretation-record.validator";
 
 @Injectable()
@@ -48,5 +49,17 @@ export class InterpretationRecordService {
 
     const responseDto = this.recordValidator.validExists(record);
     return InterpretationRecordDetailDto.fromEntity(responseDto);
+  }
+
+  public async listRecords(userId: string) {
+    const records = await this.recordsRepository.find({
+      where: { userId },
+      order: { createdAt: "DESC" },
+      select: ["id", "dream", "createdAt"],
+    });
+
+    return records.map((record) =>
+      InterpretationRecordListDto.fromRecord(record)
+    );
   }
 }

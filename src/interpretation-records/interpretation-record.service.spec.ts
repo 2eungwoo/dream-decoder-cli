@@ -100,4 +100,45 @@ describe("InterpretationRecordService", () => {
     verify(repository.findOne(anything())).once();
     verify(validator.validExists(record)).once();
   });
+
+  it("리스트 조회, dream 본문이 16자 이상이면 DTO에서 ... 처리 후 반환", async () => {
+    // given
+    const records = [
+      {
+        id: "1",
+        dream: "엄청나게긴내용인데16부터잘짤리나보자",
+        createdAt: new Date(),
+      },
+      {
+        id: "2",
+        dream: "짧은꿈",
+        createdAt: new Date(),
+      },
+    ];
+
+    when(
+      repository.find({
+        where: { userId },
+        order: { createdAt: "DESC" },
+        select: ["id", "dream", "createdAt"],
+      })
+    ).thenResolve(records as any);
+
+    // when
+    const list = await service.listRecords(userId);
+
+    // then
+    expect(list).toHaveLength(2);
+    expect(list[0].dream).toBe("엄청나게긴내용인데16..."); // 앞 16자 + ...
+    expect(list[1].dream).toBe("짧은꿈");
+
+    // find가 정확한 옵션으로 호출됐는지 확인
+    verify(
+      repository.find({
+        where: { userId },
+        order: { createdAt: "DESC" },
+        select: ["id", "dream", "createdAt"],
+      })
+    ).once();
+  });
 });

@@ -2,10 +2,8 @@ import {
   Body,
   Controller,
   Get,
-  NotFoundException,
   Param,
   Post,
-  Query,
   Req,
   UnauthorizedException,
   UseGuards,
@@ -42,6 +40,20 @@ export class InterpretationRecordController {
     );
   }
 
+  @Get("interpret/logs")
+  public async listInterpretations(@Req() req: Request) {
+    if (!req.user) {
+      throw new UnauthorizedException(
+        "<!> 먼저 login 명령으로 로그인 해주세요."
+      );
+    }
+
+    const records = await this.interpretationRecordService.listRecords(
+      req.user.id
+    );
+    return ApiResponseFactory.success(records);
+  }
+
   @Get("interpret/logs/:id")
   public async findDetail(@Param("id") id: string, @Req() req: Request) {
     if (!req.user) {
@@ -52,9 +64,6 @@ export class InterpretationRecordController {
       req.user.id,
       id
     );
-    if (!record) {
-      throw new NotFoundException("<!> 저장된 해몽을 찾을 수 없습니다.");
-    }
 
     return ApiResponseFactory.success(record);
   }

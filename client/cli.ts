@@ -9,6 +9,7 @@ import { handleLogout } from "./commands/logout";
 import { handleChat } from "./commands/chat";
 import { handleInterpret } from "./commands/interpret";
 import { handleShowDetails } from "./commands/show-details";
+import { handleShowList } from "./commands/show-list";
 
 type PromptFn = (message: string) => Promise<string>;
 
@@ -84,6 +85,8 @@ async function dispatchCommand(
       }, sessions);
     case "show-details":
       return handleShowDetails(args, sessions);
+    case "show-list":
+      return handleShowList(args, sessions);
     case "help":
       return printUsage();
     default:

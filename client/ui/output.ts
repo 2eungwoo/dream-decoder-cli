@@ -42,6 +42,8 @@ export function printUsage() {
   logout <username> <password>
   chat <message>
   interpret
+  show-list
+  show-details <id>
   help
   /quit
 `);
