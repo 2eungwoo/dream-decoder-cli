@@ -2,6 +2,9 @@
  * @file 꿈 상징 데이터소스 dream_symbols.json 스키마 정의용으로 만든 dto.ts
  * @description dream_symbols.json 바꾸면 곳곳의 상수코딩 돼있던 코드를 찾아서 수정해야됐음.
  *              따라서 dto.ts로 전역적으로 타입 등록해서 .json 바꾸면 타입에러 유도하고 이 파일만 수정할 수 있도록 구성
+ * 
+ * @embeddingField : RAG 벡터에 포함되는 필드
+ * @metadata : 필터/가중치/응답/톤 같은 메타 정보 용도
  */
 export class DreamSymbolDto {
   /**
