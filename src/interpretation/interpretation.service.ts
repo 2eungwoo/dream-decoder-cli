@@ -5,11 +5,12 @@ import { InterpretDreamRequestDto } from "./dto/interpret-dream-request.dto";
 import { ApiResponseFactory } from "../shared/dto/api-response.dto";
 import { EmbeddingInputFactory } from "./factories/embedding-input.factory";
 import { DreamSymbolRepository } from "./datasources/dream-symbol.repository";
-import { InterpretationPromptBuilder } from "./prompts/interpretation-prompt.builder";
+import { InterpretationUserPromptBuilder } from "./prompts/interpretation-user-prompt.builder";
 import { InvalidDreamException } from "./exceptions/invalid-dream.exception";
 import { InterpretationCacheService } from "./cache/interpretation-cache.service";
 import { DreamSymbolDto } from "./types/dream-symbol.dto";
 import { InterpretationSimilarityEvaluator } from "./rankings/interpretation-similarity.evaluator";
+import { INTERPRETATION_SYSTEM_PROMPT } from "./prompts/interpretation-system.prompt";
 
 @Injectable()
 export class InterpretationService {
@@ -17,7 +18,7 @@ export class InterpretationService {
     private readonly embeddingInputFactory: EmbeddingInputFactory,
     private readonly embeddingClient: EmbeddingClient,
     private readonly symbolRepository: DreamSymbolRepository,
-    private readonly promptBuilder: InterpretationPromptBuilder,
+    private readonly promptBuilder: InterpretationUserPromptBuilder,
     private readonly openAIClient: OpenAIClient,
     private readonly cacheService: InterpretationCacheService,
     private readonly similarityEvaluator: InterpretationSimilarityEvaluator
@@ -52,16 +53,15 @@ export class InterpretationService {
       );
     const ranked = this.similarityEvaluator.rank(request, relatedSymbols);
 
-    const prompt = this.promptBuilder.buildPrompt(request, ranked);
+    const prompt = this.promptBuilder.buildUserPrompt(request, ranked);
     const interpretation = await this.openAIClient.generateFromMessages([
       {
         role: "system",
-        content:
-          "You are Dream Decoder.\n\nUse the retrieved dream symbols to interpret the user's dream.\nBlend the dream narrative, emotions, MBTI and context naturally.\nWrite as a warm, flowing paragraph addressed directly to “당신”, with no headings or numbered lists.\nSpeak as if sharing empathic conversation: first describe what the dream reveals, then segue into gentle, practical suggestions, and casually reference similar dream themes when helpful.\nIf a retrieved symbol was not explicitly mentioned by the dreamer, clearly frame it as “비슷한 사례로는 …” so they understand it is a related reference.\nFocus on the retrieved symbols and keep the answer under 600 characters.",
+        content: INTERPRETATION_SYSTEM_PROMPT,
       },
       {
         role: "user",
-        content: prompt,
+        content: prompt, // INTERPRETATION_USER_PROMPT
       },
     ]);
 

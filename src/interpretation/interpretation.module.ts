@@ -6,7 +6,7 @@ import { EmbeddingModule } from "../external/embedding/embedding.module";
 import { OpenAIModule } from "../external/openai/openai.module";
 import { EmbeddingInputFactory } from "./factories/embedding-input.factory";
 import { DreamSymbolRepository } from "./datasources/dream-symbol.repository";
-import { InterpretationPromptBuilder } from "./prompts/interpretation-prompt.builder";
+import { InterpretationUserPromptBuilder } from "./prompts/interpretation-user-prompt.builder";
 import { InterpretAuthGuard } from "./guards/interpret-auth.guard";
 import { User } from "../users/user.entity";
 import { AuthModule } from "../auth/auth.module";
@@ -27,7 +27,7 @@ import { InterpretationSimilarityEvaluator } from "./rankings/interpretation-sim
     InterpretationService,
     EmbeddingInputFactory,
     DreamSymbolRepository,
-    InterpretationPromptBuilder,
+    InterpretationUserPromptBuilder,
     InterpretAuthGuard,
     InterpretationCacheService,
     InterpretationSemaphoreService,

@@ -3,8 +3,8 @@ import { InterpretDreamRequestDto } from "../dto/interpret-dream-request.dto";
 import { DreamSymbolDto } from "../types/dream-symbol.dto";
 
 @Injectable()
-export class InterpretationPromptBuilder {
-  public buildPrompt(
+export class InterpretationUserPromptBuilder {
+  public buildUserPrompt(
     request: InterpretDreamRequestDto,
     symbols: DreamSymbolDto[]
   ) {
@@ -15,14 +15,6 @@ export class InterpretationPromptBuilder {
       .filter(Boolean)
       .join("\n\n");
 
-    /*
-      RAG 기반이므로 프롬프팅에서 오히려 요구사항 넣으면 부작용난다함
-      따라서 RAG 기반 정보만 깔끔히 넘겨줘서 알잘딱깔쎈을 기대해야한다
-        - dream -> 내용
-        - emotions/mbti/context -> 이걸로 맥락 
-        - symbols -> LLM이 참고할 데이터
-        - 그리고 advice나 뭐 그런 조언같은거만 첨가하고 줄마다 \n제거해서 보냄
-    */
     const parts = [
       `Dream narrative:\n${request.dream.trim()}`,
       this.optionalLine("Dreamer emotions", request.emotions?.join(", ")),
@@ -36,7 +28,6 @@ export class InterpretationPromptBuilder {
     return parts.filter(Boolean).join("\n\n");
   }
 
-  // 심볼 하나마다 갖고있는 모든 정보를 보기좋게 문자열로 정리
   private formatSymbol(
     symbol: DreamSymbolDto,
     index: number,
@@ -60,7 +51,6 @@ export class InterpretationPromptBuilder {
     return lines.filter(Boolean).join("\n");
   }
 
-  // mbti 톤 선택값/기본값으로 초기화
   private resolveTone(symbol: DreamSymbolDto, mbti?: string): string | null {
     if (!symbol.mbtiTone) return null;
 
@@ -71,7 +61,6 @@ export class InterpretationPromptBuilder {
     return symbol.mbtiTone.DEFAULT || null;
   }
 
-  // 넘겨받은 값 있으면 Label:value 형태로 변환
   private optionalLine(label: string, value?: string | null): string | null {
     if (!value || !value.trim()) return null;
     return `${label}: ${value.trim()}`;
