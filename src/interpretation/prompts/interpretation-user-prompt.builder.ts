@@ -11,7 +11,7 @@ export class InterpretationUserPromptBuilder {
     const normalizedMbti = request.mbti?.toUpperCase();
 
     const formattedSymbols = symbols
-      .map((symbol, idx) => this.formatSymbol(symbol, idx, normalizedMbti))
+      .map((symbol) => this.formatSymbol(symbol, normalizedMbti))
       .filter(Boolean)
       .join("\n\n");
 
@@ -22,25 +22,24 @@ export class InterpretationUserPromptBuilder {
       this.optionalLine("Additional context", request.extraContext?.trim()),
       "Symbol insights to weave into the response:",
       formattedSymbols || "No prior references found.",
-      `Interpretation guidance:\n- respect the user's emotions/context
-      \n- The symbols' Categories/Emotions are general tendencies, so treat them only as reference.`,
+      `Interpretation guidance (respond in Korean):
+- Respect the user's emotions/context first.
+- Treat symbol Categories/Emotions as generic references only.
+- End with an actionable advice line grounded in the symbols.
+- Use clear line breaks so the CLI output stays tidy (blank line between ideas).`,
     ];
 
     return parts.filter(Boolean).join("\n\n");
   }
 
-  private formatSymbol(
-    symbol: DreamSymbolDto,
-    index: number,
-    mbti?: string
-  ): string {
+  private formatSymbol(symbol: DreamSymbolDto, mbti?: string): string {
     const tone = this.resolveTone(symbol, mbti);
     const interpretations = symbol.interpretations?.length
       ? symbol.interpretations.map((line) => `- ${line}`).join("\n")
       : null;
 
     const lines = [
-      `Symbol #${index + 1}: ${symbol.symbol}`,
+      `Symbol: ${symbol.symbol}`,
       this.optionalLine("Categories", symbol.categories?.join(", ")),
       this.optionalLine("Description", symbol.description),
       this.optionalLine("Emotions", symbol.emotions?.join(", ")),
