@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InvalidCredentialsException } from './exceptions/invalid-credentials.exception';
-import { MissingCredentialsException } from './exceptions/missing-credentials.exception';
-import { UserNotLoggedInException } from './exceptions/user-not-logged-in.exception';
-import { UsernameTakenException } from './exceptions/username-taken.exception';
-import { User } from '../users/user.entity';
+import { Injectable } from "@nestjs/common";
+import { InvalidCredentialsException } from "./invalid-credentials.exception";
+import { MissingCredentialsException } from "./missing-credentials.exception";
+import { UserNotLoggedInException } from "./user-not-logged-in.exception";
+import { UsernameTakenException } from "./username-taken.exception";
+import { User } from "../../users/user.entity";
 
 @Injectable()
 export class AuthValidator {
@@ -17,7 +17,7 @@ export class AuthValidator {
 
     return {
       username: trimmedUsername,
-      password: password ?? '',
+      password: password ?? "",
     };
   }
 

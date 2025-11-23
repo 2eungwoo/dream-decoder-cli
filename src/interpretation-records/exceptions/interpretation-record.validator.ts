@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InterpretationRecord } from "../interpretation-record.entity";
-import { InterpretationRecordNotFoundException } from "../exceptions/interpretation-record-not-found.exception";
+import { InterpretationRecordNotFoundException } from "./interpretation-record-not-found.exception";
 
 @Injectable()
 export class InterpretationRecordValidator {

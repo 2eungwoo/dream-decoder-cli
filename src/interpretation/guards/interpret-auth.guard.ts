@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Request } from "express";
-import { AuthValidator } from "../../auth/auth.validator";
+import { AuthValidator } from "../../auth/exceptions/auth.validator";
 import { PasswordService } from "../../auth/password.service";
 import { User } from "../../users/user.entity";
 

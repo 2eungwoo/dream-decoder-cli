@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../users/user.entity';
-import { AuthValidator } from './auth.validator';
-import { PasswordService } from './password.service';
-import { ApiResponseFactory } from '../shared/dto/api-response.dto';
-import { RegisterRequestDto } from './dto/register-request.dto';
-import { LoginRequestDto } from './dto/login-request.dto';
-import { LogoutRequestDto } from './dto/logout-request.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "../users/user.entity";
+import { AuthValidator } from "./exceptions/auth.validator";
+import { PasswordService } from "./password.service";
+import { ApiResponseFactory } from "../shared/dto/api-response.dto";
+import { RegisterRequestDto } from "./dto/register-request.dto";
+import { LoginRequestDto } from "./dto/login-request.dto";
+import { LogoutRequestDto } from "./dto/logout-request.dto";
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
     private readonly validator: AuthValidator,
     private readonly passwordService: PasswordService,
     @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>
   ) {}
 
   public async register(request: RegisterRequestDto) {
@@ -27,7 +27,7 @@ export class AuthService {
     });
     this.validator.ensureUsernameAvailable(
       Boolean(existingUser),
-      normalizedUsername,
+      normalizedUsername
     );
 
     const user = this.usersRepository.create({
@@ -39,7 +39,7 @@ export class AuthService {
 
     return ApiResponseFactory.success(
       undefined,
-      `${request.username}님 환영합니다. 회원가입 성공했습니다.`,
+      `${request.username}님 환영합니다. 회원가입 성공했습니다.`
     );
   }
 
@@ -50,11 +50,11 @@ export class AuthService {
     const user = this.validator.ensureUserExists(
       await this.usersRepository.findOne({
         where: { username: normalizedUsername },
-      }),
+      })
     );
 
     this.validator.ensurePasswordValid(
-      this.passwordService.verify(safePassword, user.passwordHash),
+      this.passwordService.verify(safePassword, user.passwordHash)
     );
 
     user.isLoggedIn = true;
@@ -62,7 +62,7 @@ export class AuthService {
 
     return ApiResponseFactory.success(
       undefined,
-      `안녕하세요! ${request.username}님`,
+      `안녕하세요! ${request.username}님`
     );
   }
 
@@ -73,11 +73,11 @@ export class AuthService {
     const user = this.validator.ensureUserExists(
       await this.usersRepository.findOne({
         where: { username: normalizedUsername },
-      }),
+      })
     );
 
     this.validator.ensurePasswordValid(
-      this.passwordService.verify(safePassword, user.passwordHash),
+      this.passwordService.verify(safePassword, user.passwordHash)
     );
     this.validator.ensureUserLoggedIn(user.isLoggedIn);
 
@@ -86,7 +86,7 @@ export class AuthService {
 
     return ApiResponseFactory.success(
       undefined,
-      `안녕히가세요! ${request.username}님`,
+      `안녕히가세요! ${request.username}님`
     );
   }
 }

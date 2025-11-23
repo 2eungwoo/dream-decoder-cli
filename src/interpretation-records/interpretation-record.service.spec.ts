@@ -12,7 +12,7 @@ import {
 } from "ts-mockito";
 import { InterpretationRecordService } from "./interpretation-record.service";
 import { InterpretationRecord } from "./interpretation-record.entity";
-import { InterpretationRecordValidator } from "./validator/interpretation-record.validator";
+import { InterpretationRecordValidator } from "./exceptions/interpretation-record.validator";
 
 describe("InterpretationRecordService", () => {
   const repository = mock<Repository<InterpretationRecord>>();

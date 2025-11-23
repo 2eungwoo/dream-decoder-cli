@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import { InterpretationRecord } from "./interpretation-record.entity";
 import { SaveInterpretationRecordDto } from "./dto/save-interpretation-record.dto";
 import { InterpretationRecordDetailDto } from "./dto/interpretation-record-detail.dto";
-import { InterpretationRecordValidator } from "./validator/interpretation-record.validator";
+import { InterpretationRecordValidator } from "./exceptions/interpretation-record.validator";
 
 @Injectable()
 export class InterpretationRecordService {
