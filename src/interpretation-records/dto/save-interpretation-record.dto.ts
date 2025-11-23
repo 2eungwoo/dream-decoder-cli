@@ -3,10 +3,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  ValidateNested,
 } from "@nestjs/class-validator";
-import { Type } from "@nestjs/class-transformer";
-import { InterpretationRecordSymbolDto } from "./interpretation-record-symbol.dto";
 
 export class SaveInterpretationRecordDto {
   @IsString()
@@ -29,11 +26,6 @@ export class SaveInterpretationRecordDto {
   @IsString()
   @IsNotEmpty()
   interpretation!: string;
-
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @Type(() => InterpretationRecordSymbolDto)
-  symbols?: InterpretationRecordSymbolDto[];
 
   @IsOptional()
   @IsString()
