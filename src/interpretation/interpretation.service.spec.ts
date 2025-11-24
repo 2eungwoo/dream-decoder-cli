@@ -108,7 +108,7 @@ describe("InterpretationService (ts-mockito)", () => {
     );
 
     // then
-    const response = await service.interpret(REQUEST as never);
+    const response = await service.generateInterpretation(REQUEST as never);
 
     verify(cacheServiceMock.createKey(REQUEST as any)).once();
     verify(cacheServiceMock.get(CACHE_KEY)).once();
@@ -122,8 +122,8 @@ describe("InterpretationService (ts-mockito)", () => {
     verify(openAIClientMock.generateFromMessages(anything())).once();
     verify(cacheServiceMock.set(CACHE_KEY, RESPONSE)).once();
 
-    expect(response.success).toBe(true);
-    expect(response.data?.interpretation).toBe(RESPONSE);
+    expect(response.interpretation).toBe(RESPONSE);
+    expect(response.fromCache).toBe(false);
   });
 
   it("꿈 내용이 비면 InvalidDreamException 터짐", async () => {
@@ -132,7 +132,7 @@ describe("InterpretationService (ts-mockito)", () => {
 
     // when & then
     await expect(
-      service.interpret({ dream: BLANK_REQUEST } as never)
+      service.generateInterpretation({ dream: BLANK_REQUEST } as never)
     ).rejects.toBeInstanceOf(InvalidDreamException);
   });
 
@@ -143,9 +143,10 @@ describe("InterpretationService (ts-mockito)", () => {
     when(cacheServiceMock.get(CACHE_KEY)).thenReturn(CACHED);
 
     // then
-    const response = await service.interpret(REQUEST as never);
+    const response = await service.generateInterpretation(REQUEST as never);
 
-    expect(response.data?.interpretation).toBe(CACHED);
+    expect(response.interpretation).toBe(CACHED);
+    expect(response.fromCache).toBe(true);
     verify(embeddingClientMock.embed(anything())).never();
   });
 });
