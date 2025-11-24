@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { ApiResponse } from "../../src/shared/dto/api-response.dto";
+import { COMMANDS_BOX } from "../constants/banner";
 import { printPanel } from "./layout";
-import { COMMANDS_BOX } from "client/constants/banner";
 
 export function printResponse<T>(res: ApiResponse<T>) {
   const CLIENT_ERROR = 400;
