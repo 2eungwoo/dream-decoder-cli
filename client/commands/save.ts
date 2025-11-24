@@ -22,10 +22,36 @@ export async function saveInterpretationOrNot(
     return;
   }
 
-  const confirmation = (
-    await ask(chalk.gray("이 해몽 결과를 저장할까요? (y/n) "))
-  )?.trim();
-  if (confirmation?.toLowerCase() !== "y") {
+  let attempt = 0;
+  const maxAttempts = 3;
+  while (attempt < maxAttempts) {
+    const confirmation = (
+      await ask(chalk.gray("이 해몽 결과를 저장할까요? (y/n) "))
+    )
+      ?.trim()
+      .toLowerCase();
+
+    if (!confirmation) {
+      attempt += 1;
+      console.log(chalk.yellow("<!> 값을 입력해주세요."));
+      continue;
+    }
+
+    if (confirmation === "y" || confirmation.startsWith("y")) {
+      break;
+    }
+
+    if (confirmation === "n" || confirmation.startsWith("n")) {
+      console.log(chalk.gray("저장을 건너뜁니다."));
+      return;
+    }
+
+    attempt += 1;
+    console.log(chalk.yellow("<!> y 또는 n으로 입력해 주세요. (예: y)"));
+  }
+
+  if (attempt >= maxAttempts) {
+    console.log(chalk.yellow("<!> 입력이 없어 저장을 건너뜁니다."));
     return;
   }
 
