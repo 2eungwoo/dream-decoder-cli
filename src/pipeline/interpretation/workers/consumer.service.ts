@@ -17,9 +17,7 @@ import { InterpretationStreamReader } from "../streams/stream.reader";
 import { INTERPRETATION_STREAM_KEY } from "../config/storage.config";
 
 @Injectable()
-export class InterpretationConsumer
-  implements OnModuleInit, OnModuleDestroy
-{
+export class InterpretationConsumer implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(InterpretationConsumer.name);
   private readonly consumerName = `worker:${process.pid}:${
     randomUUID().split("-")[0]
@@ -42,12 +40,9 @@ export class InterpretationConsumer
   async onModuleInit() {
     await this.ensureGroup();
     this.loopPromise = this.consumeLoop();
-    this.reclaimInterval = setInterval(
-      () => {
-        void this.claimIdle();
-      },
-      INTERPRETATION_WORKER_IDLE_CLAIM_MS
-    );
+    this.reclaimInterval = setInterval(() => {
+      void this.claimIdle();
+    }, INTERPRETATION_WORKER_IDLE_CLAIM_MS);
     this.reclaimInterval.unref();
   }
 
@@ -71,10 +66,7 @@ export class InterpretationConsumer
         "MKSTREAM"
       );
     } catch (error) {
-      if (
-        error instanceof Error &&
-        error.message.includes("BUSYGROUP")
-      ) {
+      if (error instanceof Error && error.message.includes("BUSYGROUP")) {
         return;
       }
       throw error;
@@ -115,15 +107,13 @@ export class InterpretationConsumer
       }
     } catch (error) {
       this.logger.warn(
-        `Failed to claim interpretation messages: ${
-          (error as Error)?.message
-        }`
+        `Failed to claim interpretation messages: ${(error as Error)?.message}`
       );
     }
   }
 
   private async handleEntry(id: string, fields: string[]) {
-    const message = this.serializer.fromStreamFields(fields);
+    const message = this.serializer.parseFromStreamFields(fields);
     if (!message) {
       await this.client.xack(
         INTERPRETATION_STREAM_KEY,
