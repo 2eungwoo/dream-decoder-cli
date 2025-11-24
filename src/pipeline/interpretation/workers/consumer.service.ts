@@ -1,0 +1,156 @@
+import {
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from "@nestjs/common";
+import { randomUUID } from "node:crypto";
+import { Redis } from "ioredis";
+import { RedisService } from "../../../infra/redis/redis.service";
+import {
+  INTERPRETATION_WORKER_GROUP,
+  INTERPRETATION_WORKER_IDLE_CLAIM_MS,
+} from "../config/worker.config";
+import { InterpretationMessageHandler } from "./message.handler";
+import { InterpretationMessageSerializer } from "../messages/message.serializer";
+import { InterpretationStreamReader } from "../streams/stream.reader";
+import { INTERPRETATION_STREAM_KEY } from "../config/storage.config";
+
+@Injectable()
+export class InterpretationConsumer
+  implements OnModuleInit, OnModuleDestroy
+{
+  private readonly logger = new Logger(InterpretationConsumer.name);
+  private readonly consumerName = `worker:${process.pid}:${
+    randomUUID().split("-")[0]
+  }`;
+  private stopRequested = false;
+  private loopPromise?: Promise<void>;
+  private reclaimInterval?: NodeJS.Timeout;
+
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly messageHandler: InterpretationMessageHandler,
+    private readonly streamReader: InterpretationStreamReader,
+    private readonly serializer: InterpretationMessageSerializer
+  ) {}
+
+  private get client(): Redis {
+    return this.redisService.getClient();
+  }
+
+  async onModuleInit() {
+    await this.ensureGroup();
+    this.loopPromise = this.consumeLoop();
+    this.reclaimInterval = setInterval(
+      () => {
+        void this.claimIdle();
+      },
+      INTERPRETATION_WORKER_IDLE_CLAIM_MS
+    );
+    this.reclaimInterval.unref();
+  }
+
+  async onModuleDestroy() {
+    this.stopRequested = true;
+    if (this.reclaimInterval) {
+      clearInterval(this.reclaimInterval);
+    }
+    if (this.loopPromise) {
+      await this.loopPromise;
+    }
+  }
+
+  private async ensureGroup() {
+    try {
+      await this.client.xgroup(
+        "CREATE",
+        INTERPRETATION_STREAM_KEY,
+        INTERPRETATION_WORKER_GROUP,
+        "0",
+        "MKSTREAM"
+      );
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message.includes("BUSYGROUP")
+      ) {
+        return;
+      }
+      throw error;
+    }
+  }
+
+  private async consumeLoop() {
+    while (!this.stopRequested) {
+      try {
+        const entries = await this.streamReader.readNext(this.consumerName);
+        if (!entries) {
+          continue;
+        }
+
+        for (const [id, fields] of entries) {
+          if (this.stopRequested) {
+            break;
+          }
+          await this.handleEntry(id, fields);
+        }
+      } catch (error) {
+        if (this.stopRequested) {
+          break;
+        }
+        this.logger.warn(
+          `Interpretation worker loop error: ${(error as Error)?.message}`
+        );
+        await this.delay(1000);
+      }
+    }
+  }
+
+  private async claimIdle() {
+    try {
+      const entries = await this.streamReader.claimIdle(this.consumerName);
+      for (const [id, fields] of entries) {
+        await this.handleEntry(id, fields);
+      }
+    } catch (error) {
+      this.logger.warn(
+        `Failed to claim interpretation messages: ${
+          (error as Error)?.message
+        }`
+      );
+    }
+  }
+
+  private async handleEntry(id: string, fields: string[]) {
+    const message = this.serializer.fromStreamFields(fields);
+    if (!message) {
+      await this.client.xack(
+        INTERPRETATION_STREAM_KEY,
+        INTERPRETATION_WORKER_GROUP,
+        id
+      );
+      return;
+    }
+
+    try {
+      await this.messageHandler.handle(message);
+    } catch (error) {
+      this.logger.error(
+        `Failed to handle interpretation message ${message.requestId}: ${
+          (error as Error)?.message
+        }`
+      );
+    } finally {
+      await this.client.xack(
+        INTERPRETATION_STREAM_KEY,
+        INTERPRETATION_WORKER_GROUP,
+        id
+      );
+    }
+  }
+
+  private delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+}
