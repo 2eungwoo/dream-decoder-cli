@@ -11,6 +11,7 @@ import {
   INTERPRETATION_STATUS_TTL_SECONDS,
   interpretationStatusKey,
 } from "../config/storage.config";
+import { InterpretationStatusClearedException } from "./exceptions/status-cleared.exception";
 
 interface StatusUpdate {
   status?: InterpretationStatus;
@@ -103,7 +104,7 @@ export class InterpretationStatusStore {
     const raw = await this.client.hgetall(key);
 
     if (!raw || Object.keys(raw).length === 0) {
-      throw new NotFoundException("<!> 요청 ID를 찾을 수 없습니다.");
+      throw new InterpretationStatusClearedException();
     }
 
     if (raw.userId !== userId) {
