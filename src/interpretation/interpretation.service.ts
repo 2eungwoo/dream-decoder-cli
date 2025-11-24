@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { EmbeddingClient } from "../external/embedding/embedding.client";
 import { OpenAIClient } from "../external/openai/openai.client";
 import { InterpretDreamRequestDto } from "./dto/interpret-dream-request.dto";
-import { ApiResponseFactory } from "../shared/dto/api-response.dto";
 import { EmbeddingInputFactory } from "./factories/embedding-input.factory";
 import { DreamSymbolRepository } from "./datasources/dream-symbol.repository";
 import { InterpretationUserPromptBuilder } from "./prompts/interpretation-user-prompt.builder";
@@ -25,7 +24,7 @@ export class InterpretationService {
   ) {}
 
   TOP_N = 5;
-  public async interpret(request: InterpretDreamRequestDto) {
+  public async generateInterpretation(request: InterpretDreamRequestDto) {
     if (!request?.dream?.trim()) {
       throw new InvalidDreamException();
     }
@@ -33,10 +32,10 @@ export class InterpretationService {
     const cacheKey = this.cacheService.createKey(request);
     const cached = this.cacheService.get(cacheKey);
     if (cached) {
-      return ApiResponseFactory.success(
-        { interpretation: cached },
-        "해몽 결과가 캐시에서 불러와졌습니다."
-      );
+      return {
+        interpretation: cached,
+        fromCache: true,
+      };
     }
 
     const embeddingInput =
@@ -65,11 +64,10 @@ export class InterpretationService {
       },
     ]);
 
-    const response = ApiResponseFactory.success(
-      { interpretation },
-      "해몽이 완료되었습니다! 아래 내용을 확인해주세요"
-    );
     this.cacheService.set(cacheKey, interpretation);
-    return response;
+    return {
+      interpretation,
+      fromCache: false,
+    };
   }
 }
