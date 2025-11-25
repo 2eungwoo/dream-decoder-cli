@@ -7,6 +7,7 @@ import { InterpretationDlqWriter } from "./interpretation/dlq/dlq.writer";
 import { InterpretationRequestPublisher } from "./interpretation/publisher/request.publisher";
 import { InterpretationMessageSerializer } from "./interpretation/messages/message.serializer";
 import { InterpretationStreamReader } from "./interpretation/streams/stream.reader";
+import { InterpretationDlqService } from "./interpretation/dlq/dlq.service";
 
 @Module({
   imports: [RedisModule],
@@ -18,6 +19,7 @@ import { InterpretationStreamReader } from "./interpretation/streams/stream.read
     InterpretationMessageSerializer,
     InterpretationStreamReader,
     InterpretationRequestPublisher,
+    InterpretationDlqService,
   ],
   exports: [
     InterpretationStreamWriter,
@@ -27,6 +29,7 @@ import { InterpretationStreamReader } from "./interpretation/streams/stream.read
     InterpretationMessageSerializer,
     InterpretationStreamReader,
     InterpretationRequestPublisher,
+    InterpretationDlqService,
   ],
 })
 export class PipelineModule {}
