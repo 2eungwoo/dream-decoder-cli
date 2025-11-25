@@ -44,7 +44,7 @@ export class InterpretationMessageHandler {
       await this.statusStore.markFailed(message.requestId, reason);
       await this.dlqWriter.write(message, reason);
       this.logger.error(
-        `<!> [Stream : MessageHandler]  ${message.requestId} 요청은  ${nextRetry} 시도 후 최종 실패하여 DLQ로 넘어감`
+        `<!> [Stream : MessageHandler] ${message.requestId} 요청은 ${nextRetry} 시도 후 최종 실패하여 DLQ로 이동 (/failed 명령으로 확인 가능)`
       );
       return;
     }
@@ -54,7 +54,7 @@ export class InterpretationMessageHandler {
     const retryMessage = this.messageFactory.withRetry(message, nextRetry);
     await this.streamWriter.write(retryMessage);
     this.logger.warn(
-      `[Stream : MessageHandler] 현재 해몽 ID: ${message.requestId} 의 요청, 재시도 ${nextRetry}회 (사유: ${reason})`
+      `[Stream : MessageHandler] 현재 해몽 ID: ${message.requestId} 의 요청, 재시도 ${nextRetry}회 (사유: ${reason}) – 큐에 재등록`
     );
   }
 }

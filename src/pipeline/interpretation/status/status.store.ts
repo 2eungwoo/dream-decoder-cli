@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Redis } from "ioredis";
 import { RedisService } from "../../../infra/redis/redis.service";
 
@@ -25,6 +25,8 @@ interface StatusUpdate {
 
 @Injectable()
 export class InterpretationStatusStore {
+  private readonly logger = new Logger(InterpretationStatusStore.name);
+
   constructor(
     private readonly redisService: RedisService,
     private readonly validator: InterpretationStatusValidator,
@@ -58,6 +60,9 @@ export class InterpretationStatusStore {
       fromCache: "false",
     });
     await this.client.expire(key, INTERPRETATION_STATUS_TTL_SECONDS);
+    this.logger.log(
+      `[Status] ${requestId} initialized for user=${user.username} (payload length=${payload.dream.length})`
+    );
   }
 
   public async markPending(requestId: string, errorMessage?: string | null) {
@@ -65,12 +70,18 @@ export class InterpretationStatusStore {
       status: InterpretationStatus.Pending,
       errorMessage: errorMessage ?? "",
     });
+    this.logger.debug(
+      `[Status] ${requestId} -> pending (reason=${
+        errorMessage || "none"
+      })`
+    );
   }
 
   public async markRunning(requestId: string) {
     await this.apply(requestId, {
       status: InterpretationStatus.Running,
     });
+    this.logger.debug(`[Status] ${requestId} -> running`);
   }
 
   // completed 체크하고 LLM 응답 포함해서 저장
@@ -85,6 +96,11 @@ export class InterpretationStatusStore {
       errorMessage: "",
       fromCache: options?.fromCache ?? false,
     });
+    this.logger.log(
+      `[Status] ${requestId} -> completed (fromCache=${
+        options?.fromCache ?? false
+      })`
+    );
   }
 
   public async markFailed(requestId: string, errorMessage: string) {
@@ -92,13 +108,19 @@ export class InterpretationStatusStore {
       status: InterpretationStatus.Failed,
       errorMessage,
     });
+    this.logger.warn(
+      `[Status] ${requestId} -> failed (reason=${errorMessage})`
+    );
   }
 
   // 재시도 카운트++
   public async incrementRetry(requestId: string) {
     const key = interpretationStatusKey(requestId);
-    await this.client.hincrby(key, "retryCount", 1);
+    const retryCount = await this.client.hincrby(key, "retryCount", 1);
     await this.touch(key);
+    this.logger.warn(
+      `[Status] ${requestId} retry-count -> ${retryCount}`
+    );
   }
 
   // stream에서 requestId + userId로 findByStatue
