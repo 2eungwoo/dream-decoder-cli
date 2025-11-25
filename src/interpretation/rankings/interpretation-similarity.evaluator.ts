@@ -1,19 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { InterpretDreamRequestDto } from "../dto/interpret-dream-request.dto";
 import { DreamSymbolDto } from "../types/dream-symbol.dto";
+
 interface SimilarityScore {
-  archetype: number;
   symbol: number;
-  scenario: number;
+  action: number;
+  derived: number;
   total: number;
   doc: DreamSymbolDto;
 }
 
 @Injectable()
 export class InterpretationSimilarityEvaluator {
-  private readonly archetypeWeight = 0.25;
   private readonly symbolWeight = 0.5;
-  private readonly scenarioWeight = 0.25;
+  private readonly actionWeight = 0.3;
+  private readonly derivedWeight = 0.2;
 
   public rank(
     request: InterpretDreamRequestDto,
@@ -37,32 +38,27 @@ export class InterpretationSimilarityEvaluator {
     const emotionSource = (request.emotions ?? []).join(" ").trim();
     const haystack = `${dreamSource} ${emotionSource}`.trim();
 
-    const archetypeScore = this.computeTextScore(
-      haystack,
-      [
-        symbol.archetypeName,
-        symbol.archetypeId,
-        ...symbol.coreMeanings,
-        ...symbol.symbolExamples,
-      ],
-      this.archetypeWeight
-    );
     const symbolScore = this.computeTextScore(
       haystack,
       [symbol.symbol, ...symbol.symbolMeanings],
       this.symbolWeight
     );
-    const scenarioScore = this.computeTextScore(
+    const actionScore = this.computeTextScore(
       haystack,
-      [symbol.scenarioTitle, ...symbol.scenarioDerivedMeanings],
-      this.scenarioWeight
+      [symbol.action, symbol.archetypeName, symbol.archetypeId],
+      this.actionWeight
+    );
+    const derivedScore = this.computeTextScore(
+      haystack,
+      symbol.derivedMeanings,
+      this.derivedWeight
     );
 
     return {
-      archetype: archetypeScore,
       symbol: symbolScore,
-      scenario: scenarioScore,
-      total: archetypeScore + symbolScore + scenarioScore,
+      action: actionScore,
+      derived: derivedScore,
+      total: symbolScore + actionScore + derivedScore,
     };
   }
 

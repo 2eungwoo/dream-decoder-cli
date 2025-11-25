@@ -6,12 +6,10 @@ function buildSymbol(partial: Partial<DreamSymbolDto>): DreamSymbolDto {
   return {
     archetypeId: "FRUIT",
     archetypeName: "과일",
-    coreMeanings: [],
-    symbolExamples: [],
     symbol: "기본",
     symbolMeanings: [],
-    scenarioTitle: "기본 시나리오",
-    scenarioDerivedMeanings: [],
+    action: "관찰한다",
+    derivedMeanings: [],
     advice: "",
     ...partial,
   };
@@ -38,26 +36,22 @@ describe("InterpretationSimilarityEvaluator", () => {
     expect(ranked[0].symbol).toBe("사과");
   });
 
-  it("아키타입 핵심어 혹은 심볼 예시가 일치하면 가점을 준다", () => {
+  it("행동(action) 키워드가 매칭되면 가점을 준다", () => {
     const request = {
-      dream: "작은 강아지가 따라다녔어요",
+      dream: "과일을 먹는다",
     } as any;
 
-    const dog = buildSymbol({
-      archetypeName: "동물",
-      archetypeId: "ANIMAL",
-      symbolExamples: ["강아지", "고양이"],
-      symbol: "강아지",
+    const eat = buildSymbol({
+      symbol: "포도",
+      action: "먹는다",
     });
-    const city = buildSymbol({
-      archetypeName: "장소",
-      archetypeId: "PLACE",
-      symbolExamples: ["도시"],
-      symbol: "도시",
+    const drop = buildSymbol({
+      symbol: "포도",
+      action: "버린다",
     });
 
-    const ranked = evaluator.rank(request, [city, dog]);
-    expect(ranked[0].symbol).toBe("강아지");
+    const ranked = evaluator.rank(request, [drop, eat]);
+    expect(ranked[0].action).toBe("먹는다");
   });
 
   it("매칭이 없으면 입력 순서를 유지한다", () => {
