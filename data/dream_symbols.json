@@ -1,877 +1,899 @@
 [
   {
-    "archetypeId": "ANIMAL",
-    "symbol": "강아지",
-    "action": "본다",
-    "symbolMeanings": ["동반자", "신뢰"],
-    "derivedMeanings": ["편안함을 찾는 상태"],
-    "advice": "정서적으로 안전한 공간을 선택하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "강아지",
-    "action": "만진다",
-    "symbolMeanings": ["동반자", "신뢰"],
-    "derivedMeanings": ["친밀감 욕구"],
-    "advice": "가까운 사람에게 마음을 열어보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "강아지",
-    "action": "쫓는다",
-    "symbolMeanings": ["동반자", "신뢰"],
-    "derivedMeanings": ["관계를 적극적으로 다루고 싶음"],
-    "advice": "먼저 다가가도 괜찮습니다."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "강아지",
-    "action": "도망친다",
-    "symbolMeanings": ["동반자", "신뢰"],
-    "derivedMeanings": ["정서 과부하"],
-    "advice": "잠시 혼자만의 회복 시간을 가져보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "강아지",
-    "action": "돌본다",
-    "symbolMeanings": ["동반자", "신뢰"],
-    "derivedMeanings": ["책임감 발현"],
-    "advice": "작은 도움을 실천해보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "강아지",
-    "action": "소리를 듣는다",
-    "symbolMeanings": ["동반자", "신뢰"],
-    "derivedMeanings": ["중요한 감정 신호 감지"],
-    "advice": "뜻밖의 메시지를 받아들일 준비를 하세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "고양이",
-    "action": "본다",
-    "symbolMeanings": ["독립성", "직감"],
-    "derivedMeanings": ["내면 관찰"],
-    "advice": "혼자만의 조용한 시간을 확보하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "고양이",
-    "action": "만진다",
-    "symbolMeanings": ["독립성", "직감"],
-    "derivedMeanings": ["직접 확인 심리"],
-    "advice": "중요한 결정을 직접 다뤄보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "고양이",
-    "action": "쫓는다",
-    "symbolMeanings": ["독립성", "직감"],
-    "derivedMeanings": ["호기심 확장"],
-    "advice": "관심 가는 주제를 깊이 탐구하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "고양이",
-    "action": "도망친다",
-    "symbolMeanings": ["독립성", "직감"],
-    "derivedMeanings": ["회피 욕구"],
-    "advice": "지금은 자신만의 속도를 유지하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "고양이",
-    "action": "돌본다",
-    "symbolMeanings": ["독립성", "직감"],
-    "derivedMeanings": ["감정 균형 회복"],
-    "advice": "작은 자기돌봄 행동을 해보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "고양이",
-    "action": "소리를 듣는다",
-    "symbolMeanings": ["독립성", "직감"],
-    "derivedMeanings": ["직감 신호 감지"],
-    "advice": "떠오르는 감정을 기록해보세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "사자",
-    "action": "본다",
-    "symbolMeanings": ["권위", "자신감"],
-    "derivedMeanings": ["중요 목표 인식"],
-    "advice": "가장 중요한 목표 하나를 선택하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "사자",
-    "action": "만진다",
-    "symbolMeanings": ["권위", "자신감"],
-    "derivedMeanings": ["힘을 직접 느끼고 싶음"],
-    "advice": "자신감을 발휘할 작은 행동을 하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "사자",
-    "action": "쫓는다",
-    "symbolMeanings": ["권위", "자신감"],
-    "derivedMeanings": ["목표 추격"],
-    "advice": "당장 가능한 한 걸음을 떼세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "사자",
-    "action": "도망친다",
-    "symbolMeanings": ["권위", "자신감"],
-    "derivedMeanings": ["부담 회피"],
-    "advice": "압박을 줄일 선택지를 고려하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "사자",
-    "action": "돌본다",
-    "symbolMeanings": ["권위", "자신감"],
-    "derivedMeanings": ["책임감 발현"],
-    "advice": "작은 리더십 행동을 실천하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "사자",
-    "action": "소리를 듣는다",
-    "symbolMeanings": ["권위", "자신감"],
-    "derivedMeanings": ["중요 신호 수신"],
-    "advice": "새로운 제안을 주의 깊게 살펴보세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "호랑이",
-    "action": "본다",
-    "symbolMeanings": ["힘", "경계"],
-    "derivedMeanings": ["강렬한 에너지 의식"],
-    "advice": "당신의 강점을 다시 떠올리세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "호랑이",
-    "action": "만진다",
-    "symbolMeanings": ["힘", "경계"],
-    "derivedMeanings": ["직접 위험 감수"],
-    "advice": "한 발만 조심스럽게 내딛어보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "호랑이",
-    "action": "쫓는다",
-    "symbolMeanings": ["힘", "경계"],
-    "derivedMeanings": ["압박된 목표 추격"],
-    "advice": "목표를 하나로 좁히세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "호랑이",
-    "action": "도망친다",
-    "symbolMeanings": ["힘", "경계"],
-    "derivedMeanings": ["강한 스트레스"],
-    "advice": "휴식을 우선순위로 두세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "호랑이",
-    "action": "돌본다",
-    "symbolMeanings": ["힘", "경계"],
-    "derivedMeanings": ["내면 에너지 관리"],
-    "advice": "체력과 감정을 재충전하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "호랑이",
-    "action": "소리를 듣는다",
-    "symbolMeanings": ["힘", "경계"],
-    "derivedMeanings": ["리스크 감지"],
-    "advice": "중요 변수를 다시 확인하세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "곰",
-    "action": "본다",
-    "symbolMeanings": ["인내", "안정"],
-    "derivedMeanings": ["상황을 천천히 파악"],
-    "advice": "서두르지 말고 흐름을 보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "곰",
-    "action": "만진다",
-    "symbolMeanings": ["인내", "안정"],
-    "derivedMeanings": ["본질 확인 욕구"],
-    "advice": "핵심 조건을 간단히 점검하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "곰",
-    "action": "쫓는다",
-    "symbolMeanings": ["인내", "안정"],
-    "derivedMeanings": ["늦게 움직이나 꾸준함"],
-    "advice": "천천히라도 계속 전진하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "곰",
-    "action": "도망친다",
-    "symbolMeanings": ["인내", "안정"],
-    "derivedMeanings": ["과부하 회피"],
-    "advice": "부담을 잠시 내려놓으세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "곰",
-    "action": "돌본다",
-    "symbolMeanings": ["인내", "안정"],
-    "derivedMeanings": ["회복 에너지 필요"],
-    "advice": "휴식을 위한 작은 루틴을 만드세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "곰",
-    "action": "소리를 듣는다",
-    "symbolMeanings": ["인내", "안정"],
-    "derivedMeanings": ["중요한 내면 신호"],
-    "advice": "감정 변화를 기록하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "여우",
-    "action": "본다",
-    "symbolMeanings": ["지혜", "기민함"],
-    "derivedMeanings": ["상황을 영리하게 해석하는 상태"],
-    "advice": "판단 전에 상대 의도를 한 번 더 살펴보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "여우",
-    "action": "쫓는다",
-    "symbolMeanings": ["지혜", "기민함"],
-    "derivedMeanings": ["정교한 목표 추적"],
-    "advice": "큰 목표 대신 세부 단계를 먼저 설계하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "여우",
-    "action": "도망친다",
-    "symbolMeanings": ["지혜", "기민함"],
-    "derivedMeanings": ["복잡한 관계 회피 욕구"],
-    "advice": "상대보다 자신을 우선 고려하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "여우",
-    "action": "숨는다",
-    "symbolMeanings": ["지혜", "기민함"],
-    "derivedMeanings": ["말하지 않은 감정 존재"],
-    "advice": "내면의 불편함 한 가지를 적어보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "여우",
-    "action": "짖는다",
-    "symbolMeanings": ["지혜", "기민함"],
-    "derivedMeanings": ["전달해야 할 메시지 활성화"],
-    "advice": "하고 싶은 말을 용기내어 표현해보세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "늑대",
-    "action": "본다",
-    "symbolMeanings": ["본능", "집단성"],
-    "derivedMeanings": ["강한 직감 활성화"],
-    "advice": "당신이 느끼는 예감을 믿어보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "늑대",
-    "action": "울부짖는다",
-    "symbolMeanings": ["본능", "집단성"],
-    "derivedMeanings": ["소속감에 대한 갈망"],
-    "advice": "도움이 필요한 상황이면 요청해도 됩니다."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "늑대",
-    "action": "쫓는다",
-    "symbolMeanings": ["본능", "집단성"],
-    "derivedMeanings": ["목표에 대한 강렬한 추진력"],
-    "advice": "가장 중요한 목표 하나만 추려 집중하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "늑대",
-    "action": "도망친다",
-    "symbolMeanings": ["본능", "집단성"],
-    "derivedMeanings": ["압박감 회피"],
-    "advice": "우선순위를 낮춰 숨 쉴 공간을 확보하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "늑대",
-    "action": "무리를 찾는다",
-    "symbolMeanings": ["본능", "집단성"],
-    "derivedMeanings": ["협력이 필요함"],
-    "advice": "혼자 끙끙 앓지 말고 함께할 사람을 찾으세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "토끼",
-    "action": "본다",
-    "symbolMeanings": ["불안", "순수함"],
-    "derivedMeanings": ["예민한 감정의 신호"],
-    "advice": "작은 걱정 하나를 정면으로 마주하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "토끼",
-    "action": "뛰어간다",
-    "symbolMeanings": ["불안", "순수함"],
-    "derivedMeanings": ["변화를 빨리 맞이하고 싶음"],
-    "advice": "당장 손댈 수 있는 작은 변화를 시도하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "토끼",
-    "action": "숨는다",
-    "symbolMeanings": ["불안", "순수함"],
-    "derivedMeanings": ["감정적 회피"],
-    "advice": "불안한 이유 한 가지를 적어보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "토끼",
-    "action": "만진다",
-    "symbolMeanings": ["불안", "순수함"],
-    "derivedMeanings": ["안정감을 찾는 욕구"],
-    "advice": "자신을 안심시키는 루틴을 만들세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "토끼",
-    "action": "먹인다",
-    "symbolMeanings": ["불안", "순수함"],
-    "derivedMeanings": ["돌봄 본능"],
-    "advice": "가까운 사람이나 자신에게 작은 선물을 주세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "원숭이",
-    "action": "본다",
-    "symbolMeanings": ["호기심", "지능"],
-    "derivedMeanings": ["새로운 아이디어 관찰"],
-    "advice": "떠오르는 생각을 바로 메모하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "원숭이",
-    "action": "흉내 낸다",
-    "symbolMeanings": ["호기심", "지능"],
-    "derivedMeanings": ["타인의 방식 실험"],
-    "advice": "좋아 보이는 방식을 시도해보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "원숭이",
-    "action": "도망친다",
-    "symbolMeanings": ["호기심", "지능"],
-    "derivedMeanings": ["과부하"],
-    "advice": "멀티태스킹을 하나 줄이세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "원숭이",
-    "action": "잡는다",
-    "symbolMeanings": ["호기심", "지능"],
-    "derivedMeanings": ["새로운 기회를 잡는 시기"],
-    "advice": "지금 들어온 제안을 고려해보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "원숭이",
-    "action": "올라간다",
-    "symbolMeanings": ["호기심", "지능"],
-    "derivedMeanings": ["시야 확장"],
-    "advice": "큰 그림을 그려보세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "코끼리",
-    "action": "본다",
-    "symbolMeanings": ["기억", "안정", "지혜"],
-    "derivedMeanings": ["중요한 과거를 떠올리는 시점"],
-    "advice": "과거의 경험에서 한 가지 교훈을 찾으세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "코끼리",
-    "action": "만진다",
-    "symbolMeanings": ["기억", "안정", "지혜"],
-    "derivedMeanings": ["본질 확인 욕구"],
-    "advice": "핵심 가치 하나를 되새겨보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "코끼리",
-    "action": "천천히 걷는다",
-    "symbolMeanings": ["기억", "안정", "지혜"],
-    "derivedMeanings": ["흐름을 따라가고 싶은 마음"],
-    "advice": "급한 일보다 중요한 일을 먼저 하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "코끼리",
-    "action": "물 뿜는다",
-    "symbolMeanings": ["기억", "안정", "지혜"],
-    "derivedMeanings": ["감정 정화 필요"],
-    "advice": "불편한 감정을 밖으로 표현하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "코끼리",
-    "action": "붙잡는다",
-    "symbolMeanings": ["기억", "안정", "지혜"],
-    "derivedMeanings": ["놓치고 싶지 않은 가치 발견"],
-    "advice": "지키고 싶은 목표를 하나 적어보세요."
-  },
-
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "말미잘",
-    "action": "흔들린다",
-    "symbolMeanings": ["수용성", "환경 적응"],
-    "derivedMeanings": ["상황에 흔들리는 감정"],
-    "advice": "감정 파동을 기록하며 정리하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "문어",
-    "action": "잡는다",
-    "symbolMeanings": ["지능", "창의성"],
-    "derivedMeanings": ["복합적인 문제 해결 욕구"],
-    "advice": "한 문제를 여러 각도에서 바라보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "문어",
-    "action": "숨는다",
-    "symbolMeanings": ["지능", "창의성"],
-    "derivedMeanings": ["압박 회피"],
-    "advice": "복잡한 문제를 잘게 나누세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "해파리",
-    "action": "떠다닌다",
-    "symbolMeanings": ["감정", "흐름"],
-    "derivedMeanings": ["감정적 유연성 요구"],
-    "advice": "무리한 저항 대신 흐름을 관찰하세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "상어",
-    "action": "본다",
-    "symbolMeanings": ["위험", "강한 의지"],
-    "derivedMeanings": ["중요한 리스크 감지"],
-    "advice": "결정 전에 위험 평가를 해보세요."
-  },
-  {
-    "archetypeId": "ANIMAL",
-    "symbol": "상어",
-    "action": "돌진한다",
-    "symbolMeanings": ["위험", "강한 의지"],
-    "derivedMeanings": ["강한 추진력"],
-    "advice": "에너지를 사용할 지점을 신중히 선택하세요."
-  },
-  {
     "archetypeId": "FRUIT",
+    "archetypeName": "과일",
     "symbol": "사과",
-    "action": "씹는다",
-    "symbolMeanings": ["결단", "지식"],
-    "derivedMeanings": ["선택을 실행하는 단계"],
-    "advice": "결단이 필요한 일을 하나 골라 우선 처리하세요."
+    "symbolMeanings": ["선택", "지식", "새로운 시작"],
+    "action": "본다",
+    "derivedMeanings": [
+      "선택지를 관찰하는 마음",
+      "새로운 기회를 해석하려는 상태"
+    ],
+    "advice": "결정 전 비교 기준을 하나만 정해보세요."
   },
   {
-    "archetypeId": "FRUIT",
+    "symbol": "사과",
+    "action": "만진다",
+    "derivedMeanings": ["현실성을 확인하고 싶음", "조건을 점검하는 단계"],
+    "advice": "중요 조건 두 가지만 명확히 하세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "먹는다",
+    "derivedMeanings": [
+      "에너지를 흡수하고 싶음",
+      "무언가를 자신의 일부로 만들려는 의지"
+    ],
+    "advice": "끌리는 아이디어를 작은 단위로 실행해보세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "고른다",
+    "derivedMeanings": [
+      "선택의 기준을 정립 중",
+      "스스로에게 맞는 결정을 하려는 마음"
+    ],
+    "advice": "지금 가장 중요한 우선순위 한 가지를 적어보세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "떨어뜨린다",
+    "derivedMeanings": ["실수 또는 불안정한 상황", "결정을 망설이는 신호"],
+    "advice": "실수를 탓하지 말고 즉시 리커버리 행동을 취하세요."
+  },
+  {
     "symbol": "사과",
     "action": "깎는다",
-    "symbolMeanings": ["결단", "지식"],
-    "derivedMeanings": ["본질을 드러내려는 마음"],
-    "advice": "복잡한 문제를 단순하게 정리해보세요."
+    "derivedMeanings": ["본질만 남기려는 마음", "복잡함을 단순화하려는 의지"],
+    "advice": "문제에서 진짜 핵심 1가지만 남겨보세요."
   },
   {
-    "archetypeId": "FRUIT",
     "symbol": "사과",
-    "action": "던진다",
-    "symbolMeanings": ["결단", "지식"],
-    "derivedMeanings": ["과감한 시도 욕구"],
-    "advice": "실험처럼 가볍게 도전해보세요."
+    "action": "나눈다",
+    "derivedMeanings": ["성과를 공유하려는 마음", "관계에서 신뢰를 쌓는 과정"],
+    "advice": "작은 성취라도 주변과 나눠보세요."
   },
   {
-    "archetypeId": "FRUIT",
     "symbol": "사과",
-    "action": "줍는다",
-    "symbolMeanings": ["결단", "지식"],
-    "derivedMeanings": ["새로운 기회 발견"],
-    "advice": "최근 생긴 인연 또는 제안을 다시 살펴보세요."
+    "action": "버린다",
+    "derivedMeanings": ["불필요한 것을 제거하려는 시도", "정리 욕구 상승"],
+    "advice": "지금 덜어내야 할 것 1개를 선택하세요."
   },
   {
-    "archetypeId": "FRUIT",
+    "symbol": "사과",
+    "action": "냄새 맡는다",
+    "derivedMeanings": [
+      "상황의 분위기를 파악하려는 마음",
+      "직감을 점검하는 단계"
+    ],
+    "advice": "느낌이 이상한 부분이 있다면 다시 확인하세요."
+  },
+  {
     "symbol": "사과",
     "action": "닦는다",
-    "symbolMeanings": ["결단", "지식"],
-    "derivedMeanings": ["정리와 준비의 신호"],
-    "advice": "할 일을 정돈하고 작은 목표를 세우세요."
+    "derivedMeanings": [
+      "문제를 깨끗하게 정리하려는 마음",
+      "관계나 일의 오해를 해소하려는 상태"
+    ],
+    "advice": "최근 불편한 대화를 부드럽게 정리해보세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "씻는다",
+    "derivedMeanings": ["새로운 시작을 준비", "잡음을 제거하려는 마음"],
+    "advice": "목표를 위해 불필요한 습관을 하나 줄여보세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "포장한다",
+    "derivedMeanings": [
+      "준비가 거의 끝난 상태",
+      "어떤 결론을 정리해 전달하려는 마음"
+    ],
+    "advice": "완료 직전의 일을 마무리 지어보세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "사고 싶다",
+    "derivedMeanings": ["새로운 시작에 대한 욕구", "자기 보상 심리"],
+    "advice": "지금 당신에게 꼭 필요한 동기부여를 찾으세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "잃어버린다",
+    "derivedMeanings": ["기회를 놓칠까 두려움", "중요한 선택이 흔들림"],
+    "advice": "불안의 원인을 단 한 줄로 정리해보세요."
+  },
+  {
+    "symbol": "사과",
+    "action": "발견한다",
+    "derivedMeanings": ["새 가능성을 보게 됨", "원래 알고 있던 답을 재발견"],
+    "advice": "최근 떠올랐던 영감을 기록해두세요."
   },
 
   {
     "archetypeId": "FRUIT",
-    "symbol": "포도",
-    "action": "따먹는다",
-    "symbolMeanings": ["연결", "축적"],
-    "derivedMeanings": ["작은 성취의 누적"],
-    "advice": "오늘의 작은 성취 하나를 기록해보세요."
+    "archetypeName": "과일",
+    "symbol": "배",
+    "symbolMeanings": ["온화함", "풍요", "섬세한 균형"],
+    "action": "본다",
+    "derivedMeanings": [
+      "부드러운 관계를 바라보는 상태",
+      "조심스러운 선택을 준비하는 마음"
+    ],
+    "advice": "지켜보고 있는 선택지의 장단점을 간단히 정리해보세요."
   },
   {
+    "symbol": "배",
+    "action": "만진다",
+    "derivedMeanings": [
+      "관계를 직접 확인하고 싶음",
+      "신중하게 다루고 싶은 대상에 대한 관심"
+    ],
+    "advice": "확인이 필요한 대화를 짧게라도 시도해보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "먹는다",
+    "derivedMeanings": [
+      "회복과 안정감을 채우고 싶은 마음",
+      "자기 돌봄 욕구가 커진 상태"
+    ],
+    "advice": "오늘 자신에게 작은 위로 행동을 하나 허용하세요."
+  },
+  {
+    "symbol": "배",
+    "action": "고른다",
+    "derivedMeanings": [
+      "섬세한 기준으로 선택하려는 마음",
+      "균형 잡힌 판단을 원함"
+    ],
+    "advice": "지금 가장 중요한 기준 하나만 선택하세요."
+  },
+  {
+    "symbol": "배",
+    "action": "떨어뜨린다",
+    "derivedMeanings": [
+      "불안정한 감정 상태",
+      "놓치지 않으려는 강한 마음 뒤의 긴장감"
+    ],
+    "advice": "실수의 원인을 부드럽게 기록하고 감정 정리를 해보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "깎는다",
+    "derivedMeanings": ["본질을 찾고 싶음", "겉치레를 벗겨내는 과정"],
+    "advice": "문제에서 필요 없는 요소를 과감히 제거하세요."
+  },
+  {
+    "symbol": "배",
+    "action": "나눈다",
+    "derivedMeanings": [
+      "따뜻한 마음을 나누고 싶음",
+      "소소한 안정감을 공유하려는 흐름"
+    ],
+    "advice": "가까운 사람에게 감사 메시지를 보내보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "버린다",
+    "derivedMeanings": [
+      "부드러운 인연을 놓아주려는 과정",
+      "감정적 부담을 덜어내고 싶음"
+    ],
+    "advice": "지금 내려놓아야 할 생각 하나를 적어보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "냄새 맡는다",
+    "derivedMeanings": [
+      "상황을 세심하게 파악하려는 태도",
+      "분위기 변화에 민감해진 시기"
+    ],
+    "advice": "주변 기류에서 불편한 요소를 찾아보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "닦는다",
+    "derivedMeanings": [
+      "정리 정돈 욕구 증가",
+      "오해나 부담을 가볍게 풀고 싶은 마음"
+    ],
+    "advice": "작은 청소나 대화 정리로 마음을 비워보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "씻는다",
+    "derivedMeanings": [
+      "부드러운 새 출발 준비",
+      "감정의 먼지를 털어내려는 마음"
+    ],
+    "advice": "걱정거리 하나를 물 흐르듯 흘려보내세요."
+  },
+  {
+    "symbol": "배",
+    "action": "포장한다",
+    "derivedMeanings": [
+      "결정을 예쁘게 마무리하려는 마음",
+      "상황을 정돈해 전달하려는 태도"
+    ],
+    "advice": "정리해야 하는 이메일 또는 메시지를 작성해보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "사고 싶다",
+    "derivedMeanings": ["따뜻한 안정감을 원함", "스스로를 챙기고 싶은 욕구"],
+    "advice": "당신을 편안하게 해줄 아이템 하나를 고민해보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "잃어버린다",
+    "derivedMeanings": [
+      "편안함을 잃을까 불안",
+      "부드러운 관계의 균형이 흔들림"
+    ],
+    "advice": "불안한 감정의 정확한 이유를 한 줄로 적어보세요."
+  },
+  {
+    "symbol": "배",
+    "action": "발견한다",
+    "derivedMeanings": [
+      "새로운 안정감 혹은 따뜻한 인연 발견",
+      "중요한 균형을 되찾는 순간"
+    ],
+    "advice": "최근 편안함을 준 사건을 기록해보세요."
+  },
+
+  {
     "archetypeId": "FRUIT",
+    "archetypeName": "과일",
+    "symbol": "포도",
+    "symbolMeanings": ["협력", "축적", "연결"],
+    "action": "본다",
+    "derivedMeanings": [
+      "관계의 흐름을 살피는 시기",
+      "작은 성취의 조각들을 바라보는 마음"
+    ],
+    "advice": "지금 진행 중인 협업의 상태를 점검하세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "만진다",
+    "derivedMeanings": [
+      "결과물의 실체를 확인하고 싶은 마음",
+      "관계의 질감을 느끼려는 태도"
+    ],
+    "advice": "협력 관계에서 직접 확인이 필요한 부분을 점검하세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "먹는다",
+    "derivedMeanings": [
+      "작은 기쁨의 축적을 원함",
+      "여러 성취를 통합해 자신에게 흡수하고 싶은 마음"
+    ],
+    "advice": "오늘의 작은 성취 3개를 적어보세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "고른다",
+    "derivedMeanings": [
+      "여러 선택지 중 협력 가치가 높은 것을 선택",
+      "작은 차이를 신중히 비교"
+    ],
+    "advice": "지금 선택에서 가장 중요한 ‘연결 요소’를 생각하세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "떨어뜨린다",
+    "derivedMeanings": [
+      "작은 실수들이 연속되는 흐름",
+      "협력 내에서 불균형 발생"
+    ],
+    "advice": "흐트러진 루틴을 바로잡는 작은 행동을 취하세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "깎는다",
+    "derivedMeanings": [
+      "불필요한 연결을 정리하려는 마음",
+      "기여도 높은 부분만 남기려는 흐름"
+    ],
+    "advice": "과도한 관계나 업무를 하나 줄여보세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "나눈다",
+    "derivedMeanings": [
+      "성과 공유 욕구",
+      "작은 기쁨을 주고받으며 신뢰를 쌓는 과정"
+    ],
+    "advice": "동료와 성취를 공유해 긍정적인 흐름을 만들세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "버린다",
+    "derivedMeanings": ["축적된 피로를 내려놓고 싶음", "관계 피로 누적"],
+    "advice": "의무감으로 이어진 관계를 점검해보세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "냄새 맡는다",
+    "derivedMeanings": [
+      "분위기를 신중히 파악하는 시점",
+      "협력의 미묘한 변화를 감지"
+    ],
+    "advice": "주변의 미세한 변화에 반응하지 말고 먼저 관찰하세요."
+  },
+  {
+    "symbol": "포도",
+    "action": "닦는다",
+    "derivedMeanings": ["관계의 오해 해소", "프로젝트 디테일을 정리하는 시기"],
+    "advice": "협업에서 불분명한 조항을 명확히 하세요."
+  },
+  {
     "symbol": "포도",
     "action": "씻는다",
-    "symbolMeanings": ["연결", "축적"],
-    "derivedMeanings": ["관계 정화"],
-    "advice": "가벼운 오해나 잡음을 먼저 정리하세요."
+    "derivedMeanings": ["관계 피로를 세척하려는 마음", "초심 회복 욕구"],
+    "advice": "지금 협업의 핵심 목적을 다시 적어보세요."
   },
   {
-    "archetypeId": "FRUIT",
     "symbol": "포도",
-    "action": "터뜨린다",
-    "symbolMeanings": ["연결", "축적"],
-    "derivedMeanings": ["감정 폭발 직전"],
-    "advice": "표현하지 못한 감정을 글로 먼저 풀어보세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "포도",
-    "action": "옮긴다",
-    "symbolMeanings": ["연결", "축적"],
-    "derivedMeanings": ["책임이나 역할 이동"],
-    "advice": "지금 떠안고 있는 짐 중 줄일 수 있는 것을 찾아보세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "포도",
-    "action": "묶는다",
-    "symbolMeanings": ["연결", "축적"],
-    "derivedMeanings": ["관계 또는 목표를 하나로 묶는 시기"],
-    "advice": "멀티태스킹을 줄이고 단일 목표에 집중하세요."
-  },
-
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "바나나",
-    "action": "나눠준다",
-    "symbolMeanings": ["에너지", "욕구"],
-    "derivedMeanings": ["활력을 주변에 나누고 싶음"],
-    "advice": "도움이 필요한 사람에게 작은 친절을 베푸세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "바나나",
-    "action": "숨긴다",
-    "symbolMeanings": ["에너지", "욕구"],
-    "derivedMeanings": ["욕구 억제"],
-    "advice": "억누르는 감정을 객관적으로 기록해보세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "바나나",
-    "action": "흔든다",
-    "symbolMeanings": ["에너지", "욕구"],
-    "derivedMeanings": ["움직임과 변화를 원함"],
-    "advice": "새로운 루틴을 가볍게 추가해보세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "바나나",
-    "action": "신선도 확인한다",
-    "symbolMeanings": ["에너지", "욕구"],
-    "derivedMeanings": ["선택 기준을 점검"],
-    "advice": "중요한 결정에 필요한 조건을 3개만 정하세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "바나나",
-    "action": "나른하게 바라본다",
-    "symbolMeanings": ["에너지", "욕구"],
-    "derivedMeanings": ["휴식 필요"],
-    "advice": "짧은 낮잠이나 산책으로 리듬을 회복하세요."
-  },
-
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "딸기",
-    "action": "맛본다",
-    "symbolMeanings": ["감정", "매력"],
-    "derivedMeanings": ["감정적 만족 추구"],
-    "advice": "감정적으로 기분 좋은 일을 하나 선택하세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "딸기",
     "action": "포장한다",
-    "symbolMeanings": ["감정", "매력"],
-    "derivedMeanings": ["감정 보호"],
-    "advice": "당신의 감정을 쉽게 소모하지 마세요."
+    "derivedMeanings": [
+      "여러 성과를 하나로 모아 정리하려는 상태",
+      "결과 공유 준비"
+    ],
+    "advice": "마무리 단계의 프로젝트 문서를 업데이트하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "딸기",
-    "action": "버무린다",
-    "symbolMeanings": ["감정", "매력"],
-    "derivedMeanings": ["관계나 상황의 조합 변화"],
-    "advice": "새로운 사람이나 환경을 섞어보세요."
+    "symbol": "포도",
+    "action": "사고 싶다",
+    "derivedMeanings": ["새로운 연결을 만들고 싶음", "협업 참여 욕구 상승"],
+    "advice": "새 협력 기회를 탐색해보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "딸기",
-    "action": "사라진다",
-    "symbolMeanings": ["감정", "매력"],
-    "derivedMeanings": ["감정적 허기"],
-    "advice": "감정적 욕구를 충족시키는 활동을 해보세요."
+    "symbol": "포도",
+    "action": "잃어버린다",
+    "derivedMeanings": ["작은 성취를 놓친 느낌", "협력의 균형이 흔들림"],
+    "advice": "놓친 성취보다 남아있는 자원을 살펴보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "딸기",
-    "action": "받는다",
-    "symbolMeanings": ["감정", "매력"],
-    "derivedMeanings": ["사랑 또는 관심 수용"],
-    "advice": "도와주려는 사람의 제안을 거절하지 마세요."
+    "symbol": "포도",
+    "action": "발견한다",
+    "derivedMeanings": [
+      "작은 성과가 모여 큰 흐름을 파악함",
+      "새로운 협업 아이디어 발견"
+    ],
+    "advice": "최근 떠오른 협력 아이디어를 기록해두세요."
   },
 
   {
     "archetypeId": "FRUIT",
+    "archetypeName": "과일",
+    "symbol": "복숭아",
+    "symbolMeanings": ["애정", "회복", "부드러움"],
+    "action": "본다",
+    "derivedMeanings": ["감정을 살피는 단계", "따뜻한 관계를 바라보는 시선"],
+    "advice": "마음이 향하는 사람이나 일을 기록하세요."
+  },
+  {
     "symbol": "복숭아",
     "action": "만진다",
-    "symbolMeanings": ["감성", "사랑"],
-    "derivedMeanings": ["부드러운 관계 욕구"],
-    "advice": "따뜻한 대화를 시도해보세요."
+    "derivedMeanings": ["감정적 친밀감 욕구", "관계를 실제로 확인하고 싶음"],
+    "advice": "가까워지고 싶은 사람에게 작은 신호를 보내보세요."
   },
   {
-    "archetypeId": "FRUIT",
     "symbol": "복숭아",
-    "action": "향을 맡는다",
-    "symbolMeanings": ["감성", "사랑"],
-    "derivedMeanings": ["감정적 기회 탐색"],
-    "advice": "정서적으로 맞는 사람을 찾아보세요."
+    "action": "먹는다",
+    "derivedMeanings": ["감정 회복 욕구", "따뜻함을 스스로에게 채우려는 마음"],
+    "advice": "오늘 당신을 부드럽게 해줄 행동 하나를 해보세요."
   },
   {
-    "archetypeId": "FRUIT",
     "symbol": "복숭아",
-    "action": "나눠먹는다",
-    "symbolMeanings": ["감성", "사랑"],
-    "derivedMeanings": ["정서 공유"],
-    "advice": "소중한 사람과 감정을 나눠보세요."
+    "action": "고른다",
+    "derivedMeanings": ["따뜻한 선택을 하고 싶은 마음", "감정적 우선순위 정리"],
+    "advice": "당신에게 가장 부드러운 선택지를 선택하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "복숭아",
-    "action": "씹는다",
-    "symbolMeanings": ["감성", "사랑"],
-    "derivedMeanings": ["감정 소화 과정"],
-    "advice": "당신의 감정을 천천히 이해해보세요."
-  },
-  {
-    "archetypeId": "FRUIT",
     "symbol": "복숭아",
     "action": "떨어뜨린다",
-    "symbolMeanings": ["감성", "사랑"],
-    "derivedMeanings": ["감정 손실 또는 불안"],
-    "advice": "감정적 실수에 너무 자책하지 마세요."
+    "derivedMeanings": ["감정적 불안정", "관계에서의 작은 실수"],
+    "advice": "감정이 흔들렸던 순간을 기록하고 스스로를 위로하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "수박",
-    "symbolMeanings": ["해방감", "시원함"],
-    "action": "가른다",
-    "derivedMeanings": ["숨겨진 감정을 드러내고 싶음"],
-    "advice": "마음속에 쌓인 생각을 솔직하게 정리해보세요."
+    "symbol": "복숭아",
+    "action": "깎는다",
+    "derivedMeanings": ["속마음을 드러내고 싶음", "부드러움을 보호하려는 욕구"],
+    "advice": "너무 복잡한 감정은 한 문장으로 단순화하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "수박",
-    "symbolMeanings": ["해방감", "시원함"],
-    "action": "씨를 뱉는다",
-    "derivedMeanings": ["불필요한 부담을 버리려는 신호"],
-    "advice": "당신을 소모시키는 일을 과감히 내려놓으세요."
+    "symbol": "복숭아",
+    "action": "나눈다",
+    "derivedMeanings": [
+      "감정을 공유하고 싶은 마음",
+      "따뜻한 에너지를 전하고자 함"
+    ],
+    "advice": "가까운 사람에게 진심 어린 말을 한 줄 건네보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "수박",
-    "symbolMeanings": ["해방감", "시원함"],
-    "action": "덮는다",
-    "derivedMeanings": ["감정 보호 필요"],
-    "advice": "당장의 문제 대신 마음 회복을 우선하세요."
-  },
-
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "레몬",
-    "symbolMeanings": ["정화", "긴장감"],
-    "action": "짠다",
-    "derivedMeanings": ["스트레스 압축 상태"],
-    "advice": "몸과 마음을 가볍게 만들 휴식이 필요합니다."
+    "symbol": "복숭아",
+    "action": "버린다",
+    "derivedMeanings": ["부드러운 감정의 손실", "감정적 방어 심리"],
+    "advice": "지금 버리고 싶은 감정 하나를 명확히 써보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "레몬",
-    "symbolMeanings": ["정화", "긴장감"],
+    "symbol": "복숭아",
     "action": "냄새 맡는다",
-    "derivedMeanings": ["상황을 예민하게 감지"],
-    "advice": "지금 떠오른 경고 신호를 무시하지 마세요."
+    "derivedMeanings": [
+      "감정의 분위기를 느끼는 단계",
+      "상대의 마음을 조심스레 파악"
+    ],
+    "advice": "상대의 작은 신호를 섣불리 해석하지 말고 관찰하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "레몬",
-    "symbolMeanings": ["정화", "긴장감"],
-    "action": "던진다",
-    "derivedMeanings": ["급하게 정리를 원함"],
-    "advice": "성급한 결정은 잠시만 미루고 재정리하세요."
-  },
-
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "오렌지",
-    "symbolMeanings": ["활력", "밸런스"],
-    "action": "껍질을 벗긴다",
-    "derivedMeanings": ["겉보다 본질 중시"],
-    "advice": "문제의 핵심만 남기고 단순화해보세요."
+    "symbol": "복숭아",
+    "action": "닦는다",
+    "derivedMeanings": [
+      "감정적 오해를 바로잡음",
+      "관계를 부드럽게 조정하려는 마음"
+    ],
+    "advice": "꼬여 있는 대화를 부드럽게 정리해보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "오렌지",
-    "symbolMeanings": ["활력", "밸런스"],
-    "action": "나누어 뜯는다",
-    "derivedMeanings": ["일을 여러 조각으로 나누고 싶음"],
-    "advice": "큰 일을 소단위로 쪼개 실행해보세요."
+    "symbol": "복숭아",
+    "action": "씻는다",
+    "derivedMeanings": ["감정을 새로 정리하려는 시도", "회복 단계에 진입"],
+    "advice": "감정 정리를 위한 글쓰기나 산책을 시도해보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "오렌지",
-    "symbolMeanings": ["활력", "밸런스"],
-    "action": "즙을 마신다",
-    "derivedMeanings": ["빠른 회복 욕구"],
-    "advice": "에너지를 보충할 짧은 루틴을 만들어요."
-  },
-
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "망고",
-    "symbolMeanings": ["풍요", "관능"],
-    "action": "갈라낸다",
-    "derivedMeanings": ["감정의 깊은 층을 열고 싶음"],
-    "advice": "감정의 근원을 차분히 들여다보세요."
+    "symbol": "복숭아",
+    "action": "포장한다",
+    "derivedMeanings": [
+      "감정을 예쁘게 담아 전달하려는 마음",
+      "상대에게 좋은 인상을 남기고 싶음"
+    ],
+    "advice": "중요한 메시지를 정성 있게 정리해 전달해보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "망고",
-    "symbolMeanings": ["풍요", "관능"],
-    "action": "긁어먹는다",
-    "derivedMeanings": ["섬세한 만족감 추구"],
-    "advice": "당신이 좋아하는 섬세한 취향을 충족시키세요."
+    "symbol": "복숭아",
+    "action": "사고 싶다",
+    "derivedMeanings": ["따뜻함을 원함", "스스로를 돌보고 싶은 마음"],
+    "advice": "마음을 포근하게 해줄 작은 선물을 떠올려보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "망고",
-    "symbolMeanings": ["풍요", "관능"],
-    "action": "바른다",
-    "derivedMeanings": ["자신을 돌보려는 신호"],
-    "advice": "자기 케어 루틴을 한 가지 추가해보세요."
+    "symbol": "복숭아",
+    "action": "잃어버린다",
+    "derivedMeanings": ["감정적 거리감", "따뜻함을 잃을까 두려움"],
+    "advice": "멀어진 감정이 있다면 원인을 부드럽게 탐색하세요."
+  },
+  {
+    "symbol": "복숭아",
+    "action": "발견한다",
+    "derivedMeanings": ["새로운 감정적 연결 발견", "회복과 치유의 조짐"],
+    "advice": "당신에게 위로가 되었던 최근 사건을 기록하세요."
   },
 
   {
     "archetypeId": "FRUIT",
-    "symbol": "체리",
-    "symbolMeanings": ["순간적 즐거움", "매력"],
-    "action": "꼭지를 뗀다",
-    "derivedMeanings": ["새 출발 준비"],
-    "advice": "작지만 중요한 시작을 선택하세요."
+    "archetypeName": "과일",
+    "symbol": "감",
+    "symbolMeanings": ["성숙", "내면의 단단함", "차분함"],
+    "action": "본다",
+    "derivedMeanings": [
+      "성숙한 선택을 준비",
+      "내면의 흐름을 가만히 바라보는 상태"
+    ],
+    "advice": "당신이 성숙해졌다고 느낀 최근 순간을 기록하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "체리",
-    "symbolMeanings": ["순간적 즐거움", "매력"],
-    "action": "깨문다",
-    "derivedMeanings": ["즉흥적 선택 욕구"],
-    "advice": "지금 당장 해도 되는 작은 일을 하나 선택하세요."
+    "symbol": "감",
+    "action": "만진다",
+    "derivedMeanings": ["현실적 가능성을 점검", "성숙한 판단을 준비"],
+    "advice": "지금 점검해야 할 조건을 두 가지 뽑아보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "체리",
-    "symbolMeanings": ["순간적 즐거움", "매력"],
-    "action": "쌓아 올린다",
-    "derivedMeanings": ["작은 기쁨을 모으려는 흐름"],
-    "advice": "당신의 미니 성취 리스트를 만들어보세요."
-  },
-
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "자두",
-    "symbolMeanings": ["회복", "순환"],
-    "action": "터트린다",
-    "derivedMeanings": ["감정의 큰 파도"],
-    "advice": "지금 감정 폭발을 안전하게 배출하세요."
+    "symbol": "감",
+    "action": "먹는다",
+    "derivedMeanings": [
+      "안정감을 스스로에게 주려는 마음",
+      "내면의 단단함 회복"
+    ],
+    "advice": "오늘 안정감을 주는 활동을 계획하세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "자두",
-    "symbolMeanings": ["회복", "순환"],
-    "action": "건드린다",
-    "derivedMeanings": ["묵은 감정의 자극"],
-    "advice": "최근 흔들린 감정을 이름 붙여보세요."
-  },
-  {
-    "archetypeId": "FRUIT",
-    "symbol": "자두",
-    "symbolMeanings": ["회복", "순환"],
+    "symbol": "감",
     "action": "고른다",
-    "derivedMeanings": ["회복을 위한 선택"],
-    "advice": "몸과 마음 회복 활동을 하나 정해 실천하세요."
+    "derivedMeanings": ["성숙한 선택을 하려는 시도", "경험 기반 판단"],
+    "advice": "당신의 경험이 말하는 기준을 떠올려보세요."
+  },
+  {
+    "symbol": "감",
+    "action": "떨어뜨린다",
+    "derivedMeanings": ["내면 균형이 흔들림", "성숙한 태도 안에서의 작은 실수"],
+    "advice": "실수의 원인을 기록하고 다시 균형을 잡아보세요."
+  },
+  {
+    "symbol": "감",
+    "action": "깎는다",
+    "derivedMeanings": ["본질에 집중", "겉의 거친 요소 제거"],
+    "advice": "현재 문제에서 핵심만 남기세요."
+  },
+  {
+    "symbol": "감",
+    "action": "나눈다",
+    "derivedMeanings": ["경험을 공유하고 싶음", "성숙한 조언을 나누는 시기"],
+    "advice": "도움이 필요한 사람에게 경험 기반의 한마디를 건네보세요."
+  },
+  {
+    "symbol": "감",
+    "action": "버린다",
+    "derivedMeanings": ["내면에 쌓인 부담을 내려놓음", "성숙한 결단 준비"],
+    "advice": "더 이상 도움이 되지 않는 습관을 하나 정리하세요."
+  },
+  {
+    "symbol": "감",
+    "action": "냄새 맡는다",
+    "derivedMeanings": ["상황의 깊이를 파악", "조용히 본질을 읽어내려는 시기"],
+    "advice": "피상적인 정보보다 본질을 먼저 관찰하세요."
+  },
+  {
+    "symbol": "감",
+    "action": "닦는다",
+    "derivedMeanings": ["관계를 차분히 정리", "문제의 작은 불순물 제거"],
+    "advice": "지저분해진 감정 요소를 정리하세요."
+  },
+  {
+    "symbol": "감",
+    "action": "씻는다",
+    "derivedMeanings": ["새로운 균형을 찾는 과정", "감정 정화"],
+    "advice": "가벼운 산책으로 마음을 리셋하세요."
+  },
+  {
+    "symbol": "감",
+    "action": "포장한다",
+    "derivedMeanings": [
+      "정리된 결론을 마무리",
+      "성숙한 방식으로 전달하려는 마음"
+    ],
+    "advice": "완료 직전의 일을 책임감 있게 마무리하세요."
+  },
+  {
+    "symbol": "감",
+    "action": "사고 싶다",
+    "derivedMeanings": ["차분함을 원함", "내면 안정 욕구"],
+    "advice": "당신을 차분하게 만들 작은 루틴을 만들어보세요."
+  },
+  {
+    "symbol": "감",
+    "action": "잃어버린다",
+    "derivedMeanings": ["내면의 안정이 흔들림", "균형 재정비 필요"],
+    "advice": "불안 신호를 느꼈던 사건을 명확하게 기록하세요."
+  },
+  {
+    "symbol": "감",
+    "action": "발견한다",
+    "derivedMeanings": ["성숙해진 자신 발견", "새로운 단단함 확인"],
+    "advice": "성장했던 순간을 찾아 글로 남겨보세요."
+  },
+  {
+    "archetypeId": "FRUIT",
+    "archetypeName": "과일",
+    "symbol": "귤",
+    "symbolMeanings": ["활력", "가벼움", "즉각적 회복"],
+    "action": "본다",
+    "derivedMeanings": ["빠르게 변하는 마음 흐름 관찰", "즉각적 리프레시 욕구"],
+    "advice": "지금 마음이 향하는 작은 욕구를 기록해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "만진다",
+    "derivedMeanings": [
+      "즉각적인 변화를 체감하고 싶음",
+      "생활 리듬을 손에 잡고 싶다는 마음"
+    ],
+    "advice": "하루 루틴에서 한 가지를 직접 재조정해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "먹는다",
+    "derivedMeanings": ["빠른 활력 회복 욕구", "짧은 만족감을 원함"],
+    "advice": "5분만 집중해서 에너지를 회복할 활동을 해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "고른다",
+    "derivedMeanings": [
+      "작은 선택들의 중요성을 인식",
+      "즉각적 효과가 있는 것을 찾는 단계"
+    ],
+    "advice": "지금 가장 효과적인 선택 한 가지를 골라보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "떨어뜨린다",
+    "derivedMeanings": ["바쁜 리듬 속 작은 혼란", "집중력의 잠시 흐트러짐"],
+    "advice": "흐트러진 루틴을 1분 체크리스트로 정리하세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "깎는다",
+    "derivedMeanings": ["겉의 번잡함 제거", "핵심만 남기고 싶은 심리"],
+    "advice": "지금 하고 있는 일에서 꼭 필요한 2가지만 남겨보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "나눈다",
+    "derivedMeanings": [
+      "가벼운 에너지 공유 욕구",
+      "기분 좋은 순간을 나누고 싶은 마음"
+    ],
+    "advice": "지금 떠오르는 사람에게 짧은 긍정 메시지를 보내보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "버린다",
+    "derivedMeanings": [
+      "가볍게 정리하고 싶은 욕구",
+      "쓸데없는 부담을 벗어나고 싶음"
+    ],
+    "advice": "작은 짐 하나를 눈에 보이게 정리해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "냄새 맡는다",
+    "derivedMeanings": [
+      "새로운 분위기를 감지",
+      "변화를 빠르게 인식하는 민감함"
+    ],
+    "advice": "지금 느껴지는 공기 변화의 원인을 기록해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "닦는다",
+    "derivedMeanings": [
+      "사소한 불편함을 정리하려는 마음",
+      "작은 문제 해결 의지"
+    ],
+    "advice": "바로 해결 가능한 문제 한 가지를 밀어내세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "씻는다",
+    "derivedMeanings": ["리프레시 필요성", "부정적 잔여감을 털어내려는 단계"],
+    "advice": "감정 찌꺼기를 종이에 한 줄 적고 버려보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "포장한다",
+    "derivedMeanings": ["작은 선물 같은 마음 전달", "기분 좋은 마무리 욕구"],
+    "advice": "오늘의 작은 성취를 예쁘게 기록해 남기세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "사고 싶다",
+    "derivedMeanings": ["즉각적 기분전환 욕구", "스스로를 달래려는 마음"],
+    "advice": "5천원 이하 작은 보상 아이템을 정해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "잃어버린다",
+    "derivedMeanings": ["가벼운 즐거움을 놓친 느낌", "활력 감소 신호"],
+    "advice": "지금 활력을 높일 가장 간단한 행동을 생각해보세요."
+  },
+  {
+    "symbol": "귤",
+    "action": "발견한다",
+    "derivedMeanings": [
+      "예상치 못한 작은 기쁨 발견",
+      "즉흥적 긍정성이 올라오는 순간"
+    ],
+    "advice": "지금 떠오른 좋은 생각을 바로 메모해두세요."
   },
 
   {
     "archetypeId": "FRUIT",
-    "symbol": "파인애플",
-    "symbolMeanings": ["방어", "강한 개성"],
-    "action": "도려낸다",
-    "derivedMeanings": ["날카로운 문제 제거"],
-    "advice": "당신을 찌르는 요소 하나를 정리하세요."
+    "archetypeName": "과일",
+    "symbol": "레몬",
+    "symbolMeanings": ["정화", "각성", "Sharp한 집중"],
+    "action": "본다",
+    "derivedMeanings": ["긴장과 집중을 의식함", "상황을 맑게 보려는 단계"],
+    "advice": "지금 시야를 흐리는 요소를 한 가지 적어보세요."
   },
   {
-    "archetypeId": "FRUIT",
-    "symbol": "파인애플",
-    "symbolMeanings": ["방어", "강한 개성"],
-    "action": "자른다",
-    "derivedMeanings": ["과감한 경계 설정"],
-    "advice": "불필요한 관계에 단호한 선을 그어보세요."
+    "symbol": "레몬",
+    "action": "만진다",
+    "derivedMeanings": ["상황을 직접 다루고 싶음", "정확한 판단 필요"],
+    "advice": "중요한 결정을 내리기 전 핵심 조건을 점검하세요."
   },
   {
+    "symbol": "레몬",
+    "action": "먹는다",
+    "derivedMeanings": ["정화 욕구", "강한 자극으로 각성하려는 마음"],
+    "advice": "강한 감정이 올라왔다면 깊은 호흡으로 균형을 잡으세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "고른다",
+    "derivedMeanings": ["날카로운 기준 설정", "선명한 선택 필요"],
+    "advice": "지금 선택 기준을 단 하나로 좁혀보세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "떨어뜨린다",
+    "derivedMeanings": ["예민함의 순간적 흔들림", "집중력 손실"],
+    "advice": "흩어진 생각을 메모로 정리해보세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "깎는다",
+    "derivedMeanings": ["불필요한 감정 제거", "핵심만 남기려는 마음"],
+    "advice": "지금 감정에서 중요하지 않은 층위를 제거해보세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "나눈다",
+    "derivedMeanings": ["자극적 진실을 공유하고 싶음", "명확한 의사소통 욕구"],
+    "advice": "말해야 하는 진실 한 가지를 차분하게 전달하세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "버린다",
+    "derivedMeanings": ["불필요한 불안 제거", "예민함을 내려놓고 싶은 심리"],
+    "advice": "당장 제거할 수 있는 불편 요소 하나를 정리하세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "냄새 맡는다",
+    "derivedMeanings": ["상황의 날카로운 신호 포착", "민감한 직감 상승"],
+    "advice": "지금 감지되는 신호가 실제인지 분별해보세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "닦는다",
+    "derivedMeanings": ["불순물 제거", "상황을 더 선명하게 보려는 의지"],
+    "advice": "목표를 흐리게 하는 장애물을 정리하세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "씻는다",
+    "derivedMeanings": ["불편한 감정 정화", "새로운 집중력을 얻는 과정"],
+    "advice": "짧은 마음 정돈 루틴을 실행하세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "포장한다",
+    "derivedMeanings": [
+      "날카로운 메시지를 부드럽게 전달하려 함",
+      "의사소통 조율"
+    ],
+    "advice": "말하고 싶은 내용을 완곡하게 다듬어보세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "사고 싶다",
+    "derivedMeanings": ["정화 필요", "각성과 리프레시 욕구"],
+    "advice": "지금 필요한 건 ‘정리’인지 ‘자극’인지 먼저 구분하세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "잃어버린다",
+    "derivedMeanings": ["집중력 상실", "분명해야 할 것이 흐려지는 시기"],
+    "advice": "흐려진 목표를 다시 한 문장으로 정리하세요."
+  },
+  {
+    "symbol": "레몬",
+    "action": "발견한다",
+    "derivedMeanings": ["선명한 해답 발견", "새로운 각성"],
+    "advice": "방금 떠오른 통찰을 바로 기록해두세요."
+  },
+
+  {
     "archetypeId": "FRUIT",
-    "symbol": "파인애플",
-    "symbolMeanings": ["방어", "강한 개성"],
-    "action": "물에 담근다",
-    "derivedMeanings": ["거친 감정 완화"],
-    "advice": "감정 진정을 위한 시간을 확보하세요."
+    "archetypeName": "과일",
+    "symbol": "딸기",
+    "symbolMeanings": ["순간적 기쁨", "감각적 집중", "사소한 보상"],
+    "action": "본다",
+    "derivedMeanings": ["작은 즐거움을 찾는 단계", "감각적 욕구 상승"],
+    "advice": "지금 당신을 즐겁게 하는 작은 요소를 관찰해보세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "만진다",
+    "derivedMeanings": ["감각적 만족 추구", "기쁨을 가까이 두고 싶은 마음"],
+    "advice": "당신이 좋아하는 감각적인 활동을 짧게 실행하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "먹는다",
+    "derivedMeanings": [
+      "즉각적 만족감 필요",
+      "짧은 보상을 통해 에너지를 얻고 싶음"
+    ],
+    "advice": "스스로에게 오늘의 작은 보상을 허용하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "고른다",
+    "derivedMeanings": [
+      "즐거움과 효율의 균형을 찾는 선택",
+      "순간의 기쁨에 대한 기준 설정"
+    ],
+    "advice": "당신을 가장 기쁘게 할 선택을 하나 골라보세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "떨어뜨린다",
+    "derivedMeanings": [
+      "사소한 실수로 기쁨이 흐려진 상태",
+      "감정의 미세한 흔들림"
+    ],
+    "advice": "너무 큰 의미를 부여하지 말고 바로 리셋하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "깎는다",
+    "derivedMeanings": ["과도한 감정 제거", "진짜 즐거움만 남기려는 욕구"],
+    "advice": "지금 기쁨을 방해하는 요소를 하나 제거하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "나눈다",
+    "derivedMeanings": ["작은 행복을 공유하고 싶음", "따뜻한 관계 강화"],
+    "advice": "누군가와 작은 기쁨 하나를 나눠보세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "버린다",
+    "derivedMeanings": ["빠르게 흥미가 식음", "감각적 만족이 줄어드는 시기"],
+    "advice": "지금 당신에게 진짜 필요한 즐거움이 무엇인지 점검하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "냄새 맡는다",
+    "derivedMeanings": ["새로운 즐거움을 예감", "호기심이 살아남"],
+    "advice": "지금 끌리는 것의 이유를 기록해보세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "닦는다",
+    "derivedMeanings": [
+      "작은 불편을 제거하고 즐거움을 정돈",
+      "감각적 디테일 조정"
+    ],
+    "advice": "작은 문제를 해결해 마음의 노이즈를 없애보세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "씻는다",
+    "derivedMeanings": ["감정의 묵은 찌꺼기를 제거", "새로운 감각 준비"],
+    "advice": "책상 정리나 샤워 같은 리셋 루틴을 실행하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "포장한다",
+    "derivedMeanings": [
+      "기쁨을 오래 유지하고 싶음",
+      "좋은 기억을 남기려는 의지"
+    ],
+    "advice": "오늘 기뻤던 순간을 기록해보세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "사고 싶다",
+    "derivedMeanings": ["감각적 보상 욕구 상승", "자기기쁨 충족 필요"],
+    "advice": "당신에게 기쁨 주는 간단한 선물을 고려하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "잃어버린다",
+    "derivedMeanings": ["즐거움 상실감", "감각적 에너지 저하"],
+    "advice": "최근 즐거웠던 일을 떠올려 감정을 회복하세요."
+  },
+  {
+    "symbol": "딸기",
+    "action": "발견한다",
+    "derivedMeanings": ["새로운 기쁨 발견", "감각적 영감 상승"],
+    "advice": "오늘 새롭게 즐거웠던 순간을 기록해두세요."
   }
 ]
