@@ -11,15 +11,9 @@ interface SimilarityScore {
 
 @Injectable()
 export class InterpretationSimilarityEvaluator {
-  private readonly archetypeWeight = Number(
-    process.env.INTERPRET_ARCHETYPE_WEIGHT ?? "0.25"
-  );
-  private readonly symbolWeight = Number(
-    process.env.INTERPRET_SYMBOL_WEIGHT ?? "0.5"
-  );
-  private readonly scenarioWeight = Number(
-    process.env.INTERPRET_SCENARIO_WEIGHT ?? "0.25"
-  );
+  private readonly archetypeWeight = 0.25;
+  private readonly symbolWeight = 0.5;
+  private readonly scenarioWeight = 0.25;
 
   public rank(
     request: InterpretDreamRequestDto,

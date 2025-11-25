@@ -1,7 +1,7 @@
 export const PROMPT_LIMITS = {
-  coreMeanings: 2,
-  symbolExamples: 2,
-  symbolMeanings: 3,
-  derivedMeanings: 3,
-  adviceLength: 120,
+  coreMeanings: 1,
+  symbolExamples: 1,
+  symbolMeanings: 2,
+  derivedMeanings: 2,
+  adviceLength: 80,
 } as const;
