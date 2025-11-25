@@ -2,15 +2,16 @@ import { describe, it, expect } from "@jest/globals";
 import { InterpretationSimilarityEvaluator } from "./interpretation-similarity.evaluator";
 import { DreamSymbolDto } from "../types/dream-symbol.dto";
 
-// 테스트용 더미
 function buildSymbol(partial: Partial<DreamSymbolDto>): DreamSymbolDto {
   return {
+    archetypeId: "FRUIT",
+    archetypeName: "과일",
+    coreMeanings: [],
+    symbolExamples: [],
     symbol: "기본",
-    categories: [],
-    description: "",
-    emotions: [],
-    mbtiTone: {},
-    interpretations: [],
+    symbolMeanings: [],
+    scenarioTitle: "기본 시나리오",
+    scenarioDerivedMeanings: [],
     advice: "",
     ...partial,
   };
@@ -19,72 +20,57 @@ function buildSymbol(partial: Partial<DreamSymbolDto>): DreamSymbolDto {
 describe("InterpretationSimilarityEvaluator", () => {
   const evaluator = new InterpretationSimilarityEvaluator();
 
-  it("catagories/emotions 교집합에서 더 유사한게 더 앞 순위로 정렬되는지 테스트", () => {
+  it("꿈 본문에 상징이 직접 등장하면 높은 점수를 받는다", () => {
     const request = {
-      dream: "물 위를 걷는 꿈",
-      emotions: ["기쁨", "평화"],
+      dream: "사과를 따서 나눠 먹었어요",
     } as any;
 
-    const symbols = [
-      buildSymbol({
-        symbol: "강한 매칭",
-        categories: ["물", "자유"],
-        emotions: ["평화"],
-      }),
-      buildSymbol({
-        symbol: "약한 매칭",
-        categories: ["불", "열정"],
-        emotions: ["긴장"],
-      }),
-    ];
+    const strong = buildSymbol({
+      symbol: "사과",
+      symbolMeanings: ["선택", "책임"],
+    });
+    const weak = buildSymbol({
+      symbol: "포도",
+      symbolMeanings: ["협력"],
+    });
 
-    const ranked = evaluator.rank(request, symbols);
-    expect(ranked[0].symbol).toBe("강한 매칭"); // 유사도 점수 더 높은 심볼
-    expect(ranked[1].symbol).toBe("약한 매칭"); // 그리고 그 다음
+    const ranked = evaluator.rank(request, [weak, strong]);
+    expect(ranked[0].symbol).toBe("사과");
   });
 
-  it("교집합 없어서 0 나오면 점수는 같지만 반환 순서는 입력 순서를 유지하는지 테스트", () => {
+  it("아키타입 핵심어 혹은 심볼 예시가 일치하면 가점을 준다", () => {
     const request = {
-      dream: "아무것도 관련 없는 꿈",
-      emotions: ["아무 감정 아님"],
+      dream: "작은 강아지가 따라다녔어요",
     } as any;
 
-    const symbols = [
-      buildSymbol({ symbol: "A", categories: ["x"], emotions: ["y"] }),
-      buildSymbol({ symbol: "B", categories: ["p"], emotions: ["q"] }),
-    ];
+    const dog = buildSymbol({
+      archetypeName: "동물",
+      archetypeId: "ANIMAL",
+      symbolExamples: ["강아지", "고양이"],
+      symbol: "강아지",
+    });
+    const city = buildSymbol({
+      archetypeName: "장소",
+      archetypeId: "PLACE",
+      symbolExamples: ["도시"],
+      symbol: "도시",
+    });
 
-    const ranked = evaluator.rank(request, symbols);
-
-    // 둘다 total = 0
-    // 입력 순서 그대로인지
-    expect(ranked.map((s) => s.symbol)).toEqual(["A", "B"]);
+    const ranked = evaluator.rank(request, [city, dog]);
+    expect(ranked[0].symbol).toBe("강아지");
   });
 
-  it("catagories/emotions 중에 하나만 매칭되면 그거랑 맞게 잠수 반영되는지 테스트", () => {
-    // 둘 다 매칭 요소 1개씩 줬으면 total 같음
-    // 어떤게 먼저 와도 상관없는데 둘 다 0이면 안됨 그걸 검증
+  it("매칭이 없으면 입력 순서를 유지한다", () => {
     const request = {
-      dream: "불 타오르는 장면",
-      emotions: ["기쁨"],
+      dream: "관련 없는 장면",
     } as any;
 
-    const symbols = [
-      buildSymbol({
-        symbol: "카테고리만 매칭",
-        categories: ["불"],
-        emotions: ["우울"],
-      }),
-      buildSymbol({
-        symbol: "감정만 매칭",
-        categories: ["물"],
-        emotions: ["기쁨"],
-      }),
+    const docs = [
+      buildSymbol({ symbol: "A" }),
+      buildSymbol({ symbol: "B" }),
     ];
 
-    const ranked = evaluator.rank(request, symbols);
-
-    expect(ranked.length).toBe(2);
-    expect(ranked[0].symbol).not.toBeUndefined();
+    const ranked = evaluator.rank(request, docs);
+    expect(ranked.map((doc) => doc.symbol)).toEqual(["A", "B"]);
   });
 });
