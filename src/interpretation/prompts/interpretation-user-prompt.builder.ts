@@ -29,30 +29,20 @@ export class InterpretationUserPromptBuilder {
   }
 
   private formatSymbol(symbol: DreamSymbolDto): string {
-    const coreMeanings = this.limitList(
-      symbol.coreMeanings,
-      PROMPT_LIMITS.coreMeanings
-    );
-    const symbolExamples = this.limitList(
-      symbol.symbolExamples,
-      PROMPT_LIMITS.symbolExamples
-    );
     const symbolMeanings = this.limitList(
       symbol.symbolMeanings,
       PROMPT_LIMITS.symbolMeanings
     );
     const derivedMeanings = this.limitList(
-      symbol.scenarioDerivedMeanings,
+      symbol.derivedMeanings,
       PROMPT_LIMITS.derivedMeanings
     );
 
     const lines = [
       `Archetype: ${symbol.archetypeName} (${symbol.archetypeId})`,
-      this.optionalLine("Core Meanings", this.joinList(coreMeanings)),
-      this.optionalLine("Symbol Examples", this.joinList(symbolExamples)),
-      `Focus Symbol: ${symbol.symbol}`,
+      `Symbol: ${symbol.symbol}`,
+      this.optionalLine("Action", symbol.action),
       this.optionalLine("Symbol Meanings", this.joinList(symbolMeanings)),
-      this.optionalLine("Scenario", symbol.scenarioTitle),
       this.formatList("Derived Meanings", derivedMeanings),
       this.optionalLine(
         "Advice",
