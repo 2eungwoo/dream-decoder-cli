@@ -6,12 +6,14 @@ CREATE EXTENSION IF NOT EXISTS vector;
 
 CREATE TABLE IF NOT EXISTS dream_symbols (
   id UUID PRIMARY KEY,
+  archetype_id TEXT,
+  archetype_name TEXT,
+  core_meanings JSONB,
+  symbol_examples JSONB,
   symbol TEXT,
-  categories JSONB,
-  description TEXT,
-  emotions JSONB,
-  mbti_tone JSONB,
-  interpretations JSONB,
+  symbol_meanings JSONB,
+  scenario_title TEXT,
+  scenario_derived_meanings JSONB,
   advice TEXT,
   embedding VECTOR(768)
 );

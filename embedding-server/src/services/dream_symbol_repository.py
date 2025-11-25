@@ -46,12 +46,14 @@ class DreamSymbolRepository:
 
         column_definitions = [
             "id UUID PRIMARY KEY",
+            "archetype_id TEXT",
+            "archetype_name TEXT",
+            "core_meanings JSONB",
+            "symbol_examples JSONB",
             "symbol TEXT",
-            "categories JSONB",
-            "description TEXT",
-            "emotions JSONB",
-            "mbti_tone JSONB", 
-            "interpretations JSONB",
+            "symbol_meanings JSONB",
+            "scenario_title TEXT",
+            "scenario_derived_meanings JSONB",
             "advice TEXT",
             f"embedding VECTOR({dim})",
         ]
@@ -88,9 +90,9 @@ class DreamSymbolRepository:
                 # cols_to_insert 순서에 맞춰 값을 준비
                 values = []
                 for key in cols_to_insert:
-                    # 'mbtiTone'은 JSON에서 'mbti_tone'으로 매핑되므로 키 변환
-                    json_key = "mbtiTone" if key == "mbti_tone" else key
-                    default_value = DOCUMENT_TO_DB_MAP.get(key)
+                    json_key, default_value = DOCUMENT_TO_DB_MAP.get(
+                        key, (key, None)
+                    )
                     value = doc.get(json_key, default_value)
 
                     if isinstance(value, (list, dict)):
