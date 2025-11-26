@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { EmbeddingClient } from "../external/embedding/embedding.client";
 import { OpenAIClient } from "../external/openai/openai.client";
 import { InterpretDreamRequestDto } from "./dto/interpret-dream-request.dto";
@@ -10,6 +14,11 @@ import { InterpretationCacheService } from "./cache/interpretation-cache.service
 import { DreamSymbolDto } from "./types/dream-symbol.dto";
 import { InterpretationSimilarityEvaluator } from "./rankings/interpretation-similarity.evaluator";
 import { INTERPRETATION_SYSTEM_PROMPT } from "./prompts/interpretation-system.prompt";
+import { ConfigType } from "@nestjs/config";
+import {
+  DEFAULT_INTERPRETATION_CONFIG,
+  interpretationConfig,
+} from "./config/interpretation.config";
 
 @Injectable()
 export class InterpretationService {
@@ -20,10 +29,11 @@ export class InterpretationService {
     private readonly promptBuilder: InterpretationUserPromptBuilder,
     private readonly openAIClient: OpenAIClient,
     private readonly cacheService: InterpretationCacheService,
-    private readonly similarityEvaluator: InterpretationSimilarityEvaluator
+    private readonly similarityEvaluator: InterpretationSimilarityEvaluator,
+    @Inject(interpretationConfig.KEY)
+    private readonly interpretConfig: ConfigType<typeof interpretationConfig> = DEFAULT_INTERPRETATION_CONFIG
   ) {}
 
-  TOP_N = Number(process.env.INTERPRET_TOP_N ?? "2");
   public async generateInterpretation(request: InterpretDreamRequestDto) {
     if (!request?.dream?.trim()) {
       throw new InvalidDreamException();
@@ -48,7 +58,7 @@ export class InterpretationService {
     const relatedSymbols: DreamSymbolDto[] =
       await this.symbolRepository.findNearestByEmbedding(
         embeddings[0],
-        this.TOP_N
+        this.interpretConfig?.topN ?? DEFAULT_INTERPRETATION_CONFIG.topN
       );
     const ranked = this.similarityEvaluator.rank(request, relatedSymbols);
 

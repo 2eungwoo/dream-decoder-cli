@@ -6,6 +6,7 @@ import { ChatModule } from "./chat/chat.module";
 import { User } from "./users/user.entity";
 import { InterpretationModule } from "./interpretation/interpretation.module";
 import { openAIConfig } from "./external/openai/openai.config";
+import { interpretationConfig } from "./interpretation/config/interpretation.config";
 import { RedisModule } from "./infra/redis/redis.module";
 import { InterpretationRecord } from "./interpretation-records/interpretation-record.entity";
 import { InterpretationRecordModule } from "./interpretation-records/interpretation-record.module";
@@ -14,7 +15,7 @@ import { InterpretationRecordModule } from "./interpretation-records/interpretat
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [openAIConfig],
+      load: [openAIConfig, interpretationConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

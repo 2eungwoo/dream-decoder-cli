@@ -1,11 +1,20 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InterpretDreamRequestDto } from "../dto/interpret-dream-request.dto";
 import { DreamSymbolDto } from "../types/dream-symbol.dto";
 import { INTERPRETATION_USER_GUIDANCE } from "./interpretation-user-prompt.guidance";
-import { PROMPT_LIMITS } from "./interpretation-user-prompt.limits";
+import { ConfigType } from "@nestjs/config";
+import {
+  DEFAULT_INTERPRETATION_CONFIG,
+  interpretationConfig,
+} from "../config/interpretation.config";
 
 @Injectable()
 export class InterpretationUserPromptBuilder {
+  constructor(
+    @Inject(interpretationConfig.KEY)
+    private readonly config: ConfigType<typeof interpretationConfig> = DEFAULT_INTERPRETATION_CONFIG
+  ) {}
+
   public buildUserPrompt(
     request: InterpretDreamRequestDto,
     symbols: DreamSymbolDto[]
@@ -29,13 +38,16 @@ export class InterpretationUserPromptBuilder {
   }
 
   private formatSymbol(symbol: DreamSymbolDto): string {
+    const limits =
+      this.config?.promptLimits ?? DEFAULT_INTERPRETATION_CONFIG.promptLimits;
+
     const symbolMeanings = this.limitList(
       symbol.symbolMeanings,
-      PROMPT_LIMITS.symbolMeanings
+      limits.symbolMeanings
     );
     const derivedMeanings = this.limitList(
       symbol.derivedMeanings,
-      PROMPT_LIMITS.derivedMeanings
+      limits.derivedMeanings
     );
 
     const lines = [
@@ -46,7 +58,7 @@ export class InterpretationUserPromptBuilder {
       this.formatList("Derived Meanings", derivedMeanings),
       this.optionalLine(
         "Advice",
-        this.truncateText(symbol.advice, PROMPT_LIMITS.adviceLength)
+        this.truncateText(symbol.advice, limits.adviceLength)
       ),
     ];
 

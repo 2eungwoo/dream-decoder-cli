@@ -1,6 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InterpretDreamRequestDto } from "../dto/interpret-dream-request.dto";
 import { DreamSymbolDto } from "../types/dream-symbol.dto";
+import { ConfigType } from "@nestjs/config";
+import {
+  DEFAULT_INTERPRETATION_CONFIG,
+  interpretationConfig,
+} from "../config/interpretation.config";
 
 interface SimilarityScore {
   symbol: number;
@@ -12,9 +17,10 @@ interface SimilarityScore {
 
 @Injectable()
 export class InterpretationSimilarityEvaluator {
-  private readonly symbolWeight = 0.5;
-  private readonly actionWeight = 0.3;
-  private readonly derivedWeight = 0.2;
+  constructor(
+    @Inject(interpretationConfig.KEY)
+    private readonly config: ConfigType<typeof interpretationConfig> = DEFAULT_INTERPRETATION_CONFIG
+  ) {}
 
   public rank(
     request: InterpretDreamRequestDto,
@@ -41,17 +47,17 @@ export class InterpretationSimilarityEvaluator {
     const symbolScore = this.computeTextScore(
       haystack,
       [symbol.symbol, ...symbol.symbolMeanings],
-      this.symbolWeight
+      this.weights.symbol
     );
     const actionScore = this.computeTextScore(
       haystack,
       [symbol.action, symbol.archetypeName, symbol.archetypeId],
-      this.actionWeight
+      this.weights.action
     );
     const derivedScore = this.computeTextScore(
       haystack,
       symbol.derivedMeanings,
-      this.derivedWeight
+      this.weights.derived
     );
 
     return {
@@ -60,6 +66,13 @@ export class InterpretationSimilarityEvaluator {
       derived: derivedScore,
       total: symbolScore + actionScore + derivedScore,
     };
+  }
+
+  private get weights() {
+    return (
+      this.config?.similarityWeights ??
+      DEFAULT_INTERPRETATION_CONFIG.similarityWeights
+    );
   }
 
   private computeTextScore(
