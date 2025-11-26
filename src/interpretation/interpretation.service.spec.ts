@@ -12,6 +12,7 @@ import { OpenAIClient } from "../external/openai/openai.client";
 import { InvalidDreamException } from "./exceptions/invalid-dream.exception";
 import { InterpretationCacheService } from "./cache/interpretation-cache.service";
 import { InterpretationSimilarityEvaluator } from "./rankings/interpretation-similarity.evaluator";
+import { interpretationConfig } from "./config/interpretation.config";
 
 describe("InterpretationService (ts-mockito)", () => {
   let service: InterpretationService;
@@ -51,6 +52,10 @@ describe("InterpretationService (ts-mockito)", () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         InterpretationService, // 얘만 실제 객체 하위는 싹다 모킹
+        {
+          provide: interpretationConfig.KEY,
+          useValue: interpretationConfig(),
+        },
         {
           provide: EmbeddingInputFactory,
           useValue: instance(embeddingInputFactoryMock),
