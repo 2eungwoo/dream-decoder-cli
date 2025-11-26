@@ -7,13 +7,23 @@ import {
   DEFAULT_INTERPRETATION_CONFIG,
   interpretationConfig,
 } from "../config/interpretation.config";
+import { InterpretationSymbolNormalizer } from "./helpers/interpretation-symbol-normalizer";
+import { InterpretationSymbolFormatter } from "./helpers/interpretation-symbol-formatter";
 
 @Injectable()
 export class InterpretationUserPromptBuilder {
   constructor(
     @Inject(interpretationConfig.KEY)
     private readonly config: ConfigType<typeof interpretationConfig> = DEFAULT_INTERPRETATION_CONFIG
-  ) {}
+  ) {
+    const limits =
+      this.config?.promptLimits ?? DEFAULT_INTERPRETATION_CONFIG.promptLimits;
+    this.symbolNormalizer = new InterpretationSymbolNormalizer(limits);
+    this.symbolFormatter = new InterpretationSymbolFormatter();
+  }
+
+  private readonly symbolNormalizer: InterpretationSymbolNormalizer;
+  private readonly symbolFormatter: InterpretationSymbolFormatter;
 
   public buildUserPrompt(
     request: InterpretDreamRequestDto,
@@ -38,68 +48,12 @@ export class InterpretationUserPromptBuilder {
   }
 
   private formatSymbol(symbol: DreamSymbolDto): string {
-    const limits =
-      this.config?.promptLimits ?? DEFAULT_INTERPRETATION_CONFIG.promptLimits;
-
-    const symbolMeanings = this.limitList(
-      symbol.symbolMeanings,
-      limits.symbolMeanings
-    );
-    const derivedMeanings = this.limitList(
-      symbol.derivedMeanings,
-      limits.derivedMeanings
-    );
-
-    const lines = [
-      `Archetype: ${symbol.archetypeName} (${symbol.archetypeId})`,
-      `Symbol: ${symbol.symbol}`,
-      this.optionalLine("Action", symbol.action),
-      this.optionalLine("Symbol Meanings", this.joinList(symbolMeanings)),
-      this.formatList("Derived Meanings", derivedMeanings),
-      this.optionalLine(
-        "Advice",
-        this.truncateText(symbol.advice, limits.adviceLength)
-      ),
-    ];
-
-    return lines.filter(Boolean).join("\n");
+    const normalized = this.symbolNormalizer.normalize(symbol);
+    return this.symbolFormatter.format(normalized);
   }
 
   private optionalLine(label: string, value?: string | null): string | null {
     if (!value || !value.trim()) return null;
     return `${label}: ${value.trim()}`;
-  }
-
-  private formatList(label: string, values?: string[]): string | null {
-    if (!values?.length) {
-      return null;
-    }
-    const entries = values.map((line) => `- ${line}`).join("\n");
-    return `${label}:\n${entries}`;
-  }
-
-  private joinList(values?: string[]) {
-    if (!values?.length) {
-      return null;
-    }
-    return values.join(", ");
-  }
-
-  private limitList(values?: string[], limit?: number) {
-    if (!values?.length || !limit || limit <= 0) {
-      return values;
-    }
-    const trimmed = values.filter(Boolean).slice(0, limit);
-    return trimmed.length ? trimmed : undefined;
-  }
-
-  private truncateText(value?: string | null, maxLength?: number): string | null {
-    if (!value?.trim()) {
-      return null;
-    }
-    if (!maxLength || maxLength <= 0 || value.length <= maxLength) {
-      return value.trim();
-    }
-    return `${value.trim().slice(0, maxLength).trim()}…`;
   }
 }
