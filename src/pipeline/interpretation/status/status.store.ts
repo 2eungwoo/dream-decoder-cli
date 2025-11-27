@@ -1,6 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { Redis } from "ioredis";
-import { RedisService } from "../../../infra/redis/redis.service";
+import { Injectable } from "@nestjs/common";
 
 import {
   INTERPRETATION_STATUS_TTL_SECONDS,
@@ -8,6 +6,8 @@ import {
 } from "../config/storage.config";
 import { InterpretationPayloadParser } from "../messages/helpers/interpretation-payload.parser";
 import { InterpretationStatusValidator } from "./validation/status.validator";
+import { InterpretationStatusRepository } from "./status.repository";
+import { InterpretationStatusLogger } from "./status.logger";
 import {
   InterpretationPayload,
   InterpretationStatus,
@@ -25,17 +25,12 @@ interface StatusUpdate {
 
 @Injectable()
 export class InterpretationStatusStore {
-  private readonly logger = new Logger(InterpretationStatusStore.name);
-
   constructor(
-    private readonly redisService: RedisService,
+    private readonly repository: InterpretationStatusRepository,
     private readonly validator: InterpretationStatusValidator,
-    private readonly payloadParser: InterpretationPayloadParser
+    private readonly payloadParser: InterpretationPayloadParser,
+    private readonly statusLogger: InterpretationStatusLogger
   ) {}
-
-  private get client(): Redis {
-    return this.redisService.getClient();
-  }
 
   // 최초 상태 stream에 등록 -> pending
   public async initialize(
@@ -46,7 +41,7 @@ export class InterpretationStatusStore {
     const timestamp = new Date().toISOString();
     const key = interpretationStatusKey(requestId);
 
-    await this.client.hset(key, {
+    await this.repository.initialize(key, {
       requestId,
       userId: user.id,
       username: user.username,
@@ -59,9 +54,11 @@ export class InterpretationStatusStore {
       updatedAt: timestamp,
       fromCache: "false",
     });
-    await this.client.expire(key, INTERPRETATION_STATUS_TTL_SECONDS);
-    this.logger.log(
-      `[Status] ${requestId} initialized for user=${user.username} (payload length=${payload.dream.length})`
+    await this.repository.touch(key, INTERPRETATION_STATUS_TTL_SECONDS);
+    this.statusLogger.initialized(
+      requestId,
+      user.username,
+      payload.dream?.length ?? 0
     );
   }
 
@@ -70,18 +67,14 @@ export class InterpretationStatusStore {
       status: InterpretationStatus.Pending,
       errorMessage: errorMessage ?? "",
     });
-    this.logger.debug(
-      `[Status] ${requestId} -> pending (reason=${
-        errorMessage || "none"
-      })`
-    );
+    this.statusLogger.pending(requestId, errorMessage);
   }
 
   public async markRunning(requestId: string) {
     await this.apply(requestId, {
       status: InterpretationStatus.Running,
     });
-    this.logger.debug(`[Status] ${requestId} -> running`);
+    this.statusLogger.running(requestId);
   }
 
   // completed 체크하고 LLM 응답 포함해서 저장
@@ -96,10 +89,9 @@ export class InterpretationStatusStore {
       errorMessage: "",
       fromCache: options?.fromCache ?? false,
     });
-    this.logger.log(
-      `[Status] ${requestId} -> completed (fromCache=${
-        options?.fromCache ?? false
-      })`
+    this.statusLogger.completed(
+      requestId,
+      options?.fromCache ?? false
     );
   }
 
@@ -108,19 +100,15 @@ export class InterpretationStatusStore {
       status: InterpretationStatus.Failed,
       errorMessage,
     });
-    this.logger.warn(
-      `[Status] ${requestId} -> failed (reason=${errorMessage})`
-    );
+    this.statusLogger.failed(requestId, errorMessage);
   }
 
   // 재시도 카운트++
   public async incrementRetry(requestId: string) {
     const key = interpretationStatusKey(requestId);
-    const retryCount = await this.client.hincrby(key, "retryCount", 1);
-    await this.touch(key);
-    this.logger.warn(
-      `[Status] ${requestId} retry-count -> ${retryCount}`
-    );
+    const retryCount = await this.repository.incrementRetry(key);
+    await this.repository.touch(key, INTERPRETATION_STATUS_TTL_SECONDS);
+    this.statusLogger.retry(requestId, retryCount);
   }
 
   // stream에서 requestId + userId로 findByStatue
@@ -129,7 +117,7 @@ export class InterpretationStatusStore {
     userId: string
   ): Promise<InterpretationStatusRecord> {
     const key = interpretationStatusKey(requestId);
-    const raw = await this.client.hgetall(key);
+    const raw = await this.repository.findRaw(key);
     this.validator.validateRawExists(raw);
     const record = this.toRecord(raw);
     this.validator.validateOwner(record, userId);
@@ -160,13 +148,8 @@ export class InterpretationStatusStore {
       payload.fromCache = updates.fromCache ? "true" : "false";
     }
 
-    await this.client.hset(key, payload);
-    await this.touch(key);
-  }
-
-  // TTL 갱신해서 status 조회 가능 기간 연장
-  private async touch(key: string) {
-    await this.client.expire(key, INTERPRETATION_STATUS_TTL_SECONDS);
+    await this.repository.update(key, payload);
+    await this.repository.touch(key, INTERPRETATION_STATUS_TTL_SECONDS);
   }
 
   private toRecord(raw: Record<string, string>): InterpretationStatusRecord {

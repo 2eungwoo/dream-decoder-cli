@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InterpretationStatusStore } from "../status/status.store";
 import { InterpretationProcessor } from "./processor.service";
 import { InterpretationStreamWriter } from "../streams/stream.writer";
@@ -6,28 +6,32 @@ import { InterpretationDlqWriter } from "../dlq/dlq.writer";
 import { InterpretationMessage } from "../messages/interfaces/message.types";
 import { InterpretationMessageFactory } from "../messages/message.factory";
 import { INTERPRETATION_WORKER_MAX_RETRY } from "../config/worker.config";
+import { InterpretationStreamLogService } from "../logging/stream-log.service";
 
 @Injectable()
 export class InterpretationMessageHandler {
-  private readonly logger = new Logger(InterpretationMessageHandler.name);
+  private readonly component = "MessageHandler";
 
   constructor(
     private readonly statusStore: InterpretationStatusStore,
     private readonly processor: InterpretationProcessor,
     private readonly streamWriter: InterpretationStreamWriter,
     private readonly dlqWriter: InterpretationDlqWriter,
-    private readonly messageFactory: InterpretationMessageFactory
+    private readonly messageFactory: InterpretationMessageFactory,
+    private readonly streamLogger: InterpretationStreamLogService
   ) {}
 
   public async handle(message: InterpretationMessage) {
     await this.statusStore.markRunning(message.requestId);
-    this.logger.log(
-      `[Stream : MessageHandler]해몽 요청 ${message.requestId} 실행 시작`
+    this.streamLogger.info(
+      this.component,
+      `해몽 요청 ${message.requestId} 실행 시작`
     );
     try {
       await this.processor.process(message.requestId, message.payload);
-      this.logger.log(
-        `[Stream : MessageHandler] 해몽 요청 ${message.requestId} 처리 완료`
+      this.streamLogger.info(
+        this.component,
+        `해몽 요청 ${message.requestId} 처리 완료`
       );
     } catch (error) {
       await this.handleFailure(message, error as Error);
@@ -43,8 +47,9 @@ export class InterpretationMessageHandler {
     if (nextRetry > INTERPRETATION_WORKER_MAX_RETRY) {
       await this.statusStore.markFailed(message.requestId, reason);
       await this.dlqWriter.write(message, reason);
-      this.logger.error(
-        `<!> [Stream : MessageHandler] ${message.requestId} 요청은 ${nextRetry} 시도 후 최종 실패하여 DLQ로 이동 (/failed 명령으로 확인 가능)`
+      this.streamLogger.error(
+        this.component,
+        `${message.requestId} 요청은 ${nextRetry} 시도 후 최종 실패하여 DLQ로 이동 (/failed 명령으로 확인 가능)`
       );
       return;
     }
@@ -53,8 +58,9 @@ export class InterpretationMessageHandler {
     await this.statusStore.markPending(message.requestId, reason);
     const retryMessage = this.messageFactory.withRetry(message, nextRetry);
     await this.streamWriter.write(retryMessage);
-    this.logger.warn(
-      `[Stream : MessageHandler] 현재 해몽 ID: ${message.requestId} 의 요청, 재시도 ${nextRetry}회 (사유: ${reason}) – 큐에 재등록`
+    this.streamLogger.warn(
+      this.component,
+      `현재 해몽 ID: ${message.requestId} 의 요청, 재시도 ${nextRetry}회 (사유: ${reason}) – 큐에 재등록`
     );
   }
 }

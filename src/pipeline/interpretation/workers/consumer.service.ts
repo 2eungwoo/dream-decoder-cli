@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  Logger,
-  OnModuleDestroy,
-  OnModuleInit,
-} from "@nestjs/common";
+import { Injectable, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
 import {
   INTERPRETATION_WORKER_GROUP,
@@ -14,10 +9,11 @@ import { InterpretationMessageSerializer } from "../messages/message.serializer"
 import { InterpretationStreamReader } from "../streams/stream.reader";
 import { INTERPRETATION_STREAM_KEY } from "../config/storage.config";
 import { RedisStreamService } from "../../redis-stream.service";
+import { InterpretationStreamLogService } from "../logging/stream-log.service";
 
 @Injectable()
 export class InterpretationConsumer implements OnModuleInit, OnModuleDestroy {
-  private readonly logger = new Logger(InterpretationConsumer.name);
+  private readonly component = "Consumer";
   private readonly consumerName = `worker:${process.pid}:${
     randomUUID().split("-")[0]
   }`;
@@ -29,7 +25,8 @@ export class InterpretationConsumer implements OnModuleInit, OnModuleDestroy {
     private readonly redisStream: RedisStreamService,
     private readonly messageHandler: InterpretationMessageHandler,
     private readonly streamReader: InterpretationStreamReader,
-    private readonly serializer: InterpretationMessageSerializer
+    private readonly serializer: InterpretationMessageSerializer,
+    private readonly streamLogger: InterpretationStreamLogService
   ) {}
 
   async onModuleInit() {
@@ -72,8 +69,9 @@ export class InterpretationConsumer implements OnModuleInit, OnModuleDestroy {
         if (this.stopRequested) {
           break;
         }
-        this.logger.warn(
-          `[Stream - Consumer(Worker)] worker 루프 에러 메세지 : ${(error as Error)?.message}`
+        this.streamLogger.warn(
+          this.component,
+          `worker 루프 에러 메세지 : ${(error as Error)?.message}`
         );
         await this.delay(1000);
       }
@@ -87,8 +85,9 @@ export class InterpretationConsumer implements OnModuleInit, OnModuleDestroy {
         await this.handleEntry(id, fields);
       }
     } catch (error) {
-      this.logger.warn(
-        `[Stream - Consumer] claim idle 에러 메세지: ${(error as Error)?.message}`
+      this.streamLogger.warn(
+        this.component,
+        `claim idle 에러 메세지: ${(error as Error)?.message}`
       );
     }
   }
@@ -104,17 +103,20 @@ export class InterpretationConsumer implements OnModuleInit, OnModuleDestroy {
       return;
     }
 
-    this.logger.log(
-      `[Stream - Consumer] 요청ID : ${message.requestId} 가 stream에 들어갔음`
+    this.streamLogger.info(
+      this.component,
+      `요청ID : ${message.requestId} 가 stream에 들어갔음`
     );
     try {
       await this.messageHandler.handle(message);
-      this.logger.log(
-        `[Stream - Consumer] 요청ID ${message.requestId} 담당 컨슈머 : [${this.consumerName}] `
+      this.streamLogger.info(
+        this.component,
+        `요청ID ${message.requestId} 담당 컨슈머 : [${this.consumerName}] `
       );
     } catch (error) {
-      this.logger.error(
-        `[Stream - Consumer] 요청 메세지 컨슈밍 중 에러 발생, 요청ID: ${message.requestId}: ${
+      this.streamLogger.error(
+        this.component,
+        `요청 메세지 컨슈밍 중 에러 발생, 요청ID: ${message.requestId}: ${
           (error as Error)?.message
         }`
       );

@@ -4,6 +4,8 @@ import { InterpretationStreamWriter } from "./interpretation/streams/stream.writ
 import { InterpretationStreamReader } from "./interpretation/streams/stream.reader";
 import { InterpretationStatusStore } from "./interpretation/status/status.store";
 import { InterpretationStatusValidator } from "./interpretation/status/validation/status.validator";
+import { InterpretationStatusRepository } from "./interpretation/status/status.repository";
+import { InterpretationStatusLogger } from "./interpretation/status/status.logger";
 import { InterpretationRequestPublisher } from "./interpretation/publisher/request.publisher";
 import { InterpretationMessageFactory } from "./interpretation/messages/message.factory";
 import { InterpretationMessageSerializer } from "./interpretation/messages/message.serializer";
@@ -13,15 +15,19 @@ import { InterpretationDlqService } from "./interpretation/dlq/dlq.service";
 import { DlqValidator } from "./interpretation/dlq/validation/dlq.validator";
 import { DlqEntryParser } from "./interpretation/dlq/helpers/dlq-entry.parser";
 import { RedisStreamService } from "./redis-stream.service";
+import { InterpretationStreamLogService } from "./interpretation/logging/stream-log.service";
 
 @Module({
   imports: [RedisModule],
   providers: [
     RedisStreamService,
+    InterpretationStreamLogService,
     InterpretationStreamWriter,
     InterpretationStreamReader,
+    InterpretationStatusRepository,
     InterpretationStatusStore,
     InterpretationStatusValidator,
+    InterpretationStatusLogger,
     InterpretationStatusValidator,
     InterpretationRequestPublisher,
     InterpretationMessageFactory,
@@ -34,10 +40,13 @@ import { RedisStreamService } from "./redis-stream.service";
   ],
   exports: [
     RedisStreamService,
+    InterpretationStreamLogService,
     InterpretationStreamWriter,
     InterpretationStreamReader,
+    InterpretationStatusRepository,
     InterpretationStatusStore,
     InterpretationStatusValidator,
+    InterpretationStatusLogger,
     InterpretationRequestPublisher,
     InterpretationMessageFactory,
     InterpretationMessageSerializer,
