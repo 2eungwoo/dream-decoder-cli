@@ -1,32 +1,24 @@
 import { Injectable } from "@nestjs/common";
-import { Redis } from "ioredis";
-import { RedisService } from "../../../infra/redis/redis.service";
 import { INTERPRETATION_DLQ_KEY } from "../config/storage.config";
 import { InterpretationRequestPublisher } from "../publisher/request.publisher";
 import { InterpretationUserContext } from "../messages/interfaces/message.types";
 import { FailedEntry } from "./interfaces/failed-entry.interface";
 import { DlqEntryParser } from "./helpers/dlq-entry.parser";
 import { DlqValidator } from "./validation/dlq.validator";
+import { RedisStreamService } from "../../redis-stream.service";
 
 @Injectable()
 export class InterpretationDlqService {
   constructor(
-    private readonly redisService: RedisService,
+    private readonly redisStream: RedisStreamService,
     private readonly requestPublisher: InterpretationRequestPublisher,
     private readonly validator: DlqValidator,
     private readonly parser: DlqEntryParser
   ) {}
 
-  private get client(): Redis {
-    return this.redisService.getClient();
-  }
-
   public async listByUser(userId: string, limit = 50): Promise<FailedEntry[]> {
-    const entries = await this.client.xrevrange(
+    const entries = await this.redisStream.reverseRange(
       INTERPRETATION_DLQ_KEY,
-      "+",
-      "-",
-      "COUNT",
       limit
     );
     return entries
@@ -48,14 +40,18 @@ export class InterpretationDlqService {
       entry.payload
     );
 
-    await this.client.xdel(INTERPRETATION_DLQ_KEY, entry.streamId);
+    await this.redisStream.delete(INTERPRETATION_DLQ_KEY, entry.streamId);
     return newRequestId;
   }
 
   private async findEntryByRequestId(
     requestId: string
   ): Promise<FailedEntry | undefined> {
-    const entries = await this.client.xrange(INTERPRETATION_DLQ_KEY, "-", "+");
+    const entries = await this.redisStream.range(
+      INTERPRETATION_DLQ_KEY,
+      "-",
+      "+"
+    );
     return (
       entries
         .map(([streamId, fields]) => this.parser.parse(streamId, fields))
