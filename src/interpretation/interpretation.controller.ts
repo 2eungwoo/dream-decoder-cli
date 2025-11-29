@@ -70,6 +70,7 @@ export class InterpretationController {
       updatedAt: status.updatedAt,
       createdAt: status.createdAt,
       fromCache: status.fromCache,
+      payload: status.payload,
     });
   }
 

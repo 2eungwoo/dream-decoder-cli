@@ -13,4 +13,10 @@ export interface InterpretationStatusResponse {
   updatedAt: string;
   createdAt: string;
   fromCache?: boolean;
+  payload?: {
+    dream: string;
+    emotions?: string[];
+    mbti?: string;
+    extraContext?: string;
+  };
 }

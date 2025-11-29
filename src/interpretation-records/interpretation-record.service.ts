@@ -59,6 +59,20 @@ export class InterpretationRecordService {
     userId: string,
     payload: SaveInterpretationRecordDto
   ) {
+    if (payload.requestId) {
+      const existingByRequest = await this.recordsRepository.findOne({
+        where: {
+          userId,
+          requestId: payload.requestId,
+        },
+        select: ["id"],
+      });
+      if (existingByRequest) {
+        this.recordValidator.ensureNotDuplicated(existingByRequest);
+        return;
+      }
+    }
+
     const existing = await this.recordsRepository.findOne({
       where: {
         userId,
@@ -67,7 +81,9 @@ export class InterpretationRecordService {
       },
       select: ["id"],
     });
-    this.recordValidator.ensureNotDuplicated(existing);
+    if (existing) {
+      this.recordValidator.ensureNotDuplicated(existing);
+    }
   }
 
   private buildRecordEntity(
@@ -76,6 +92,7 @@ export class InterpretationRecordService {
   ) {
     return this.recordsRepository.create({
       userId,
+      requestId: payload.requestId,
       dream: payload.dream,
       emotions: payload.emotions,
       mbti: payload.mbti,

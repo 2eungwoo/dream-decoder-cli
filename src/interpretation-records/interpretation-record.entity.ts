@@ -7,6 +7,9 @@ export class InterpretationRecord extends BaseTimeEntity {
   @Column({ type: "uuid" })
   public userId!: string;
 
+  @Column({ type: "uuid", nullable: true, unique: true })
+  public requestId?: string | null;
+
   @ManyToOne(() => User, { eager: false })
   @JoinColumn({ name: "userId" })
   public user!: User;

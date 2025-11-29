@@ -31,7 +31,7 @@ describe("InterpretationRecordService", () => {
     );
   });
 
-  it("해몽 응답 저장하고 id 반환", async () => {
+  it("해몽 응답 저장하고 id 반환 (requestId 포함)", async () => {
     // given
     const dto = {
       dream: "테스트 꿈",
@@ -39,7 +39,7 @@ describe("InterpretationRecordService", () => {
       mbti: "ENFP",
       extraContext: "최근 상황",
       interpretation: "요약",
-      symbols: [{ symbol: "별", insight: "희망" }],
+      requestId: "req-1",
     };
     const entity = { id: recordId } as InterpretationRecord;
 
@@ -55,11 +55,19 @@ describe("InterpretationRecordService", () => {
     const [createArg] = capture(repository.create).last();
     expect(createArg).toMatchObject({
       userId: userId,
+      requestId: dto.requestId,
       dream: dto.dream,
       interpretation: dto.interpretation,
     });
-    const [dupArgs] = capture(repository.findOne).last();
-    expect(dupArgs).toMatchObject({
+    verify(validator.ensureNotDuplicated(anything())).never();
+    verify(repository.findOne(anything())).twice();
+    const [firstCall] = capture(repository.findOne).first();
+    expect(firstCall).toMatchObject({
+      where: { userId, requestId: dto.requestId },
+      select: ["id"],
+    });
+    const [secondCall] = capture(repository.findOne).last();
+    expect(secondCall).toMatchObject({
       where: {
         userId,
         dream: dto.dream,
@@ -67,15 +75,13 @@ describe("InterpretationRecordService", () => {
       },
       select: ["id"],
     });
-    verify(validator.ensureNotDuplicated(anything())).once();
-    const [validatorArg] = capture(validator.ensureNotDuplicated).last();
-    expect(validatorArg).toBeNull();
   });
-  it("이미 같은 꿈과 해석이 저장돼 있으면 예외 발생", async () => {
+  it("requestId가 동일한 기록이 있으면 예외 발생", async () => {
     // given
     const dto = {
       dream: "같은 꿈",
       interpretation: "같은 해석",
+      requestId: "req-dup",
     };
     const existing = { id: "exists" } as InterpretationRecord;
 
@@ -86,6 +92,24 @@ describe("InterpretationRecordService", () => {
     );
 
     // then
+    await expect(service.saveRecord(userId, dto as any)).rejects.toThrow(
+      InterpretationRecordAlreadyExistsException
+    );
+    verify(repository.save(anything())).never();
+  });
+
+  it("requestId 없이도 동일 꿈+해석이면 예외 발생", async () => {
+    const dto = {
+      dream: "같은 꿈",
+      interpretation: "같은 해석",
+    };
+    const existing = { id: "duplicate" } as InterpretationRecord;
+
+    when(repository.findOne(anything())).thenResolve(existing);
+    when(validator.ensureNotDuplicated(existing)).thenThrow(
+      new InterpretationRecordAlreadyExistsException()
+    );
+
     await expect(service.saveRecord(userId, dto as any)).rejects.toThrow(
       InterpretationRecordAlreadyExistsException
     );
