@@ -117,24 +117,12 @@ export async function handleSaveRequest(
   );
 
   if (!statusResponse.success || !statusResponse.data) {
-    const message = statusResponse.message ?? "";
-    if (
-      message.includes("이미 저장되어") ||
-      message.includes("기록이 사라졌")
-    ) {
-      console.log(
-        chalk.cyan(
-          "이 요청은 이미 저장되어 /save 명령을 건너뜁니다. /list 또는 /detail 명령으로 저장된 해몽을 다시 확인해 보세요."
-        )
-      );
-    } else {
-      console.error(
-        chalk.red(
-          message ||
-            "<!> 해몽 상태를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
-        )
-      );
-    }
+    console.error(
+      chalk.red(
+        statusResponse.message ??
+          "<!> 해몽 상태를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
+      )
+    );
     return;
   }
 
