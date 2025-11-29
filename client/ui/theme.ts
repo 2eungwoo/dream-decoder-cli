@@ -8,6 +8,7 @@ export interface CliTheme {
   muted: (text: string) => string;
   bullet: (text: string) => string;
   highlight: (text: string) => string;
+  whisper: (text: string) => string;
 }
 
 export const cliTheme: CliTheme = {
@@ -18,4 +19,5 @@ export const cliTheme: CliTheme = {
   muted: (text) => chalk.hex("#8C8C8C")(text), // 흐린 회색
   bullet: (text) => chalk.hex("#F2C94C")(text), // 파스텔 옐로우
   highlight: (text) => chalk.hex("#6FCF97").bold(text), // 파스텔 그린
+  whisper: (text) => chalk.hex("#F48FB1")(text), // 연한 마젠타
 };
