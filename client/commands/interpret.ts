@@ -101,6 +101,7 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
 
     printResponse(response);
     await saveInterpretationOrNot(ask, sessions, {
+      requestId,
       dream,
       emotions,
       mbti,
