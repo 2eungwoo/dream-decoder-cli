@@ -23,6 +23,7 @@ interface ApiInterpretResponse {
 
 const STATUS_POLL_INTERVAL_MS = 1_500;
 const MAX_STATUS_POLLS = 120;
+const WHISPER_ROTATION_INTERVAL_MS = 5_000;
 
 export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const session = sessions.get();
@@ -42,9 +43,9 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const extraContext = await promptExtraContext(ask);
 
   const spinner = new Spinner();
-  // const requestWhisper = cliTheme.whisper(getRandomDreamWhisper());
-  // spinner.start(requestWhisper);
-  spinner.start("해몽 요청을 전송하는 중입니다...");
+  let whisperInterval: NodeJS.Timeout | null = null;
+  const requestSpinnerText = cliTheme.whisper("해몽 요청을 전송하는 중입니다...");
+  spinner.start(requestSpinnerText);
   try {
     const data = await postApi<ApiInterpretResponse>(
       "/interpret",
@@ -81,12 +82,19 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
 
     const creationWhisper = cliTheme.whisper(getRandomDreamWhisper());
     spinner.start(creationWhisper);
+    whisperInterval = setInterval(() => {
+      spinner.setMessage(cliTheme.whisper(getRandomDreamWhisper()));
+    }, WHISPER_ROTATION_INTERVAL_MS);
     const finalStatus = await pollInterpretationStatus(
       requestId,
       session.username,
       session.password
     );
 
+    if (whisperInterval) {
+      clearInterval(whisperInterval);
+      whisperInterval = null;
+    }
     spinner.stop();
     if (finalStatus.status === "failed" || !finalStatus.interpretation) {
       console.error(
@@ -114,6 +122,10 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
       interpretation: finalStatus.interpretation,
     });
   } catch (error) {
+    if (whisperInterval) {
+      clearInterval(whisperInterval);
+      whisperInterval = null;
+    }
     spinner.stop();
     const message =
       (error as Error)?.message ??
