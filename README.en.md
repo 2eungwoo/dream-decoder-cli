@@ -11,7 +11,7 @@
 
 # Dream Decoder
 > This project is a service that combines psychological dream interpretation with LLM-based analysis. <br/>
-> It analyzes symbolic representations arising from the user’s free dream association and provides personalized interpretations that incorporate emotional and contextual nuances.
+> It analyzes symbolic representations arising from the `user’s free dream association` and provides `personalized interpretations` that `ncorporate emotional` and `contextual nuances.`
 
 > Retrieval-Augmented Generation–based Dream Interpretation Service  
 > The goal is to enhance LLM-generated interpretations by using the inherent meanings of dream symbols as RAG documents.
