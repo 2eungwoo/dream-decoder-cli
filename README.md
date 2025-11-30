@@ -143,8 +143,9 @@ npm run cli
 ## 장애 대응 (Redis Stream Queue)
 > 사용자의 요청은 장애 상황에도 유실되지 않고 시스템에서 처리합니다.
 > 꿈 해석 요청은 Redis Stream 큐에 등록됩니다.</br>
-> 시스템이 일시적으로 중단되더라도 ACK되지 않은 항목은 스트림에 남아</br>
-> 서비스가 복구되면 동일한 요청 ID로 자동 재처리됩니다.
+
+> 시스템 일시 중단이나 사용자의 강제종료에도 ACK되지 않은 항목은 스트림에 남아</br>
+> 서비스가 복구되면 동일한 요청 ID로 자동 재처리, 최종 실패 요청은 DLQ에 적재하여 유실을 방지합니다.
 
 ![redis-stream-demo](docs/assets/redis-stream-resilience.gif)
 
