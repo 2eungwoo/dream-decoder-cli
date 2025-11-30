@@ -1,16 +1,27 @@
 [한국어](./README.md) | [English](./README.en.md)
 
-> [!NOTE] The service, embeddings, and dataset are currently Korean-only. This README is provided in English purely for explanation. To run everything in English you must:
+> [!NOTE]
+> The service, embeddings, and dataset are currently Korean-only.  
+> This README is provided in English purely for explanation.
+>
+> To run everything in English you must:
 > - swap the embedding server model (`ko-sroberta-nli`) for an English or multilingual model;
 > - prepare an English version of `data/dream_symbols.json` and rerun `run_ingest.py`;
 > - update the system/user prompts to English (`src/interpretation/prompts/*`).
 
 # Dream Decoder
-> Dream interpretation service powered by Retrieval-Augmented Generation (RAG)
+> Dreams are a complex psychological phenomenon created as the unconscious mind reorganizes memories, emotions, and experiences. <br/>
+> Some people encounter their past or future within dreams, while others reunite with someone they have long missed. <br/>
+
+> This project is a service that combines psychological dream interpretation with LLM-based analysis. <br/>
+> It analyzes symbolic representations arising from the user’s free dream association and provides personalized interpretations that incorporate emotional and contextual nuances.
+
+> Retrieval-Augmented Generation–based Dream Interpretation Service  
+> The goal is to enhance LLM-generated interpretations by using the inherent meanings of dream symbols as RAG documents.
 >
-> 1. `Retrieval`: search the dream-symbol dataset for entries that are semantically closest to the user’s dream.
-> 2. `Augmentation`: combine the retrieved information with the user’s metadata before sending it to the LLM.
-> 3. `Generation`: the LLM produces a response with richer context based on the augmented prompt.
+> 1. **Retrieval**: Search the dataset for information most semantically aligned with the core content of the user’s dream.
+> 2. **Augmentation**: Combine the retrieved information with metadata from the user’s input and deliver it to the LLM.
+> 3. **Generation**: The LLM produces an enriched interpretation using the strengthened contextual information.
 
 # Demo
 <img src="https://github.com/user-attachments/assets/0aab3d44-d5ca-4b7b-b937-55dc31d59d76" width="500" />
