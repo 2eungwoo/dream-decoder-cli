@@ -6,6 +6,7 @@ import { ApiResponseFactory } from "../shared/dto/api-response.dto";
 import { InterpretationRequestPublisher } from "../pipeline/interpretation/publisher/request.publisher";
 import { InterpretationStatusStore } from "../pipeline/interpretation/status/status.store";
 import { InterpretationDlqService } from "../pipeline/interpretation/dlq/dlq.service";
+import { UseInterpretationLock } from "./lock/InterpretationLock.decorator";
 import {
   CurrentUser,
   RequestUser,
@@ -22,6 +23,7 @@ export class InterpretationController {
   ) {}
 
   @Post("interpret")
+  @UseInterpretationLock()
   public async interpret(
     @Body() payload: InterpretDreamRequestDto,
     @CurrentUser() user: RequestUser

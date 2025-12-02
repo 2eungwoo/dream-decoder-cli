@@ -18,6 +18,8 @@ import { RedisStreamModule } from "../pipeline/redis-stream.module";
 import { InterpretationProcessor } from "../pipeline/interpretation/workers/processor.service";
 import { InterpretationConsumer } from "../pipeline/interpretation/workers/consumer.service";
 import { InterpretationMessageHandler } from "../pipeline/interpretation/workers/message.handler";
+import { InterpretationLockService } from "./lock/interpretation-lock.service";
+import { InterpretationLockInterceptor } from "./lock/interpretation-lock.interceptor";
 @Module({
   imports: [
     EmbeddingModule,
@@ -36,6 +38,8 @@ import { InterpretationMessageHandler } from "../pipeline/interpretation/workers
     InterpretationCacheService,
     InterpretationSemaphoreService,
     InterpretationSemaphoreInterceptor,
+    InterpretationLockService,
+    InterpretationLockInterceptor,
     InterpretationSimilarityEvaluator,
     InterpretationProcessor,
     InterpretationMessageHandler,
