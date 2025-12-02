@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { getApi, postApi } from "../api";
 import { ApiResponse } from "../../src/shared/dto/api-response.dto";
 import { printResponse } from "../ui/output";
@@ -41,6 +42,7 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
   const emotions = await promptEmotionSelections(ask);
   const mbti = await promptMbtiSelection(ask);
   const extraContext = await promptExtraContext(ask);
+  const idempotencyKey = randomUUID();
 
   const spinner = new Spinner();
   let whisperInterval: NodeJS.Timeout | null = null;
@@ -59,6 +61,7 @@ export async function handleInterpret(ask: QuestionFn, sessions: SessionStore) {
         headers: {
           "x-username": session.username,
           "x-password": session.password,
+          "x-idempotency-key": idempotencyKey,
         },
       }
     );
