@@ -19,7 +19,7 @@ describe("InterpretationLockInterceptor", () => {
     user: { id: "user-1" },
     headers: {
       [INTERPRETATION_IDEMPOTENCY_HEADER]: "token-token-token-token-token",
-    },
+    } as Record<string, string>,
     header(name: string) {
       return this.headers[name];
     },
@@ -48,14 +48,17 @@ describe("InterpretationLockInterceptor", () => {
     interceptor = module.get(InterpretationLockInterceptor);
   });
 
-  it("동일 요청이 없으면 통과 후 락을 해제한다", async () => {
+  it("동일 요청 없으면 통과 후 락 해제", async () => {
+    // given
     lockService.acquire.mockResolvedValueOnce({
       key: "lock",
       token: "token-token-token-token-token",
     });
 
+    // when
     await firstValueFrom(interceptor.intercept(context, next));
 
+    // then
     expect(next.handle).toHaveBeenCalled();
     expect(lockService.release).toHaveBeenCalledWith({
       key: "lock",
@@ -63,9 +66,11 @@ describe("InterpretationLockInterceptor", () => {
     });
   });
 
-  it("동일 요청이 처리 중이면 예외를 던진다", async () => {
+  it("동일 요청 처리 중이면 예외", async () => {
+    // given
     lockService.acquire.mockResolvedValueOnce(null);
 
+    // when & then
     await expect(
       firstValueFrom(interceptor.intercept(context, next))
     ).rejects.toBeInstanceOf(InterpretationDuplicateRequestException);
@@ -73,13 +78,15 @@ describe("InterpretationLockInterceptor", () => {
     expect(lockService.release).not.toHaveBeenCalled();
   });
 
-  it("idempotency key가 없으면 예외를 던진다", async () => {
+  it("idempo key 없으면 예외", () => {
+    // given
     const originalHeader = request.header;
     request.header = () => "";
 
-    await expect(
-      firstValueFrom(interceptor.intercept(context, next))
-    ).rejects.toBeInstanceOf(InterpretationIdempotencyKeyMissingException);
+    // when & then
+    expect(() => interceptor.intercept(context, next)).toThrow(
+      InterpretationIdempotencyKeyMissingException
+    );
     expect(lockService.acquire).not.toHaveBeenCalled();
     request.header = originalHeader;
   });
