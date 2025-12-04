@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { RedisModule } from "../infra/redis/redis.module";
+import { MongoModule } from "../infra/mongo/mongo.module";
 import { InterpretationStreamWriter } from "./interpretation/streams/stream.writer";
 import { InterpretationStreamReader } from "./interpretation/streams/stream.reader";
 import { InterpretationStatusStore } from "./interpretation/status/status.store";
@@ -16,9 +17,10 @@ import { DlqValidator } from "./interpretation/dlq/validation/dlq.validator";
 import { DlqEntryParser } from "./interpretation/dlq/helpers/dlq-entry.parser";
 import { RedisStreamService } from "./redis-stream.service";
 import { InterpretationStreamLogService } from "./interpretation/logging/stream-log.service";
+import { InterpretationFailureArchiveService } from "./interpretation/dlq/interpretation-failure-archive.service";
 
 @Module({
-  imports: [RedisModule],
+  imports: [RedisModule, MongoModule],
   providers: [
     RedisStreamService,
     InterpretationStreamLogService,
@@ -34,6 +36,7 @@ import { InterpretationStreamLogService } from "./interpretation/logging/stream-
     InterpretationMessageSerializer,
     InterpretationPayloadParser,
     InterpretationDlqWriter,
+    InterpretationFailureArchiveService,
     InterpretationDlqService,
     DlqValidator,
     DlqEntryParser,
@@ -52,6 +55,7 @@ import { InterpretationStreamLogService } from "./interpretation/logging/stream-
     InterpretationMessageSerializer,
     InterpretationPayloadParser,
     InterpretationDlqWriter,
+    InterpretationFailureArchiveService,
     InterpretationDlqService,
     DlqValidator,
     DlqEntryParser,
