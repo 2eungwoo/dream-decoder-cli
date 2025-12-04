@@ -2,6 +2,8 @@ import { Injectable, Logger } from "@nestjs/common";
 import { MongoService } from "../../../infra/mongo/mongo.service";
 import { InterpretationMessage } from "../messages/interfaces/message.types";
 import { FailedEntry } from "./interfaces/failed-entry.interface";
+import { interpretationArchiveConfig } from "../config/archive.config";
+import { MongoTtlManager } from "../../../infra/mongo/mongo-ttl.manager";
 
 interface ArchivedFailedEntry {
   requestId: string;
@@ -18,26 +20,21 @@ export class InterpretationFailureArchiveService {
   private readonly logger = new Logger(InterpretationFailureArchiveService.name);
   private readonly fallbackStore = new Map<string, ArchivedFailedEntry>();
   private readonly collectionName = "interpretation_failures";
+  private readonly ttlSeconds: number;
 
-  constructor(private readonly mongoService: MongoService) {}
+  constructor(
+    private readonly mongoService: MongoService,
+    private readonly ttlManager: MongoTtlManager
+  ) {
+    const ttlDays = interpretationArchiveConfig.failureTtlDays ?? 0;
+    this.ttlSeconds = ttlDays > 0 ? ttlDays * 24 * 60 * 60 : 0;
+  }
 
   public async save(message: InterpretationMessage, reason: string) {
-    const entry: ArchivedFailedEntry = {
-      requestId: message.requestId,
-      userId: message.userId,
-      username: message.username,
-      payload: JSON.stringify(message.payload),
-      failedAt: new Date().toISOString(),
-      errorMessage: reason,
-      storedAt: new Date().toISOString(),
-    };
-
-    const collection = this.mongoService.getCollection(this.collectionName);
+    const entry: ArchivedFailedEntry = this.toArchiveEntry(message, reason);
+    const collection = await this.getCollection();
     if (!collection) {
-      this.fallbackStore.set(entry.requestId, entry);
-      this.logger.warn(
-        `[Archive] MongoDB 미연결 상태이므로 요청 ${entry.requestId} 를 메모리에 임시 보관`
-      );
+      this.storeInFallback(entry);
       return;
     }
 
@@ -52,15 +49,12 @@ export class InterpretationFailureArchiveService {
         `[Archive] 요청 ${entry.requestId} 저장 실패 – 임시 메모리에 보관`,
         (error as Error)?.message
       );
-      this.fallbackStore.set(entry.requestId, entry);
+      this.storeInFallback(entry);
     }
   }
 
-  public async listByUser(
-    userId: string,
-    limit: number
-  ): Promise<FailedEntry[]> {
-    const collection = this.mongoService.getCollection(this.collectionName);
+  public async listByUser(userId: string, limit: number): Promise<FailedEntry[]> {
+    const collection = await this.getCollection();
     if (!collection) {
       return this.resolveFromFallback(userId, limit);
     }
@@ -81,10 +75,8 @@ export class InterpretationFailureArchiveService {
     }
   }
 
-  public async findByRequestId(
-    requestId: string
-  ): Promise<FailedEntry | undefined> {
-    const collection = this.mongoService.getCollection(this.collectionName);
+  public async findByRequestId(requestId: string): Promise<FailedEntry | undefined> {
+    const collection = await this.getCollection();
     if (!collection) {
       return this.fromFallback(requestId);
     }
@@ -107,14 +99,11 @@ export class InterpretationFailureArchiveService {
   }
 
   public async delete(requestId: string) {
-    const collection = this.mongoService.getCollection(this.collectionName);
-    if (!collection) {
-      this.fallbackStore.delete(requestId);
-      return;
-    }
-
+    const collection = await this.getCollection();
     try {
-      await collection.deleteOne({ requestId });
+      if (collection) {
+        await collection.deleteOne({ requestId });
+      }
     } catch (error) {
       this.logger.error(
         `[Archive] MongoDB 삭제 실패 (requestId=${requestId}) – fallback 에서 제거 시도`,
@@ -125,6 +114,8 @@ export class InterpretationFailureArchiveService {
     }
   }
 
+  // mongodb가 끊겼을 때를 위해서 넣어둔 Map에서 가져오는 로직
+  // userId로 필터링하고 최신순으로 가져오기위해서 정렬함
   private resolveFromFallback(userId: string, limit: number): FailedEntry[] {
     return [...this.fallbackStore.values()]
       .filter((entry) => entry.userId === userId)
@@ -151,5 +142,36 @@ export class InterpretationFailureArchiveService {
       failedAt: entry.failedAt,
       payload: JSON.parse(entry.payload),
     };
+  }
+
+  private async getCollection() {
+    const collection = this.mongoService.getCollection(this.collectionName);
+    if (!collection) {
+      return null;
+    }
+    await this.ttlManager.ensureIndex(collection, "failedAt", this.ttlSeconds);
+    return collection;
+  }
+
+  private toArchiveEntry(
+    message: InterpretationMessage,
+    reason: string
+  ): ArchivedFailedEntry {
+    return {
+      requestId: message.requestId,
+      userId: message.userId,
+      username: message.username,
+      payload: JSON.stringify(message.payload),
+      failedAt: new Date().toISOString(),
+      errorMessage: reason,
+      storedAt: new Date().toISOString(),
+    };
+  }
+
+  private storeInFallback(entry: ArchivedFailedEntry) {
+    this.fallbackStore.set(entry.requestId, entry);
+    this.logger.warn(
+      `[Archive] MongoDB 미연결 상태이므로 요청 ${entry.requestId} 를 메모리에 임시 보관`
+    );
   }
 }

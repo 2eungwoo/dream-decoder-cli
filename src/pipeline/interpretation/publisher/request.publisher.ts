@@ -6,13 +6,15 @@ import {
 import { InterpretationStatusStore } from "../status/status.store";
 import { InterpretationStreamWriter } from "../streams/stream.writer";
 import { InterpretationMessageFactory } from "../messages/message.factory";
+import { InterpretationRequestArchiveService } from "../dlq/interpretation-request-archive.service";
 
 @Injectable()
 export class InterpretationRequestPublisher {
   constructor(
     private readonly statusStore: InterpretationStatusStore,
     private readonly messageFactory: InterpretationMessageFactory,
-    private readonly streamWriter: InterpretationStreamWriter
+    private readonly streamWriter: InterpretationStreamWriter,
+    private readonly requestArchive: InterpretationRequestArchiveService
   ) {}
 
   public async publish(
@@ -21,10 +23,12 @@ export class InterpretationRequestPublisher {
   ) {
     const message = this.messageFactory.create(user, payload);
     await this.statusStore.initialize(message.requestId, user, payload);
+    await this.requestArchive.save(message);
 
     try {
       await this.streamWriter.write(message);
     } catch (error) {
+      await this.requestArchive.delete(message.requestId);
       await this.statusStore.markFailed(
         message.requestId,
         "<!> 해몽 요청 스트림에 기록하지 못했습니다."

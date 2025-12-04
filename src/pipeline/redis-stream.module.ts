@@ -18,9 +18,13 @@ import { DlqEntryParser } from "./interpretation/dlq/helpers/dlq-entry.parser";
 import { RedisStreamService } from "./redis-stream.service";
 import { InterpretationStreamLogService } from "./interpretation/logging/stream-log.service";
 import { InterpretationFailureArchiveService } from "./interpretation/dlq/interpretation-failure-archive.service";
+import { InterpretationRequestArchiveService } from "./interpretation/dlq/interpretation-request-archive.service";
 
 @Module({
-  imports: [RedisModule, MongoModule],
+  imports: [
+    RedisModule,
+    MongoModule,
+  ],
   providers: [
     RedisStreamService,
     InterpretationStreamLogService,
@@ -37,6 +41,7 @@ import { InterpretationFailureArchiveService } from "./interpretation/dlq/interp
     InterpretationPayloadParser,
     InterpretationDlqWriter,
     InterpretationFailureArchiveService,
+    InterpretationRequestArchiveService,
     InterpretationDlqService,
     DlqValidator,
     DlqEntryParser,
@@ -56,6 +61,7 @@ import { InterpretationFailureArchiveService } from "./interpretation/dlq/interp
     InterpretationPayloadParser,
     InterpretationDlqWriter,
     InterpretationFailureArchiveService,
+    InterpretationRequestArchiveService,
     InterpretationDlqService,
     DlqValidator,
     DlqEntryParser,

@@ -7,6 +7,7 @@ import { InterpretationDlqWriter } from "../dlq/dlq.writer";
 import { InterpretationMessageFactory } from "../messages/message.factory";
 import { InterpretationStreamLogService } from "../logging/stream-log.service";
 import { InterpretationFailureArchiveService } from "../dlq/interpretation-failure-archive.service";
+import { InterpretationRequestArchiveService } from "../dlq/interpretation-request-archive.service";
 import { InterpretationMessage } from "../messages/interfaces/message.types";
 import { INTERPRETATION_WORKER_MAX_RETRY } from "../config/worker.config";
 
@@ -39,6 +40,9 @@ describe("InterpretationMessageHandler", () => {
   const failureArchive = {
     save: jest.fn(),
   };
+  const requestArchive = {
+    delete: jest.fn(),
+  };
 
   let handler: InterpretationMessageHandler;
 
@@ -62,6 +66,7 @@ describe("InterpretationMessageHandler", () => {
       streamWriter as unknown as InterpretationStreamWriter,
       dlqWriter as unknown as InterpretationDlqWriter,
       failureArchive as unknown as InterpretationFailureArchiveService,
+      requestArchive as unknown as InterpretationRequestArchiveService,
       messageFactory as unknown as InterpretationMessageFactory,
       logger
     );
@@ -85,5 +90,6 @@ describe("InterpretationMessageHandler", () => {
       message.requestId,
       "LLM fail"
     );
+    expect(requestArchive.delete).toHaveBeenCalledWith(message.requestId);
   });
 });
