@@ -37,7 +37,7 @@ export class RequestBackupStore {
     const collection = this.mongoService.getCollection(this.collectionName);
     if (!collection) {
       this.logger.warn(
-        `[RequestBackupStore] MongoDB 미연결 상태 – 요청 ${message.requestId} 저장 실패`
+        `MongoDB 미연결 상태 – 요청 ${message.requestId} 저장 실패`
       );
       return;
     }
