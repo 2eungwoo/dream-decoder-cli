@@ -61,7 +61,7 @@ export class InterpretationController {
 
   @Get("interpret/failed")
   public async getFailed(@CurrentUser() user: RequestUser) {
-    const entries = await this.dlqService.listByUser(user.id);
+    const entries = await this.dlqService.failedListByUser(user.id);
     const data = entries.map((entry) => ({
       requestId: entry.requestId,
       failedAt: entry.failedAt,
