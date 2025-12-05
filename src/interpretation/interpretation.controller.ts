@@ -14,7 +14,6 @@ import {
 
 @Controller()
 @UseGuards(InterpretAuthGuard)
-@UseInterpretationSemaphore()
 export class InterpretationController {
   constructor(
     private readonly requestPublisher: InterpretationRequestPublisher,
@@ -24,6 +23,7 @@ export class InterpretationController {
 
   @Post("interpret")
   @UseInterpretationLock()
+  @UseInterpretationSemaphore()
   public async interpret(
     @Body() payload: InterpretDreamRequestDto,
     @CurrentUser() user: RequestUser
