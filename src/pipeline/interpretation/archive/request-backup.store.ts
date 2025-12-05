@@ -3,6 +3,7 @@ import { MongoService } from "../../../infra/mongo/mongo.service";
 import { MongoTtlManager } from "../../../infra/mongo/mongo-ttl.manager";
 import { InterpretationMessage } from "../messages/interfaces/message.types";
 import { interpretationArchiveConfig } from "../config/archive.config";
+import { RecoveryFailureCode } from "../recovery/recovery.types";
 
 export type RequestBackupStatus = "pending" | "backlog";
 
@@ -17,6 +18,8 @@ export interface RequestBackupDocument {
   status: RequestBackupStatus;
   lastErrorMessage?: string;
   lastBacklogAt?: string;
+  lastErrorCode?: RecoveryFailureCode;
+  nextRetryAt?: string;
 }
 
 @Injectable()
@@ -61,7 +64,13 @@ export class RequestBackupStore {
     );
   }
 
-  public async markBacklog(requestId: string, reason: string) {
+  public async markBacklog(
+    requestId: string,
+    reason: string,
+    reasonCode: RecoveryFailureCode,
+    nextRetryAt: Date,
+    retryCount: number
+  ) {
     const collection = this.mongoService.getCollection(this.collectionName);
     if (!collection) {
       return;
@@ -73,7 +82,10 @@ export class RequestBackupStore {
         $set: {
           status: "backlog",
           lastErrorMessage: reason,
+          lastErrorCode: reasonCode,
           lastBacklogAt: new Date().toISOString(),
+          nextRetryAt: nextRetryAt.toISOString(),
+          retryCount,
         },
       }
     );
@@ -94,7 +106,9 @@ export class RequestBackupStore {
         },
         $unset: {
           lastErrorMessage: "",
+          lastErrorCode: "",
           lastBacklogAt: "",
+          nextRetryAt: "",
         },
       }
     );
@@ -122,9 +136,16 @@ export class RequestBackupStore {
       return [];
     }
 
+    const now = new Date().toISOString();
     const docs = await collection
-      .find({ status: "backlog" })
-      .sort({ lastBacklogAt: -1 })
+      .find({
+        status: "backlog",
+        $or: [
+          { nextRetryAt: { $exists: false } },
+          { nextRetryAt: { $lte: now } },
+        ],
+      })
+      .sort({ lastBacklogAt: 1 })
       .limit(limit)
       .toArray();
 
