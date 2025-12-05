@@ -7,6 +7,7 @@ import { InterpretationStatusStore } from "../status/status.store";
 import { InterpretationStreamWriter } from "../streams/stream.writer";
 import { InterpretationMessageFactory } from "../messages/message.factory";
 import { RequestBackupStore } from "../archive/request-backup.store";
+import { RecoveryFailureCode } from "../recovery/recovery.types";
 
 @Injectable()
 export class InterpretationRequestPublisher {
@@ -25,11 +26,19 @@ export class InterpretationRequestPublisher {
     try {
       await this.streamWriter.write(message);
     } catch (error) {
+      const failureMessage =
+        (error as Error)?.message ??
+        "<!> Redis Stream 쓰기 실패 -> backup store로 적재함 (mongo)";
+      const retryCount = (message.retryCount ?? 0) + 1;
+      // backlog + backoff + retryCount => worker retry
       await this.requestBackupStore.markBacklog(
         message.requestId,
-        (error as Error)?.message ??
-          "<!> Redis Stream 쓰기 실패 -> backup store로 적재함 (mongo)"
+        failureMessage,
+        RecoveryFailureCode.STREAM_WRITE_FAILED,
+        new Date(),
+        retryCount
       );
+      // 스트림 메세지 레벨에서도 fail처리
       await this.statusStore.markFailed(
         message.requestId,
         "<!> 해몽 요청 스트림에 기록하지 못했습니다. 자동 복구를 시도합니다."
