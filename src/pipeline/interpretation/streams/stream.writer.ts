@@ -19,6 +19,7 @@ export class InterpretationStreamWriter {
       createdAt: message.createdAt,
       retryCount: message.retryCount.toString(),
       statusKey: interpretationStatusKey(message.requestId),
+      // idempotencyKey: message.requestId,
     });
   }
 }
