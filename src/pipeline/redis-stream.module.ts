@@ -20,6 +20,8 @@ import { InterpretationStreamLogService } from "./interpretation/logging/stream-
 import { FailureArchiveStore } from "./interpretation/archive/failure-archive.store";
 import { RequestBackupStore } from "./interpretation/archive/request-backup.store";
 import { RequestRecoveryWorker } from "./interpretation/recovery/request-recovery.service";
+import { BacklogRequeueService } from "./interpretation/recovery/services/backlog-requeue.service";
+import { RedisHealthChecker } from "./interpretation/recovery/services/redis-health-checker.service";
 
 @Module({
   imports: [
@@ -44,6 +46,8 @@ import { RequestRecoveryWorker } from "./interpretation/recovery/request-recover
     FailureArchiveStore,
     RequestBackupStore,
     RequestRecoveryWorker,
+    BacklogRequeueService,
+    RedisHealthChecker,
     InterpretationDlqService,
     DlqValidator,
     DlqEntryParser,
@@ -65,6 +69,8 @@ import { RequestRecoveryWorker } from "./interpretation/recovery/request-recover
     FailureArchiveStore,
     RequestBackupStore,
     RequestRecoveryWorker,
+    BacklogRequeueService,
+    RedisHealthChecker,
     InterpretationDlqService,
     DlqValidator,
     DlqEntryParser,
