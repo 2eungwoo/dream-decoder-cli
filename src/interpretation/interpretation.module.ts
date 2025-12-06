@@ -20,11 +20,11 @@ import { InterpretationConsumer } from "../pipeline/interpretation/workers/consu
 import { InterpretationMessageHandler } from "../pipeline/interpretation/workers/message.handler";
 import { InterpretationLockService } from "./lock/interpretation-lock.service";
 import { InterpretationLockInterceptor } from "./lock/interpretation-lock.interceptor";
-import { InterpretationGenerator } from "./generator/interpretation.generator";
-import { InterpretationEmbeddingService } from "./generator/embedding/interpretation-embedding.service";
-import { InterpretationSymbolRankingService } from "./generator/processing/interpretation-symbol-ranking.service";
-import { InterpretationPromptService } from "./generator/prompt/interpretation-prompt.service";
-import { InterpretationLlmService } from "./generator/interpretation-llm.service";
+import { InterpretationGenerator } from "./core/interpretation.generator";
+import { InterpretationEmbeddingService } from "./core/embedding/interpretation-embedding.service";
+import { InterpretationSymbolRankingService } from "./core/processing/interpretation-symbol-ranking.service";
+import { InterpretationPromptService } from "./core/prompt/interpretation-prompt.service";
+import { InterpretationLlmService } from "./core/interpretation-llm.service";
 @Module({
   imports: [
     EmbeddingModule,

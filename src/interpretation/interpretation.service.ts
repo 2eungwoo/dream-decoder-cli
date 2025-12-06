@@ -19,7 +19,7 @@ import {
   DEFAULT_INTERPRETATION_CONFIG,
   interpretationConfig,
 } from "./config/interpretation.config";
-import { InterpretationGenerator } from "./generator/interpretation.generator";
+import { InterpretationGenerator } from "./core/interpretation.generator";
 
 @Injectable()
 export class InterpretationService {
