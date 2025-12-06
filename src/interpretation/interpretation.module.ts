@@ -20,7 +20,11 @@ import { InterpretationConsumer } from "../pipeline/interpretation/workers/consu
 import { InterpretationMessageHandler } from "../pipeline/interpretation/workers/message.handler";
 import { InterpretationLockService } from "./lock/interpretation-lock.service";
 import { InterpretationLockInterceptor } from "./lock/interpretation-lock.interceptor";
-import {InterpretationGenerator} from "./interpretation.generator";
+import { InterpretationGenerator } from "./generator/interpretation.generator";
+import { InterpretationEmbeddingService } from "./generator/interpretation-embedding.service";
+import { InterpretationSymbolRankingService } from "./generator/interpretation-symbol-ranking.service";
+import { InterpretationPromptService } from "./generator/interpretation-prompt.service";
+import { InterpretationLlmService } from "./generator/interpretation-llm.service";
 @Module({
   imports: [
     EmbeddingModule,
@@ -46,6 +50,10 @@ import {InterpretationGenerator} from "./interpretation.generator";
     InterpretationMessageHandler,
     InterpretationConsumer,
     InterpretationGenerator,
+    InterpretationEmbeddingService,
+    InterpretationSymbolRankingService,
+    InterpretationPromptService,
+    InterpretationLlmService,
   ],
 })
 export class InterpretationModule {}

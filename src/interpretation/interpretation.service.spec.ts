@@ -6,7 +6,7 @@ import { anything, instance, mock, reset, verify, when } from "ts-mockito";
 import { InterpretationService } from "./interpretation.service";
 import { InterpretationCacheService } from "./cache/interpretation-cache.service";
 import { InvalidDreamException } from "./exceptions/invalid-dream.exception";
-import { InterpretationGenerator } from "./interpretation.generator";
+import { InterpretationGenerator } from "./generator/interpretation.generator";
 
 describe("InterpretationService (ts-mockito)", () => {
   let service: InterpretationService;
