@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import {
   InterpretationPayload,
   InterpretationUserContext,
@@ -8,6 +8,7 @@ import { InterpretationStreamWriter } from "../streams/stream.writer";
 import { InterpretationMessageFactory } from "../messages/message.factory";
 import { RequestBackupStore } from "../archive/request-backup.store";
 import { RecoveryFailureCode } from "../recovery/recovery.types";
+import { StreamWriterFailedException } from "../exceptions/stream-writer-failed.exception";
 
 @Injectable()
 export class InterpretationRequestPublisher {
@@ -43,9 +44,7 @@ export class InterpretationRequestPublisher {
         message.requestId,
         "<!> 해몽 요청 스트림에 기록하지 못했습니다. 자동 복구를 시도합니다."
       );
-      throw new InternalServerErrorException(
-        "<!> 해몽 요청을 접수하지 못했습니다. 잠시 후 다시 시도해주세요."
-      );
+      throw new StreamWriterFailedException();
     }
 
     return { requestId: message.requestId };

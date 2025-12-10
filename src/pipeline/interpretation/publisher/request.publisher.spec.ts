@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach, jest } from "@jest/globals";
-import { InternalServerErrorException } from "@nestjs/common";
 import { InterpretationRequestPublisher } from "./request.publisher";
 import { InterpretationStatusStore } from "../status/status.store";
 import { InterpretationMessageFactory } from "../messages/message.factory";
@@ -7,6 +6,7 @@ import { InterpretationStreamWriter } from "../streams/stream.writer";
 import { RequestBackupStore } from "../archive/request-backup.store";
 import { InterpretationMessage } from "../messages/interfaces/message.types";
 import { RecoveryFailureCode } from "../recovery/recovery.types";
+import { StreamWriterFailedException } from "../exceptions/stream-writer-failed.exception";
 
 describe("InterpretationRequestPublisher", () => {
   let publisher: InterpretationRequestPublisher;
@@ -75,9 +75,8 @@ describe("InterpretationRequestPublisher", () => {
     streamWriter.write.mockRejectedValueOnce(error);
 
     // then
-    // todo : 예외처리 더 의미있게
     await expect(publisher.publish(user, payload))
-    .rejects.toBeInstanceOf(InternalServerErrorException);
+    .rejects.toBeInstanceOf(StreamWriterFailedException);
 
     // then
     expect(requestBackupStore.markBacklog).toHaveBeenCalledWith(
