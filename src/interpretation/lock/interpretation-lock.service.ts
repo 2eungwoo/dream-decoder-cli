@@ -3,7 +3,7 @@ import { RedisLockService } from "../../infra/redis/redis-lock.service";
 import { INTERPRETATION_LOCK_TTL_SECONDS } from "./interpretation-lock.constants";
 import { InterpretationLockKeyFactory } from "./interpretation-lock-key.factory";
 
-export interface InterpretationLockHandle {
+export interface InterpretationLockLease {
   key: string;
   token: string;
 }
@@ -26,11 +26,11 @@ export class InterpretationLockService {
     return { key, token };
   }
 
-  public async release(handle: InterpretationLockHandle | null) {
-    if (!handle) {
+  public async release(lease: InterpretationLockLease | null) {
+    if (!lease) {
       return;
     }
 
-    await this.redisLock.release(handle.key, handle.token);
+    await this.redisLock.release(lease.key, lease.token);
   }
 }

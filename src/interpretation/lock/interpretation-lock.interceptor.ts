@@ -28,17 +28,15 @@ export class InterpretationLockInterceptor implements NestInterceptor {
       throw new InterpretationIdempotencyKeyMissingException();
     }
 
-    return from(
-      this.lockService.acquire(user.id, idempotencyKey.trim())
-    ).pipe(
-      switchMap((handle) => {
-        if (!handle) {
+    return from(this.lockService.acquire(user.id, idempotencyKey.trim())).pipe(
+      switchMap((lease) => {
+        if (!lease) {
           throw new InterpretationDuplicateRequestException();
         }
 
         return next.handle().pipe(
           finalize(async () => {
-            await this.lockService.release(handle);
+            await this.lockService.release(lease);
           })
         );
       })
