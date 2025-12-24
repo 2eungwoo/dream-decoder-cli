@@ -7,6 +7,7 @@ import { RequestBackupStore } from "../archive/request-backup.store";
 import { InterpretationMessage } from "../messages/interfaces/message.types";
 import { RecoveryFailureCode } from "../recovery/recovery.types";
 import { StreamWriterFailedException } from "../exceptions/stream-writer-failed.exception";
+import { MetricsService } from "../../../monitoring/metrics.service";
 
 describe("InterpretationRequestPublisher", () => {
   let publisher: InterpretationRequestPublisher;
@@ -27,6 +28,11 @@ describe("InterpretationRequestPublisher", () => {
     markBacklog: jest.fn(),
   };
 
+  const metricsService = {
+    incrementInterpretationRequestPublished: jest.fn(),
+    incrementInterpretationRequestFailed: jest.fn(),
+  } as unknown as MetricsService;
+
   const user = { id: "user-1", username: "tester" };
   const payload = { dream: "테스트 꿈" };
   const baseMessage: InterpretationMessage = {
@@ -45,7 +51,8 @@ describe("InterpretationRequestPublisher", () => {
       statusStore as unknown as InterpretationStatusStore,
       messageFactory as unknown as InterpretationMessageFactory,
       streamWriter as unknown as InterpretationStreamWriter,
-      requestBackupStore as unknown as RequestBackupStore
+      requestBackupStore as unknown as RequestBackupStore,
+      metricsService
     );
   });
 
