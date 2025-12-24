@@ -11,6 +11,7 @@ import { interpretationConfig } from "./interpretation/config/interpretation.con
 import { RedisModule } from "./infra/redis/redis.module";
 import { InterpretationRecord } from "./interpretation-records/interpretation-record.entity";
 import { InterpretationRecordModule } from "./interpretation-records/interpretation-record.module";
+import { MonitoringModule } from "./monitoring/monitoring.module";
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { InterpretationRecordModule } from "./interpretation-records/interpretat
     InterpretationRecordModule,
     RedisModule,
     ScheduleModule.forRoot(),
+    MonitoringModule,
   ],
   controllers: [],
   providers: [],
